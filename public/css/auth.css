@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC&family=Yellowtail&family=PT+Sans&display=swap');
+
+body {
+    background-image: url('/img/bg.jpg');
+    background-size: cover;
+    overflow-x: hidden;
+    font-family: 'PT Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+h3 {
+    font-family: 'Encode Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.container-auth span {
+    font-family: 'Yellowtail', cursive;
+}
+
+.container-auth {
+    background-color: #253e4c;
+    width: 25%;
+    margin: 10% 37%;
+    padding: 40px 40px 40px 40px;
+}
+
+.p-register {
+    color: white;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.p-register a {
+    color: #e8aa6f;
+}
+
+.p-register a:hover {
+    color: #fac492;
+}
+
+.form-floating>label {
+    top: -10px !important;
+}
+
+.form-floating>input {
+    border-radius: 0px;
+}
+
+.form-floating>.form-control {
+    height: 40px;
+}
+
+.form-floating>p {
+    margin: -32px 0 25px 10px;
+}
+
+.btn-auth {
+    background-color: #bc542e;
+    color: white;
+    border-radius: 0px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.btn-auth:hover {
+    color: white;
+    background-color: #cf653e;
+}
+
+.form-floating>.form-control:-webkit-autofill~label {
+    margin-top: 5px;
+}
+
+.alert {
+    padding: 5px !important;
+}
+
+.btn-disabled {
+    background-color: #864b39;
+    color: #afabaa;
+}
+
+.spinner-border {
+    width: 7%;
+    height: 18px;
+}
+
+.text-light {
+    color: #afabaa !important;
+}

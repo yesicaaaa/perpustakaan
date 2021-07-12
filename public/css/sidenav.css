@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC&family=Yellowtail&family=PT+Sans&display=swap');
+
+.bg-blue {
+  background-color: #243e4b;
+}
+
+.navbar-brand {
+  margin: -20px 0 -8px 46%;
+  color: white !important;
+  font-family: 'Encode Sans SC', sans-serif;
+  letter-spacing: 20px;
+}
+
+.navbar-brand>span {
+  font-family: 'Yellowtail', cursive;
+  letter-spacing: 7px;
+  font-size: 40px;
+}
+
+.drop-logout {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin-right: 20px;
+}
+
+.sidenav {
+  background-color: #bc542d;
+  height: 100%;
+  top: 0;
+  width: 258px;
+  position: fixed;
+  left: 0;
+}
+
+.user-info img {
+  width: 100%;
+  margin: 20px 0 0 10px;
+}
+
+.user-info h5 {
+  color: white;
+  font-size: 18px;
+  margin: 24px 0 -14px 0;
+}
+
+.user-info h6 {
+  color: #bebbbb;
+  font-size: 12px;
+}
+
+.user-info a {
+  color: #544a4a;
+
+}
+
+.user-info a:hover {
+  color: #747171;
+}
+
+.bi-box-arrow-in-left {
+  margin-left: -68px;
+  font-size: 18px;
+}
