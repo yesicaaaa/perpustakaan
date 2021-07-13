@@ -6,14 +6,6 @@
     </button>
     </ul>
   </div>
-  <!-- <div class="dropdown">
-    <button class="dropdown-toggle drop-logout" id="dropdownlogout" data-bs-toggle="dropdown" aria-expanded="false">
-      {{ Auth::user()->name }}
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownlogout">
-      <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="return confirm('Yakin ingin keluar dari halaman?')"><i class="fa fa-arrow-left"></i> Logout</a></li>
-    </ul>
-  </div> -->
   <div class="sidenav">
     <div class="row user-info">
       <div class="col-md-4">
@@ -38,4 +30,16 @@
           </div>
       </div>
     </div>
+    <div class="menu-list">
+      <ul>
+        <li><a href=""><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li><a href="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
+        <li><a href=""><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
+        <li><a href=""><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
+        <li><a href=""><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
+        <li><a href=""><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
+        <li><a href=""><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li>
+      </ul>
+    </div>
   </div>
+</nav>

@@ -30,5 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
 //auth route for admin
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/dashboardAdmin', [AdminController::class, 'index']);
+    Route::get('/daftarBuku', [AdminController::class, 'daftarBuku']);
+    Route::post('tambahBuku', [AdminController::class, 'tambahBuku']);
 });
 require __DIR__.'/auth.php';

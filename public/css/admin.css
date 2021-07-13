@@ -1,0 +1,50 @@
+.main {
+  margin-left: 258px;
+}
+
+.breadcrumb {
+  background:linear-gradient(90deg, #f2f2f2 0%, #d5d6d9 40%, #e1e1e3 45%, #efefef 100%);
+  padding-left: 7px;
+}
+
+.daftar-buku {
+  margin-left: 0px;
+}
+
+.daftar-buku label {
+  font-size: 14px;
+  margin-top: -12px;
+}
+
+.daftar-buku h6 {
+  margin-bottom: 20px;
+}
+
+.daftar-buku input {
+  height: 27px;
+  margin-top: -8px;
+  border-radius: 0;
+}
+
+.daftar-buku span {
+  color: red;
+}
+
+.tambah-buku {
+  background-color: #ececec;
+  margin-top: -16px;
+  padding-top: 10px;
+}
+
+.btn-tambah-buku {
+  border-radius: 0;
+  padding: 5px;
+  background-color: #243e4b;
+  color: white;
+  margin-left: 185px;
+}
+
+.btn-tambah-buku:hover {
+  background-color: #2d4957;
+  color: #d6d6d6;
+}

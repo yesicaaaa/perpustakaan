@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC&family=Yellowtail&family=PT+Sans&display=swap');
 
+a {
+  text-decoration: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
 .bg-blue {
   background-color: #243e4b;
 }
@@ -61,4 +69,32 @@
 .bi-box-arrow-in-left {
   margin-left: -68px;
   font-size: 18px;
+}
+
+.menu-list {
+  margin-top: 30px;
+}
+
+
+.menu-list li {
+  list-style-type:none;
+  margin-left: -35px;
+  padding: 10px 0 10px 20px;
+}
+
+.menu-list a {
+  color: white;
+}
+
+.menu-list a:hover {
+  color: #e2e2e2 !important;
+}
+
+.menu-list li:hover {
+  background-color: #e07a55;
+}
+
+.menu-list i {
+  font-size: 23px;
+  margin-right: 5px;
 }

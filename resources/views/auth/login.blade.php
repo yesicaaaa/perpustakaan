@@ -30,7 +30,7 @@
             </div>
         </div>
         <button class="btn btn-auth" disabled>Masuk</button>
-        <button class="btn btn-auth btn-disabled" disabled>Tunggu Sebentar <i class="spinner-border text-light"></i></button>
+        <button class="btn btn-auth btn-disabled" disabled>Tunggu Sebentar...<i class="spinner-border text-light"></i></button>
     </form>
 </div>
 <script>
@@ -42,7 +42,7 @@
             }
         });
         $('#password').on('keypress', function() {
-            $('.btn-auth').removeAttr('disabled');
+            $('.btn-auth').removeAttr('disabled'); 
         });
         $('.btn-auth').on('click', function() {
             $('.btn-auth').hide();
