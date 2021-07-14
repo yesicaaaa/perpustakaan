@@ -31,6 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/dashboardAdmin', [AdminController::class, 'index']);
     Route::get('/daftarBuku', [AdminController::class, 'daftarBuku']);
-    Route::post('tambahBuku', [AdminController::class, 'tambahBuku']);
+    Route::post('/tambahBuku', [AdminController::class, 'tambahBuku']);
+    Route::post('/hapusBuku', [AdminController::class, 'hapusBuku']);
+    Route::get('/detailBuku/{id}', [AdminController::class, 'detailBuku']);
+    Route::post('/getBukuRow', [AdminController::class, 'getBukuRow']);
 });
 require __DIR__.'/auth.php';

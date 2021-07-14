@@ -72,7 +72,7 @@ body {
 }
 
 .menu-list {
-  margin-top: 30px;
+  margin-top: 5px;
 }
 
 
@@ -97,4 +97,10 @@ body {
 .menu-list i {
   font-size: 23px;
   margin-right: 5px;
+}
+
+.user-info {
+  background-color: #e07a55;
+  width: 270px;
+  padding-bottom: 20px;
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Buku_model;
 use DateTime;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,8 @@ class AdminController extends Controller
 
     public function daftarBuku()
     {
-        return view('admin.daftar-buku');
+        $buku = Buku_model::all();
+        return view('admin.daftar-buku', compact('buku'));
     }
 
     public function tambahBuku(Request $request)
@@ -53,6 +55,30 @@ class AdminController extends Controller
             'created_at'    => date('Y-m-d h:i:s')
         ]);
 
-        return redirect('daftarBuku');
+        return redirect('daftarBuku')->with('status', 'Berhasil menambahkan buku baru.');
+    }
+
+    public function hapusBuku(Request $request)
+    {
+        foreach($request->id as $id)
+        {
+            $image = Buku_model::where('id_buku', $id)->first();
+            File::delete('img/buku/' . $image->foto);
+
+            Buku_model::where('id_buku', $id)->delete();
+        }
+        return redirect('daftarBuku')->with('status', 'Data buku berhasil dihapus.');
+    }
+
+    public function detailBuku($id)
+    {
+        $buku = Buku_model::where('id_buku', $id)->first();
+        return view('admin.detail-buku', compact('buku'));
+    }
+
+    public function getBukuRow(Request $request)
+    {
+        $buku = Buku_model::where('id_buku', $request->id)->first();
+        return response()->json($buku);
     }
 }

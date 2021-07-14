@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body {
+  overflow-x: hidden !important;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 .main {
   margin-left: 258px;
 }
@@ -47,4 +54,120 @@
 .btn-tambah-buku:hover {
   background-color: #2d4957;
   color: #d6d6d6;
+}
+
+.img-buku {
+  width: 55%;
+}
+
+.column-foto {
+  width: 13%;
+}
+
+.table-orange {
+  background-color: #bc542d;
+  color: white;
+}
+
+.table-daftar-buku {
+  margin-left: -6px;
+}
+
+.btn-daftar-buku {
+  border-radius: 0;
+  margin: -11px 0 5px -6px;
+}
+
+.alert {
+  border-radius: 0;
+  padding: 4px;
+  margin: -16px 0 17px -12px;
+}
+
+.bg-success:hover {
+  color: #b8b8b8;
+}
+
+.btn-export {
+  margin-left: 0px;
+}
+
+.detail-buku img {
+  width: 100%;
+  margin: 20px 0 0 50px;
+}
+
+.prev {
+  color: #bc542d !important;
+}
+
+.icon-back {
+  font-size: 20px;
+  color: white;
+  padding: 5px 197px 5px 10px;
+  background-color: #243e4b;
+}
+
+.icon-back:hover {
+  color: #618496;
+}
+
+.detail-buku{
+  color: #4d4e4e;
+}
+
+.detail-buku h3 {
+  margin: 12px 0 0 40px;
+}
+
+.detail-buku h6 {
+  margin: -5px 0 0 41px;
+  font-size: 14px;
+  color: #949494;
+}
+
+.table-detail-buku {
+  border: 1px solid #adaeb1;
+  width: 65%;
+  margin: 14px 0 0 42px;
+}
+
+.table-detail-buku th {
+  background-color: #ebebeb !important;
+  width: 40%;
+}
+
+.btn-edit-buku {
+  margin: 34px 0 0 42px;
+}
+
+.form-control-sm {
+  border-radius: 0;
+  width: 85%;
+}
+
+.col-form-label {
+  margin-top: -5px;
+}
+
+.modal-body {
+  padding-left: 50px;
+}
+
+.modal-header{
+  background-color: #bc542d;
+  color: white;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.btn-edit {
+  background-color: #bc542d;
+  border-color: transparent;
+}
+
+.btn-edit:hover {
+  background-color: #cc6a46;
 }

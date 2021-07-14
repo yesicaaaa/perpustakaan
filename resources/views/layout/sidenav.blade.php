@@ -32,13 +32,13 @@
     </div>
     <div class="menu-list">
       <ul>
-        <li><a href=""><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
-        <li><a href="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
-        <li><a href=""><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
-        <li><a href=""><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
-        <li><a href=""><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
-        <li><a href=""><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
-        <li><a href=""><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li>
+        <li><a href="" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li><a href="/daftarBuku" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
+        <li><a href="" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
+        <li><a href="" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
+        <li><a href="" id="laporanPeminjaman"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
+        <li><a href="" id="laporanPengembalian"><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
+        <li><a href="" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li>
       </ul>
     </div>
   </div>

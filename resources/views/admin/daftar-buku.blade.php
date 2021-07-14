@@ -45,7 +45,7 @@
         </div>
         <div class="mb-3">
           <label for="tahun_terbit" class="form-label">Tahun Terbit<span>*</span></label>
-          <input type="text" class="form-control @error('tahun_terbit') is-invalid @enderror" id="tahun_terbit" name="tahun_terbit" value="{{ old('tahun_terbit') }}">
+          <input type="text" class="form-control @error('tahun_terbit') is-invalid @enderror" id="tahun_terbit" name="tahun_terbit" value="{{ old('tahun_terbit') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <div class="invalid-feedback">
             @error('tahun_terbit')
             {{ $message }}
@@ -72,18 +72,9 @@
         </div>
         <div class="mb-3">
           <label for="jml_halaman" class="form-label">Jumlah Halaman<span>*</span></label>
-          <input type="text" class="form-control @error('jml_halaman') is-invalid @enderror" id="jml_halaman" name="jml_halaman" value="{{ old('jml_halaman') }}">
+          <input type="text" class="form-control @error('jml_halaman') is-invalid @enderror" id="jml_halaman" name="jml_halaman" value="{{ old('jml_halaman') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <div class="invalid-feedback">
             @error('jml_halaman')
-            {{ $message }}
-            @enderror
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="stok" class="form-label">Stok<span>*</span></label>
-          <input type="text" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" value="{{ old('stok') }}">
-          <div class="invalid-feedback">
-            @error('stok')
             {{ $message }}
             @enderror
           </div>
@@ -97,38 +88,59 @@
             @enderror
           </div>
         </div>
+        <div class="mb-3">
+          <label for="stok" class="form-label">Stok<span>*</span></label>
+          <input type="text" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" value="{{ old('stok') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+          <div class="invalid-feedback">
+            @error('stok')
+            {{ $message }}
+            @enderror
+          </div>
+        </div>
         <button class="btn btn-tambah-buku" type="submit" disabled>Tambah</button>
       </form>
     </div>
     <div class="col-md-9">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+      @if(session('status'))
+      <div class="alert alert-success">
+        {{session('status')}}
+      </div>
+      @endif
+      <form action="hapusBuku" method="post">
+        @csrf
+        <button type="submit" class="btn btn-danger btn-daftar-buku"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+        <a href="" class="btn btn-success btn-daftar-buku btn-export"><i class="fa fa-fw fa-download"></i>Excel</a>
+        <a href="" class="btn btn-danger btn-daftar-buku btn-export"><i class="fa fa-fw fa-download"></i>PDF</a>
+        <table class="table table-daftar-buku">
+          <thead class="table-orange">
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">#</th>
+              <th scope="col">Kode</th>
+              <th scope="col">Judul</th>
+              <th scope="col" class="column-foto">Foto</th>
+              <th scope="col">Stok</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($buku as $b)
+            <tr>
+              <th scope="row">
+                <input type="checkbox" name="id[]" value="{{$b->id_buku}}">
+      </form>
+      </th>
+      <td>{{$loop->iteration}}</td>
+      <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
+      <td>{{$b->judul}}</td>
+      <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
+      <td>{{$b->stok}}</td>
+      <td>
+        <a href="detailBuku/{{$b->id_buku}}" class="badge bg-success">Detail</a>
+      </td>
+      </tr>
+      @endforeach
+      </tbody>
       </table>
     </div>
   </div>
