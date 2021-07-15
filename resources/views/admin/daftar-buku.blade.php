@@ -63,7 +63,21 @@
         </div>
         <div class="mb-3">
           <label for="genre" class="form-label">Genre<span>*</span></label>
-          <input type="text" class="form-control @error('genre') is-invalid @enderror" id="genre" name="genre" value="{{ old('genre') }}">
+          <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}">
+          <datalist id="datalistOptions">
+            <option value="Drama">
+            <option value="Action">
+            <option value="Comedy">
+            <option value="Horror">
+            <option value="Romance">
+            <option value="Fantasy">
+            <option value="Adventure">
+            <option value="Thiller">
+            <option value="Sci-Fi">
+            <option value="Mistery">
+            <option value="Documenter">
+            <option value="Biografi">
+          </datalist>
           <div class="invalid-feedback">
             @error('genre')
             {{ $message }}
@@ -97,20 +111,21 @@
             @enderror
           </div>
         </div>
-        <button class="btn btn-tambah-buku" type="submit" disabled>Tambah</button>
+        <button class="btn btn-tambah-buku" onclick="return confirm('Yakin ingin menambahkan buku baru?')" type="submit" disabled>Tambah</button>
       </form>
     </div>
     <div class="col-md-9">
       @if(session('status'))
-      <div class="alert alert-success">
+      <div class="alert alert-success" role="alert">
         {{session('status')}}
+        <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif
       <form action="hapusBuku" method="post">
         @csrf
-        <button type="submit" class="btn btn-danger btn-daftar-buku"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
-        <a href="" class="btn btn-success btn-daftar-buku btn-export"><i class="fa fa-fw fa-download"></i>Excel</a>
-        <a href="" class="btn btn-danger btn-daftar-buku btn-export"><i class="fa fa-fw fa-download"></i>PDF</a>
+        <button type="submit" class="btn btn-danger btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+        <a href="/exportBukuExcel" class="btn btn-success btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+        <a href="/exportBukuPdf" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
         <table class="table table-daftar-buku">
           <thead class="table-orange">
             <tr>
@@ -127,7 +142,7 @@
             @foreach($buku as $b)
             <tr>
               <th scope="row">
-                <input type="checkbox" name="id[]" value="{{$b->id_buku}}">
+                <input type="checkbox" name="id[]" id="id" value="{{$b->id_buku}}">
       </form>
       </th>
       <td>{{$loop->iteration}}</td>

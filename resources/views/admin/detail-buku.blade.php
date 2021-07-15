@@ -1,6 +1,7 @@
 @extends('layout.template')
 @extends('layout.sidenav')
 @section('css', 'admin.css')
+@section('js', 'detail-buku.js')
 @section('sidenavcss', 'sidenav.css')
 @section('title', 'Detail Buku | Fiore Library')
 @section('content')
@@ -11,6 +12,18 @@
       <li class="breadcrumb-item active" aria-current="page">Detail</li>
     </ol>
   </nav>
+  @if(session('status'))
+  <div class="alert alert-success" role="alert">
+    {{session('status')}}
+    <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
+  @error('foto')
+  <div class="alert alert-danger" role="alert">
+    {{$message}}
+    <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
   <a href="/daftarBuku" class="icon-back"><i class="fa fa-fw fa-arrow-circle-left"></i> Kembali</a>
   <div class="row detail-buku">
     <div class="col-md-3">
@@ -59,31 +72,44 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data">
-          @csrf
+        <form action="/editBuku/" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input type="hidden" name="id_buku" value="{{$buku->id_buku}}">
           <div class="mb-3 row">
             <label for="editJudul" class="col-sm-4 col-form-label">Judul<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editJudul" name="judul">
+              <div class="invalid-feedback">
+                Judul harus diisi!
+              </div>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="editPengarang" class="col-sm-4 col-form-label">Pengarang<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editPengarang" name="pengarang">
+              <div class="invalid-feedback">
+                Pengarang harus diisi!
+              </div>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="editPenerbit" class="col-sm-4 col-form-label">Penerbit<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editPenerbit" name="penerbit">
+              <div class="invalid-feedback">
+                Penerbit harus diisi!
+              </div>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="editTahun_terbit" class="col-sm-4 col-form-label">Tahun Terbit<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editTahun_terbit" name="tahun_terbit" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+              <div class="invalid-feedback">
+                Tahun terbit harus diisi!
+              </div>
             </div>
           </div>
           <div class="mb-3 row">
@@ -96,12 +122,18 @@
             <label for="editBahasa" class="col-sm-4 col-form-label">Bahasa<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editBahasa" name="bahasa">
+              <div class="invalid-feedback">
+                Bahasa harus diisi!
+              </div>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="editGenre" class="col-sm-4 col-form-label">Genre<span class="text-danger">*</span></label>
             <div class="col-sm-8">
-              <input class="form-control form-control-sm" list="datalistOptions" id="editGenre">
+              <input class="form-control form-control-sm" name="genre" list="datalistOptions" id="editGenre">
+              <div class="invalid-feedback">
+                Genre harus diisi!
+              </div>
               <datalist id="datalistOptions">
                 <option value="Drama">
                 <option value="Action">
@@ -122,13 +154,16 @@
             <label for="editJml_halaman" class="col-sm-4 col-form-label">Jumlah Halaman<span class="text-danger">*</span></label>
             <div class="col-sm-8">
               <input type="text" class="form-control form-control-sm" id="editJml_halaman" name="jml_halaman">
+              <div class="invalid-feedback">
+                Jumlah halaman harus diisi!
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <div class="mb-3">
                 <label for="editStok" class="form-label">Stok</label>
-                <input type="text" class="form-control form-control-sm" id="editStok">
+                <input type="text" class="form-control form-control-sm" id="editStok" disabled>
               </div>
             </div>
             <div class="col-md-4">
@@ -144,12 +179,12 @@
               </div>
             </div>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary btn-edit">Simpan</button>
+        <button type="submit" class="btn btn-primary btn-edit" onclick="return confirm('Yakin ingin mengubah data buku?')">Simpan</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -183,5 +218,22 @@
       }
     });
   }
+
+  $(document).ready(function() {
+    $('#tambah_stok').on('keyup', function() {
+      if ($('#tambah_stok').val() != '') {
+        $('#kurangi_stok').prop('disabled', true);
+      } else if ($('#tambah_stok').val() == '') {
+        $('#kurangi_stok').removeAttr('disabled');
+      }
+    })
+    $('#kurangi_stok').on('keyup', function() {
+      if ($('#kurangi_stok').val() != '') {
+        $('#tambah_stok').prop('disabled', true);
+      } else if ($('#kurangi_stok').val() == '') {
+        $('#tambah_stok').removeAttr('disabled');
+      }
+    })
+  });
 </script>
 @endsection

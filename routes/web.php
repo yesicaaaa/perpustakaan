@@ -35,5 +35,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::post('/hapusBuku', [AdminController::class, 'hapusBuku']);
     Route::get('/detailBuku/{id}', [AdminController::class, 'detailBuku']);
     Route::post('/getBukuRow', [AdminController::class, 'getBukuRow']);
+    Route::put('/editBuku/', [AdminController::class, 'editBuku']);
+    Route::get('/exportBukuExcel', [AdminController::class, 'exportBukuExcel']);
+    Route::get('/exportBukuPdf', [AdminController::class, 'exportBukuPdf']);
+    Route::get('/dataPetugas', [AdminController::class, 'dataPetugas']);
 });
 require __DIR__.'/auth.php';

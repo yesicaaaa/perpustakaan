@@ -78,10 +78,27 @@ body {
   margin: -11px 0 5px -6px;
 }
 
-.alert {
+.alert-success,
+.alert-danger {
   border-radius: 0;
-  padding: 4px;
-  margin: -16px 0 17px -12px;
+  width: 40%;
+  margin-left: 60%;
+  height: 70px;
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -49px;
+  margin-top: -16px;
+}
+
+.alert-success {
+  background-color: rgba(209, 230, 221, 0.7) !important;
+  border: none;
+}
+
+.alert-danger {
+  background-color: rgba(247, 215, 218, 0.7) !important;
+  border: none;
 }
 
 .bg-success:hover {
@@ -170,4 +187,8 @@ body {
 
 .btn-edit:hover {
   background-color: #cc6a46;
+}
+
+.btn-close-alert {
+  margin-left: 35px;
 }

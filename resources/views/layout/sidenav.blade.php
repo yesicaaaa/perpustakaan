@@ -34,7 +34,7 @@
       <ul>
         <li><a href="" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li><a href="/daftarBuku" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
-        <li><a href="" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
+        <li><a href="/dataPetugas" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
         <li><a href="" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
         <li><a href="" id="laporanPeminjaman"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
         <li><a href="" id="laporanPengembalian"><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
