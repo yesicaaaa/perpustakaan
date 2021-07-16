@@ -24,7 +24,11 @@ class User extends Authenticatable
         'phone',
         'alamat',
         'password',
-        'is_active'
+        'is_active',
+        'image',
+        'updated_at',
+        'created_at',
+        'deleted_at'
     ];
 
     /**

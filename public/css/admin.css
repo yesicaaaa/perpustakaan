@@ -33,14 +33,11 @@ body {
   border-radius: 0;
 }
 
-.daftar-buku span {
-  color: red;
-}
-
 .tambah-buku {
   background-color: #ececec;
   margin-top: -16px;
   padding-top: 10px;
+  padding-bottom: 6px;
 }
 
 .btn-tambah-buku {
@@ -54,6 +51,12 @@ body {
 .btn-tambah-buku:hover {
   background-color: #2d4957;
   color: #d6d6d6;
+}
+
+.btn-tambah-buku-tunggu {
+  margin-left: 168px;
+  background-color: #31505f;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .img-buku {
@@ -75,7 +78,7 @@ body {
 
 .btn-daftar-buku {
   border-radius: 0;
-  margin: -11px 0 5px -6px;
+  margin: -14px 0 5px -6px;
 }
 
 .alert-success,
@@ -187,8 +190,76 @@ body {
 
 .btn-edit:hover {
   background-color: #cc6a46;
+  border-color: #bd6646 !important;
 }
 
 .btn-close-alert {
   margin-left: 35px;
+}
+
+svg {
+  width: 3%;
+  color: #bc542d;
+}
+
+.flex-1 {
+  display: none !important;
+}
+
+.text-sm span {
+  color: #bc542d;
+}
+
+.bg-white {
+  color: #bc542d;
+}
+
+.btn-search {
+  margin: 0px 0 -38px 650px;
+  background-color: #243e4b;
+  color: white;
+  width: 9%;
+}
+
+.btn-search:hover {
+  background-color: #344f5c;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-search {
+  width: 29%;
+  height: 39px !important;
+  margin: 0 0 -39px 420px;
+}
+
+.btn-refresh {
+  margin: -16px 0 -22px 721px;
+  background-color: #bc542d;
+  color: white;
+}
+
+.btn-refresh:hover {
+  background-color: #bd6646;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-edit-tunggu {
+  background-color: #bd6646 !important;
+  border-color: #bd6646 !important;
+}
+
+.tambah-buku textarea {
+  height: 40px;
+  width: 100%;
+}
+
+.tambah-petugas {
+  padding-bottom: 88px !important;
+}
+
+.alert-not-found {
+  width: 100%;
+  margin: -13px 0 0 -6px;
+  padding: 5px;
+  height: 35px;
 }

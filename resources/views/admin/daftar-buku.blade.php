@@ -17,7 +17,7 @@
       <form action="tambahBuku" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-          <label for="judul" class="form-label">Judul<span>*</span></label>
+          <label for="judul" class="form-label">Judul<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}">
           <div class="invalid-feedback">
             @error('judul')
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="pengarang" class="form-label">Pengarang<span>*</span></label>
+          <label for="pengarang" class="form-label">Pengarang<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('pengarang') is-invalid @enderror" id="pengarang" name="pengarang" value="{{ old('pengarang') }}">
           <div class="invalid-feedback">
             @error('pengarang')
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="penerbit" class="form-label">Penerbit<span>*</span></label>
+          <label for="penerbit" class="form-label">Penerbit<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('penerbit') is-invalid @enderror" id="penerbit" name="penerbit" value="{{ old('penerbit') }}">
           <div class="invalid-feedback">
             @error('penerbit')
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="tahun_terbit" class="form-label">Tahun Terbit<span>*</span></label>
+          <label for="tahun_terbit" class="form-label">Tahun Terbit<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('tahun_terbit') is-invalid @enderror" id="tahun_terbit" name="tahun_terbit" value="{{ old('tahun_terbit') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <div class="invalid-feedback">
             @error('tahun_terbit')
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="bahasa" class="form-label">Bahasa<span>*</span></label>
+          <label for="bahasa" class="form-label">Bahasa<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('bahasa') is-invalid @enderror" id="bahasa" name="bahasa" value="{{ old('bahasa') }}">
           <div class="invalid-feedback">
             @error('bahasa')
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="genre" class="form-label">Genre<span>*</span></label>
+          <label for="genre" class="form-label">Genre<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}">
           <datalist id="datalistOptions">
             <option value="Drama">
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="jml_halaman" class="form-label">Jumlah Halaman<span>*</span></label>
+          <label for="jml_halaman" class="form-label">Jumlah Halaman<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('jml_halaman') is-invalid @enderror" id="jml_halaman" name="jml_halaman" value="{{ old('jml_halaman') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <div class="invalid-feedback">
             @error('jml_halaman')
@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="foto" class="form-label">Foto Buku<span>*</span></label>
+          <label for="foto" class="form-label">Foto Buku</label>
           <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
           <div class="invalid-feedback">
             @error('foto')
@@ -103,7 +103,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="stok" class="form-label">Stok<span>*</span></label>
+          <label for="stok" class="form-label">Stok<span class="text-danger">*</span></label>
           <input type="text" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" value="{{ old('stok') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <div class="invalid-feedback">
             @error('stok')
@@ -112,6 +112,7 @@
           </div>
         </div>
         <button class="btn btn-tambah-buku" onclick="return confirm('Yakin ingin menambahkan buku baru?')" type="submit" disabled>Tambah</button>
+        <button class="btn btn-tambah-buku-tunggu" disabled>Tunggu...</button>
       </form>
     </div>
     <div class="col-md-9">
@@ -121,11 +122,17 @@
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif
+      <form action="/daftarBuku" method="get">
+        @csrf
+        <input type="text" name="cari" class="form-control form-search" placeholder="Cari...">
+        <button class="btn btn-search" type="Submit">Cari</button>
+      </form>
+      <a href="/refreshBuku" class="btn btn-refresh">Refresh</a>
       <form action="hapusBuku" method="post">
         @csrf
         <button type="submit" class="btn btn-danger btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
         <a href="/exportBukuExcel" class="btn btn-success btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-        <a href="/exportBukuPdf" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+        <a href="/exportBukuPdf/{{session('cari')}}" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
         <table class="table table-daftar-buku">
           <thead class="table-orange">
             <tr>
@@ -139,13 +146,13 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($buku as $b)
+            @foreach($buku as $index => $b)
             <tr>
               <th scope="row">
                 <input type="checkbox" name="id[]" id="id" value="{{$b->id_buku}}">
       </form>
       </th>
-      <td>{{$loop->iteration}}</td>
+      <td>{{$index + $buku->firstItem()}}</td>
       <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
       <td>{{$b->judul}}</td>
       <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
@@ -157,6 +164,12 @@
       @endforeach
       </tbody>
       </table>
+      @if(empty($buku))
+      <div class="alert alert-danger alert-not-found">
+        Data buku tidak ditemukan!
+      </div>
+      @endif
+      {{$buku->links()}}
     </div>
   </div>
 </div>

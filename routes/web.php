@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PetugasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,17 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::post('/getBukuRow', [AdminController::class, 'getBukuRow']);
     Route::put('/editBuku/', [AdminController::class, 'editBuku']);
     Route::get('/exportBukuExcel', [AdminController::class, 'exportBukuExcel']);
-    Route::get('/exportBukuPdf', [AdminController::class, 'exportBukuPdf']);
+    Route::get('/exportBukuPdf/{cari}', [AdminController::class, 'exportBukuPdf']);
     Route::get('/dataPetugas', [AdminController::class, 'dataPetugas']);
+    Route::get('/refreshBuku', [AdminController::class, 'refreshBuku']);
+    Route::post('/hapusPetugas', [AdminController::class, 'hapusPetugas']);
+    Route::get('/refreshPetugas', [AdminController::class, 'refreshPetugas']);
+    Route::get('/exportPetugasExcel', [AdminController::class, 'exportPetugasExcel']);
+    Route::get('/exportPetugasPdf/{cari}', [AdminController::class, 'exportPetugasPdf']);
+});
+
+//auth route for petugas
+Route::group(['middleware' => ['auth', 'role:petugas']], function() {
+    Route::get('dashboardPetugas', [PetugasController::class, 'index']);
 });
 require __DIR__.'/auth.php';

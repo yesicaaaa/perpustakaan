@@ -36,24 +36,39 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:8',
+            'phone' => 'required|max:13',
+            'alamat'    => 'required',
+            'password' => 'required|min:8',
+            'confirm_password'  => 'same:password'
         ]);
         date_default_timezone_set('Asia/Jakarta');
-        Auth::login($user = User::create([
+        if($request->image != null) {
+            $image = str_replace(' ', '_', $request->name) . '.' . $request->image->extension();
+            $request->image->move(public_path('img/user_img'), $image);
+        } else {
+            $image = 'default.png';
+        }
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'alamat'    => $request->alamat,
+            'image'  => $image,
             'password' => Hash::make($request->password),
-            'is_active' => 1
-        ]));
+            'is_active' => 1,
+            'created_at'    => date('Y-m-d h:i:s'),
+            'updated_at'    => null
+        ]);
 
         $user->attachRole($request->role);
 
         event(new Registered($user));
 
         // Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        if($request->role == 'petugas'){
+            return redirect('/dataPetugas')->with('status', 'Petugas baru berhasil ditambahkan.');
+        }else if($request->role == 'anggota') {
+            return redirect('/dataAnggota')->with('status', 'Anggota baru berhasil ditambahkan.');
+        }
     }
 }

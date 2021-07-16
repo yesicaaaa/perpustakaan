@@ -103,4 +103,10 @@ $(document).ready(function() {
         $('.btn-tambah-buku').removeAttr('disabled');
       }
     });
+
+    $('.btn-tambah-buku-tunggu').hide();
+    $('.btn-tambah-buku').on('click', function() {
+      $(this).hide();
+      $('.btn-tambah-buku-tunggu').show();
+    });
   });

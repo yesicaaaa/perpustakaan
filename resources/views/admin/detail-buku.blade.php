@@ -183,6 +183,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary btn-edit" onclick="return confirm('Yakin ingin mengubah data buku?')">Simpan</button>
+        <button class="btn btn-primary btn-edit-tunggu" disabled>Tunggu...</button>
       </div>
       </form>
     </div>
@@ -234,6 +235,12 @@
         $('#tambah_stok').removeAttr('disabled');
       }
     })
+
+    $('.btn-edit-tunggu').hide();
+    $('.btn-edit').on('click', function() {
+      $(this).hide();
+      $('.btn-edit-tunggu').show();
+    });
   });
 </script>
 @endsection
