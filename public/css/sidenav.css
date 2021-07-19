@@ -104,3 +104,33 @@ body {
   width: 270px;
   padding-bottom: 20px;
 }
+
+.dropdown-menu li {
+  list-style-type: none;
+  margin-left: -32px;
+  padding: 10px 5px 10px 40px;
+}
+
+.btn-dropdown,
+.dropdown-menu {
+    background-color: #bc542d !important;
+    color: white;
+}
+
+.btn-dropdown:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.dropdown-menu {
+    border: none;
+}
+
+.dropdown-menu li:hover,
+.dropdown-menu a:hover {
+    background-color: #cc6a46;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-dropdown {
+  margin-left: -28px;
+}

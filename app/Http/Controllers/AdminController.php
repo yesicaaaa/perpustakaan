@@ -8,10 +8,12 @@ use App\Models\Buku_model;
 use App\Models\PetugasModel;
 use App\Models\User;
 use App\Models\RoleUser;
+use App\Models\AnggotaModel;
 use DateTime;
 use Illuminate\Support\Facades\File;
 use App\Exports\BukuExport;
 use App\Exports\PetugasExport;
+use App\Exports\AnggotaExport;
 use Illuminate\Container\RewindableGenerator;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -222,10 +224,70 @@ class AdminController extends Controller
         return Excel::download(new PetugasExport, 'Data Petugas.xlsx');
     }
 
-    public function exportPetugasPdf($cari = '')
+    public function exportPetugasPdf($cari = null)
     {
         $petugas = PetugasModel::getPetugas($cari);
         $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4', 'landscape');
         return $pdf->download('Data Petugas.pdf');
+    }
+
+
+    public function detailPetugas($id)
+    {
+        $petugas = PetugasModel::getDetailPetugas($id);
+        return view('admin.detail-petugas', compact('petugas'));
+    }
+
+    public function dataAnggota(Request $request)
+    {
+        if($request->cari != '') {
+            $cari = $request->cari;
+            $request->session()->put('cari', $cari);
+        }else{
+            $cari = $request->session()->get('cari');
+        }
+        $anggota = AnggotaModel::getAnggota($cari);
+        return view('admin.data-anggota', compact('anggota'));
+    }
+
+    public function detailAnggota($id)
+    {
+        $anggota = AnggotaModel::getDetailAnggota($id);
+        return view('admin.detail-anggota', compact('anggota'));
+    }
+
+    public function hapusAnggota(Request $request)
+    {
+        foreach($request->id as $id){
+            $image = AnggotaModel::where('id', $id)->first();
+            if($image->image != 'default.png') {
+                File::delete('img/user_img/' . $image->image);
+            }
+            AnggotaModel::where('id', $id)->delete();
+        }
+        return redirect('dataAnggota')->with('status', 'Data anggota berhasil dihapus.');
+    }
+
+    public function refreshAnggota()
+    {
+        session()->forget('cari');
+        return redirect('dataAnggota');
+    }
+
+    public function exportAnggotaExcel()
+    {
+        return Excel::download(new AnggotaExport, 'Data Anggota.xlsx');
+    }
+
+    public function exportAnggotaPdf($cari = null)
+    {
+        $anggota = AnggotaModel::getAnggota($cari);
+        $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4', 'landscape');
+        return $pdf->download('Data Anggota.pdf');
+    }
+
+    public function profileSaya()
+    {
+        return view('admin.profile-saya');
     }
 }

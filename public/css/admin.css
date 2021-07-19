@@ -263,3 +263,7 @@ svg {
   padding: 5px;
   height: 35px;
 }
+
+.detail-petugas h6 {
+  margin-top: 5px !important;
+}

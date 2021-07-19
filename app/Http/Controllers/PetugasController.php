@@ -10,4 +10,9 @@ class PetugasController extends Controller
     {
         return view('petugas.dashboard');
     }
+
+    public function daftarBuku()
+    {
+        return view('petugas.daftar-buku');
+    }
 }
