@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetugasController;
+use App\Models\PetugasModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +60,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::get('dashboardPetugas', [PetugasController::class, 'index']);
     Route::get('/daftarBukuPetugas', [PetugasController::class, 'daftarBuku']);
+    Route::post('/tambahBukuPetugas', [PetugasController::class, 'tambahBuku']);
 });
 require __DIR__.'/auth.php';

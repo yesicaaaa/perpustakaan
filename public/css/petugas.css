@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body {
+    overflow-x: hidden !important;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.main {
+    margin-left: 258px;
+}
+
+.breadcrumb {
+  background: linear-gradient(90deg, #f2f2f2 0%, #d5d6d9 40%, #e1e1e3 45%, #efefef 100%);
+  padding-left: 7px;
+}
+
+.table-orange {
+  background-color: #bc542d;
+  color: white;
+}
+
+.column-foto {
+  width: 13%;
+}
+
+.img-buku {
+  width: 55%;
+}
+
+.table-buku-petugas {
+  width: 99%;
+  margin-left: 5px;
+}
+
+.btn-tambah-buku {
+  background:linear-gradient(90deg, #271e86 0%, #5b7ee6 42%, #343480 77%, #1911ff 100%);
+  color: white;
+  border-radius: 0;
+  border: none;
+  margin: 0px 0 5px 5px;
+}
+
+.btn-tambah-buku:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.modal-footer .btn-secondary {
+  margin-top: 1px;
+}
+
+.modal-header {
+  background:linear-gradient(90deg, #271e86 0%, #5b7ee6 42%, #343480 77%, #1911ff 100%);
+  color: white;
+}
+
+.form-label {
+  margin-top: -10px;
+}
+
+.modal-body input{
+  height: 30px;
+  border-radius: 0;
+}
+
+svg {
+    width: 3%;
+    color: #bc542d;
+}
+
+.flex-1 {
+    display: none !important;
+}
+
+.text-sm span {
+    color: #bc542d;
+}
+
+.bg-white {
+    color: #bc542d;
+}
+
+.alert {
+  width: 30%;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+  margin: -10px 0 -55px 760px;
+  border: none;
+}
+
+.alert-success {
+  background-color: rgba(209, 230, 221, 0.9) !important;
+}
+.alert-danger {
+    background-color: rgba(247, 215, 218, 0.9) !important;
+}

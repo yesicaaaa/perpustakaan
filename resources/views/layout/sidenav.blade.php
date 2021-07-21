@@ -42,7 +42,7 @@
         <li><a href="" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li>
         @endif
         @if(Auth::user()->hasRole('petugas'))
-        <li><a href="" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li><a href="/dashboardPetugas" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li><a href="/daftarBukuPetugas" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
         <li><a href="/dataAnggota" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
         <div class="dropdown">

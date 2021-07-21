@@ -44,6 +44,8 @@ body {
 .user-info img {
   width: 100%;
   margin: 20px 0 0 10px;
+  border-radius: 33px;
+  height: 66px;
 }
 
 .user-info h5 {

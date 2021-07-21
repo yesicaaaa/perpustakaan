@@ -54,9 +54,6 @@
           <th scope="col">Tanggal Dibuat</th>
           <td>{{Auth::user()->created_at}}</td>
         </tr>
-        <tr>
-          <th scope="col">Tanggal Diubah</th>\
-        </tr>
       </table>
     </div>
   </div>
