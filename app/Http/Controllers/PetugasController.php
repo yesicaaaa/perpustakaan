@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnggotaModel;
 use App\Models\Buku_model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,5 +62,11 @@ class PetugasController extends Controller
         ]);
 
         return redirect('daftarBukuPetugas')->with('status', 'Buku baru berhasil ditambahkan');
+    }
+
+    public function dataAnggota($cari = null)
+    {
+        $anggota = AnggotaModel::getAnggota($cari);
+        return view('petugas.data-anggota', compact('anggota'));
     }
 }

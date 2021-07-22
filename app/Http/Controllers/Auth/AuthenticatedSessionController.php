@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,8 +30,11 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
+        User::where('email', $request->email)->update(['is_active' => 1]);
 
         $request->session()->regenerate();
+
+
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -43,11 +47,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        User::where('id', Auth::user()->id)->update(['is_active' => 0]);
         Auth::guard('web')->logout();
-
+        
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
 
         return redirect('/login')->with('status', 'Akun berhasil keluar');
     }

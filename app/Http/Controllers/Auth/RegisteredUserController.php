@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
             'alamat'    => $request->alamat,
             'image'  => $image,
             'password' => Hash::make($request->password),
-            'is_active' => 1,
+            'is_active' => 0,
             'created_at'    => date('Y-m-d h:i:s'),
             'updated_at'    => null
         ]);
@@ -65,10 +65,14 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // Auth::login($user);
-        if($request->role == 'petugas'){
-            return redirect('/dataPetugas')->with('status', 'Petugas baru berhasil ditambahkan.');
-        }else if($request->role == 'anggota') {
-            return redirect('/dataAnggota')->with('status', 'Anggota baru berhasil ditambahkan.');
+        if(Auth::user()->hasRole('admin')) {
+            if($request->role == 'petugas'){
+                return redirect('/dataPetugas')->with('status', 'Petugas baru berhasil ditambahkan.');
+            }else if($request->role == 'anggota') {
+                return redirect('/dataAnggota')->with('status', 'Anggota baru berhasil ditambahkan.');
+            }
+        } else {
+            return redirect('/dataAnggotaPetugas')->with('status', 'Anggota baru berhasil ditambahkan');
         }
     }
 }

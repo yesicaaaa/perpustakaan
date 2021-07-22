@@ -33,7 +33,7 @@ body {
 }
 
 .btn-tambah-buku {
-  background:linear-gradient(90deg, #271e86 0%, #5b7ee6 42%, #343480 77%, #1911ff 100%);
+  background:linear-gradient(90deg, #ff4f03 0%, #f98b58 27%, #ff7f1d 38%, #ffc78f 69%, #ff8f2e 83%);
   color: white;
   border-radius: 0;
   border: none;
@@ -53,7 +53,7 @@ body {
 }
 
 .modal-header {
-  background:linear-gradient(90deg, #271e86 0%, #5b7ee6 42%, #343480 77%, #1911ff 100%);
+  background:linear-gradient(90deg, #ff4f03 0%, #f98b58 27%, #ff7f1d 38%, #ffc78f 69%, #ff8f2e 83%);
   color: white;
 }
 
@@ -95,6 +95,12 @@ svg {
 .alert-success {
   background-color: rgba(209, 230, 221, 0.9) !important;
 }
+
 .alert-danger {
     background-color: rgba(247, 215, 218, 0.9) !important;
+}
+
+.modal-body textarea {
+  height: 50px;
+  width: 100%;
 }

@@ -33,11 +33,11 @@
         <th scope="col">Pengarang</th>
         <th scope="col">Penerbit</th>
         <th scope="col">Tahun Terbit</th>
-        <th scope="col" class="column-foto">Foto</th>
         <th scope="col">Bahasa</th>
         <th scope="col">Genre</th>
         <th scope="col">Jumlah Halaman</th>
         <th scope="col">Stok</th>
+        <th scope="col" class="column-foto">Foto</th>
       </tr>
     </thead>
     <tbody>
@@ -48,11 +48,11 @@
       <td>{{$b->pengarang}}</td>
       <td>{{$b->penerbit}}</td>
       <td>{{$b->tahun_terbit}}</td>
-      <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
       <td>{{$b->bahasa}}</td>
       <td>{{$b->genre}}</td>
       <td>{{$b->jml_halaman}}</td>
       <td>{{$b->stok}}</td>
+      <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
       </tr>
       @endforeach
     </tbody>
@@ -71,6 +71,7 @@
       <div class="modal-body">
         <form action="tambahBukuPetugas" method="post" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="nama_petugas">
           <div class="mb-3">
             <label for="judul" class="form-label">Judul<span class="text-danger">*</span></label>
             <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}">
@@ -124,7 +125,7 @@
               <option value="Biografi">
             </datalist>
             <div class="invalid-feedback">
-              Bahasa harus diisi!
+              Genre harus diisi!
             </div>
           </div>
           <div class="mb-3">

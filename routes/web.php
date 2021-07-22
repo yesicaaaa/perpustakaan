@@ -61,5 +61,6 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::get('dashboardPetugas', [PetugasController::class, 'index']);
     Route::get('/daftarBukuPetugas', [PetugasController::class, 'daftarBuku']);
     Route::post('/tambahBukuPetugas', [PetugasController::class, 'tambahBuku']);
+    Route::get('/dataAnggotaPetugas', [PetugasController::class, 'dataAnggota']);
 });
 require __DIR__.'/auth.php';

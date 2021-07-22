@@ -45,8 +45,8 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="alamat" class="form-label @error('alamat') is-invalid @enderror">Alamat<span class="text-danger">*</span></label>
-          <textarea name="alamat" id="alamat" cols="30" rows="10">{{ old('alamat') }}</textarea>
+          <label for="alamat" class="form-label ">Alamat<span class="text-danger">*</span></label>
+          <textarea name="alamat" id="alamat" cols="30" rows="10" class="@error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
           <div class="invalid-feedback">
             @error('alamat')
             {{ $message }}
