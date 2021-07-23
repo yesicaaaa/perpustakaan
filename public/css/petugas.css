@@ -104,3 +104,29 @@ svg {
   height: 50px;
   width: 100%;
 }
+
+.form-peminjaman h6 {
+  color: #4f4b4b;
+  margin: 10px 0 15px 8px;
+}
+
+.form-peminjaman {
+  background-color: #f7f7f7;
+  margin-top: -16px;
+}
+
+.form-peminjaman label {
+  margin-left: 9px;
+  font-size: 13px;
+}
+
+.form-peminjaman input {
+  height: 25px;
+  border-radius: 0;
+  width: 80%;
+  margin: -7px 0 0 9px;
+}
+
+.catat-peminjaman {
+  border-right: 1px solid #919191;
+}

@@ -30,4 +30,13 @@ class AnggotaModel extends Model
         ->where('users.id', $id)
         ->first();
     }
+
+    public static function getListAnggota()
+    {
+        return RoleUser::select('users.*')
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->join('users', 'users.id', '=', 'role_user.user_id')
+                ->where('role_user.role_id', 3)
+                ->get();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AnggotaModel;
 use App\Models\Buku_model;
+use App\Models\PeminjamanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -68,5 +69,13 @@ class PetugasController extends Controller
     {
         $anggota = AnggotaModel::getAnggota($cari);
         return view('petugas.data-anggota', compact('anggota'));
+    }
+
+    public function dataPeminjaman($id = null)
+    {
+        $anggota = AnggotaModel::getListAnggota();
+        $buku = Buku_model::all();
+        $peminjaman = PeminjamanModel::getDetailPinjam($id);
+        return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman'));
     }
 }
