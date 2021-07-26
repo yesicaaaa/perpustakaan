@@ -1,6 +1,7 @@
 @extends('layout.template')
 @extends('layout.sidenav')
 @section('css', 'petugas.css')
+@section('js', 'data-peminjaman.js')
 @section('sidenavcss', 'sidenav.css')
 @section('title', 'Data Peminjaman | Fiore Library')
 @section('content')
@@ -12,20 +13,22 @@
   </nav>
   <div class="form-peminjaman">
     <div class="row">
+      <h6>Catat Peminjaman</h6>
       <div class="col-md-6 catat-peminjaman">
-        <h6>Catat Peminjaman</h6>
-        <form action="/tambahPeminjaman" method="post">
+        <form action="" method="post" id="form-data">
+          {{method_field('post')}}
           @csrf
+          <input type="hidden" name="id_petugas" value="{{Auth::user()->id}}">
           <div class="mb-3">
             <label for="name" class="form-label">Nama Peminjam<span class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" list="anggotaDatalist" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
+            <input type="text" class="form-control @error('id_anggota') is-invalid @enderror" list="anggotaDatalist" id="id_anggota" name="id_anggota" value="{{ old('id_anggota') }}" autocomplete="off">
             <datalist id="anggotaDatalist">
               @foreach($anggota as $a)
               <option value="{{$a->id}}">{{$a->name}}</option>
               @endforeach
             </datalist>
             <div class="invalid-feedback">
-              @error('name')
+              @error('id_anggota')
               {{ $message }}
               @enderror
             </div>
@@ -45,55 +48,59 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="tgl_pinjam" class="form-label">Tanggal Pinjam<span class="text-danger">*</span></label>
-            <input type="date" class="form-control @error('tgl_pinjam') is-invalid @enderror" id="tgl_pinjam" name="tgl_pinjam" value="{{ old('tgl_pinjam') }}">
+            <label for="qty" class="form-label">Jumlah Buku Dipinjam<span class="text-danger">*</span></label>
+            <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty" value="{{ old('qty') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
             <div class="invalid-feedback">
-              @error('tgl_pinjam')
+              @error('qty')
               {{ $message }}
               @enderror
             </div>
           </div>
-          <div class="mb-3">
-            <label for="tgl_hrs_kembali" class="form-label">Tanggal Harus Kembali<span class="text-danger">*</span></label>
-            <input type="date" class="form-control @error('tgl_hrs_kembali') is-invalid @enderror" id="tgl_hrs_kembali" name="tgl_hrs_kembali" value="{{ old('tgl_hrs_kembali') }}">
-            <div class="invalid-feedback">
-              @error('tgl_hrs_kembali')
-              {{ $message }}
-              @enderror
-            </div>
-          </div>
-        </form>
       </div>
       <div class="col-md-6">
-        <h6>Perpanjang Peminjaman</h6>
-        @if($peminjaman)
-        <form action="/perpanjangPeminjaman" method="post">
-          @csrf
-          <div class="mb-3">
-            <label for="name" class="form-label">ID Peminjam<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="name" value="{{ $peminjaman->name }}" readonly>
+        <div class="mb-3">
+          <label for="tgl_pinjam" class="form-label">Tanggal Pinjam<span class="text-danger">*</span></label>
+          <input type="date" class="form-control @error('tgl_pinjam') is-invalid @enderror" id="tgl_pinjam" name="tgl_pinjam" value="{{ old('tgl_pinjam') }}">
+          <div class="invalid-feedback">
+            @error('tgl_pinjam')
+            {{ $message }}
+            @enderror
           </div>
-          <div class="mb-3">
-            <label for="judul" class="form-label">Judul Buku<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="judul" value="{{ $peminjaman->judul }}" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="tgl_hrs_kembali" class="form-label">Tanggal Harus Kembali<span class="text-danger">*</span></label>
+          <input type="date" class="form-control @error('tgl_hrs_kembali') is-invalid @enderror" id="tgl_hrs_kembali" name="tgl_hrs_kembali" value="{{ old('tgl_hrs_kembali') }}">
+          <div class="invalid-feedback">
+            @error('tgl_hrs_kembali')
+            {{ $message }}
+            @enderror
           </div>
-          <div class="mb-3">
-            <label for="tgl_pinjam" class="form-label">Tanggal Pinjam<span class="text-danger">*</span></label>
-            <input type="date" class="form-control" name="tgl_pinjam" value="{{ $peminjaman->tgl_pinjam }}" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="tgl_hrs_kembali" class="form-label">Tanggal Harus Kembali<span class="text-danger">*</span></label>
-            <input type="date" class="form-control" name="tgl_hrs_kembali" value="{{ $peminjaman->tgl_hrs_kembali }}">
-          </div>
-          <div class="mb-3">
-            <label for="perpanjang_pinjam" class="form-label">Perpanjang Peminjaman<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" name="perpanjang_pinjam" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-          </div>
+        </div>
+        <button type="submit" class="btn btn-peminjaman" id="btn-peminjaman-simpan" onclick="return confirm('yakin ingin melakukan peminjaman buku?')" disabled>Simpan</button>
+        <button type="submit" class="btn btn-peminjaman" id="btn-peminjaman-tunggu" disabled>Tunggu ....</button>
         </form>
-        @endif
       </div>
     </div>
   </div>
-</div>
+    <table class="table table-striped table-bordered data-buku">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($peminjaman as $p)
+        <tr>
+          <td>AGT{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
+          <td>{{$p->name}}</td>
+          <td>
+            <a href="" class="badge bg-success">Lihat>></a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
 </div>
 @endsection

@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 body {
-    overflow-x: hidden !important;
-    font-family: 'Source Sans Pro', sans-serif;
+  overflow-x: hidden !important;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .main {
-    margin-left: 258px;
+  margin-left: 258px;
 }
 
 .breadcrumb {
@@ -129,4 +138,50 @@ svg {
 
 .catat-peminjaman {
   border-right: 1px solid #919191;
+}
+
+.btn-peminjaman {
+  background:linear-gradient(90deg, #f26513 0%, #ff6841 46%, #ffae17 75%, #ff6347 97%);
+  color: white;
+  border-radius: 2px;
+  margin: 5px 0 0 9px;
+  padding: 4px 5px;
+}
+
+.btn-peminjaman:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dataTables_wrapper {
+  margin : 16px !important;
+}
+
+.dataTables_filter {
+  margin-bottom: 10px;
+}
+
+th.sorting.sorting_asc::after {
+  right: 22px !important;
+}
+
+th.sorting.sorting_asc::before {
+  right: 30px !important;
+}
+
+th.sorting::after {
+    right: 22px !important;
+}
+
+th.sorting::before {
+    right: 30px !important;
+}
+
+.current {
+  background: linear-gradient(90deg, #f26513 0%, #ff6841 46%, #ffae17 75%, #ff6347 97%) !important;
+  padding: 3px 15px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: white !important;
 }

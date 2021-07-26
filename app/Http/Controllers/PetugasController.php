@@ -75,7 +75,34 @@ class PetugasController extends Controller
     {
         $anggota = AnggotaModel::getListAnggota();
         $buku = Buku_model::all();
-        $peminjaman = PeminjamanModel::getDetailPinjam($id);
+        // $detailPinjaman = PeminjamanModel::getDetailPinjam($id);
+        $peminjaman = PeminjamanModel::getPinjaman();
         return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman'));
+    }
+
+    public function tambahPeminjaman(Request $request)
+    {
+        $request->validate([
+            'id_anggota'  => 'required',
+            'id_buku'   => 'required',
+            'tgl_pinjam'    => 'required',
+            'tgl_hrs_kembali'   => 'required',
+            'qty'   => 'required'
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta');
+        $peminjaman = DB::table('peminjaman')->max('id_peminjaman');
+        $id_peminjaman = $peminjaman + 1;
+        PeminjamanModel::create([
+                'id_peminjaman' => $id_peminjaman,
+                'id_anggota'    => $request->id_anggota,
+                'id_buku'       => $request->id_buku,
+                'qty'           => $request->qty,
+                'tgl_pinjam'    => $request->tgl_pinjam,
+                'tgl_hrs_kembali'   => $request->tgl_hrs_kembali,
+                'id_petugas'    => $request->id_petugas,
+                'status'        => 'Dikonfirmasi',
+                'created_at'    => date('Y-m-d h:i:s')
+        ]);
     }
 }

@@ -14,8 +14,7 @@ class AddColumnToPeminjamanTable extends Migration
     public function up()
     {
         Schema::table('peminjaman', function (Blueprint $table) {
-            $table->bigInteger('id_buku')->after('id_anggota')->unsigned();
-            $table->foreign('id_buku')->references('id_buku')->on('buku');
+            $table->integer('qty')->after('id_buku');
         });
     }
 

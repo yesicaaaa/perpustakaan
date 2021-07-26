@@ -13,6 +13,14 @@
   <link rel="stylesheet" type="text/css" href="/css/@yield('sidenavcss')">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/DataTables/DataTables-1.10.25/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.25/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.25/css/dataTables.bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.js">
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="/img/library.png">
