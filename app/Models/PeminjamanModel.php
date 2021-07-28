@@ -44,4 +44,13 @@ class PeminjamanModel extends Model
                           ->get();
 
   }
+
+  public static function getDetailPeminjaman($id)
+  {
+    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
+                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->select('peminjaman.id_peminjaman')
+                            ->where('users.id', $id)
+                            ->first();
+  }
 }

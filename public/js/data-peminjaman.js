@@ -1,10 +1,5 @@
 $(document).ready(function() {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-
+  $('.data-buku').load('petugas/dataPeminjaman.php');
   $('#btn-peminjaman-tunggu').hide();
   $('#id_anggota').on('keyup', function() {
     if($(this).val() == '') {
@@ -40,17 +35,17 @@ $(document).ready(function() {
     $(this).hide();
     $('#btn-peminjaman-tunggu').show();
   })
-
-  var data = $('#form-data').serialize();
-  $.ajax({
-    type: 'POST',
-    url: '/tambahPeminjaman/',
-    data: data,
-    success: function() {
-      $('.data-buku').load('petugas/data-peminjaman.php');
-      $('#form-data').reset();
-    }
-  })
+  
+  // var data = $('#form-data').serialize();
+  // $.ajax({
+  //   method: 'POST',
+  //   url: '/tambahPeminjaman/',
+  //   data: data,
+  //   success: function() {
+  //     $('.data-buku').load('petugas/data-peminjaman.php');
+  //     $('#form-data').reset();
+  //   }
+  // })
 
   $('.data-buku').DataTable();
 })

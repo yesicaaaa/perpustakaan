@@ -93,11 +93,11 @@ svg {
 }
 
 .alert {
-  width: 30%;
+  width: 31%;
   border-radius: 0;
   position: relative;
   z-index: 1;
-  margin: -10px 0 -55px 760px;
+  margin: -18px 0 -55px 760px;
   border: none;
 }
 
@@ -184,4 +184,29 @@ th.sorting::before {
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
   color: white !important;
+}
+
+.breadcrumb-link a{
+  color: #bc542d !important;
+}
+
+.table-detail-peminjaman th {
+  background-color: #d5d6d9;
+  width: 170px;
+}
+
+.table-detail-peminjaman {
+  border-color: #acacac;
+  margin-left: -40px;
+}
+
+.data-peminjam img {
+  width: 66%;
+  margin-left: 20px;
+}
+
+.data-peminjam {
+  background-color: #f8f5f5;
+  margin-top: -16px;
+  padding-top: 20px;
 }

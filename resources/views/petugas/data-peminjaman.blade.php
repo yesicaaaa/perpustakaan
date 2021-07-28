@@ -11,16 +11,28 @@
       <li class="breadcrumb-item active" aria-current="page">Data Peminjaman</li>
     </ol>
   </nav>
+  @if(session('err'))
+  <div class="alert alert-danger" role="alert">
+    {{session('err')}}
+    <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
+  @if(session('status'))
+  <div class="alert alert-success" role="alert">
+    {{session('status')}}
+    <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
   <div class="form-peminjaman">
     <div class="row">
       <h6>Catat Peminjaman</h6>
       <div class="col-md-6 catat-peminjaman">
-        <form action="" method="post" id="form-data">
-          {{method_field('post')}}
+        <form action="/tambahPeminjaman" method="POST" id="form-data">
+          <input type="hidden" name="_method" value="POST">
           @csrf
           <input type="hidden" name="id_petugas" value="{{Auth::user()->id}}">
           <div class="mb-3">
-            <label for="name" class="form-label">Nama Peminjam<span class="text-danger">*</span></label>
+            <label for="name" class="form-label">ID Peminjam<span class="text-danger">*</span></label>
             <input type="text" class="form-control @error('id_anggota') is-invalid @enderror" list="anggotaDatalist" id="id_anggota" name="id_anggota" value="{{ old('id_anggota') }}" autocomplete="off">
             <datalist id="anggotaDatalist">
               @foreach($anggota as $a)
@@ -82,25 +94,34 @@
       </div>
     </div>
   </div>
-    <table class="table table-striped table-bordered data-buku">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nama</th>
-          <th>Detail</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($peminjaman as $p)
-        <tr>
-          <td>AGT{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
-          <td>{{$p->name}}</td>
-          <td>
-            <a href="" class="badge bg-success">Lihat>></a>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+  <table class="table table-striped table-bordered data-buku">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($peminjaman as $p)
+      <tr>
+        <td>AGT{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
+        <td>{{$p->name}}</td>
+        <td>
+          <a href="/detailPeminjaman/{{$p->id}}" class="badge bg-success">Lihat>></a>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 </div>
+
+<script>
+  var base_url = 'http://localhost:8000/';
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+</script>
 @endsection

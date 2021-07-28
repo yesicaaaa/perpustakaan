@@ -64,5 +64,6 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::get('/dataAnggotaPetugas', [PetugasController::class, 'dataAnggota']);
     Route::get('/dataPeminjaman', [PetugasController::class, 'dataPeminjaman']);
     Route::post('/tambahPeminjaman', [PetugasController::class, 'tambahPeminjaman']);
+    Route::get('/detailPeminjaman/{id}', [PetugasController::class, 'detailPeminjaman']);
 });
 require __DIR__.'/auth.php';

@@ -88,21 +88,36 @@ class PetugasController extends Controller
             'tgl_pinjam'    => 'required',
             'tgl_hrs_kembali'   => 'required',
             'qty'   => 'required'
-        ]);
+        ]); 
 
         date_default_timezone_set('Asia/Jakarta');
         $peminjaman = DB::table('peminjaman')->max('id_peminjaman');
         $id_peminjaman = $peminjaman + 1;
-        PeminjamanModel::create([
-                'id_peminjaman' => $id_peminjaman,
-                'id_anggota'    => $request->id_anggota,
-                'id_buku'       => $request->id_buku,
-                'qty'           => $request->qty,
-                'tgl_pinjam'    => $request->tgl_pinjam,
-                'tgl_hrs_kembali'   => $request->tgl_hrs_kembali,
-                'id_petugas'    => $request->id_petugas,
-                'status'        => 'Dikonfirmasi',
-                'created_at'    => date('Y-m-d h:i:s')
-        ]);
+        $qty = $request->qty;
+        $stok = Buku_model::where('id_buku', $request->id_buku)->first();
+        if($qty > $stok['stok']) {
+            return redirect('dataPeminjaman')->with('err', 'Jumlah peminjaman buku melebihi stok!');
+        }else{
+            PeminjamanModel::create([
+                    'id_peminjaman' => $id_peminjaman,
+                    'id_anggota'    => $request->id_anggota,
+                    'id_buku'       => $request->id_buku,
+                    'qty'           => $request->qty,
+                    'tgl_pinjam'    => $request->tgl_pinjam,
+                    'tgl_hrs_kembali'   => $request->tgl_hrs_kembali,
+                    'id_petugas'    => $request->id_petugas,
+                    'status'        => 'Dikonfirmasi',
+                    'created_at'    => date('Y-m-d h:i:s'),
+                    'updated_at'    => null
+            ]);
+
+            return redirect('dataPeminjaman')->with('status', 'Data peminjaman berhasil direkam');
+        }
+    }
+
+    public function detailPeminjaman($id)
+    {
+        $peminjaman = PeminjamanModel::getDetailPeminjaman($id);
+        return view('petugas.detail-peminjaman', compact('peminjaman'));
     }
 }
