@@ -28,7 +28,7 @@ $(document).ready(function() {
       $(this).removeClass('id-invalid').addClass('is-valid')
     }
   })
-  $('#tgl_hrs_kembali').on('click', function() {
+  $('#tgl_pinjam').on('click', function() {
     $('#btn-peminjaman-simpan').removeAttr('disabled')
   })
   $('#btn-peminjaman-simpan').on('click', function() {

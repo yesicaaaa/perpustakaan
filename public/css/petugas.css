@@ -144,7 +144,7 @@ svg {
   background:linear-gradient(90deg, #f26513 0%, #ff6841 46%, #ffae17 75%, #ff6347 97%);
   color: white;
   border-radius: 2px;
-  margin: 5px 0 0 9px;
+  margin: -5px 0 5px 9px;
   padding: 4px 5px;
 }
 
@@ -209,4 +209,19 @@ th.sorting::before {
   background-color: #f8f5f5;
   margin-top: -16px;
   padding-top: 20px;
+}
+
+.btn-simpan {
+  background-color: #bc542d;
+  border-color: transparent;
+}
+
+.btn-simpan:hover {
+  background-color: #cc6a46;
+  border-color: #bd6646 !important;
+}
+
+.btn-simpan-tunggu {
+  background-color: #bd6646 !important;
+  border-color: #bd6646 !important;
 }

@@ -59,17 +59,17 @@
               @enderror
             </div>
           </div>
-          <div class="mb-3">
-            <label for="qty" class="form-label">Jumlah Buku Dipinjam<span class="text-danger">*</span></label>
-            <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty" value="{{ old('qty') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-            <div class="invalid-feedback">
-              @error('qty')
-              {{ $message }}
-              @enderror
-            </div>
+        </div>
+        <div class="col-md-6">
+        <div class="mb-3">
+          <label for="qty" class="form-label">Jumlah Buku Dipinjam<span class="text-danger">*</span></label>
+          <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty" value="{{ old('qty') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+          <div class="invalid-feedback">
+            @error('qty')
+            {{ $message }}
+            @enderror
           </div>
-      </div>
-      <div class="col-md-6">
+        </div>
         <div class="mb-3">
           <label for="tgl_pinjam" class="form-label">Tanggal Pinjam<span class="text-danger">*</span></label>
           <input type="date" class="form-control @error('tgl_pinjam') is-invalid @enderror" id="tgl_pinjam" name="tgl_pinjam" value="{{ old('tgl_pinjam') }}">
@@ -79,7 +79,7 @@
             @enderror
           </div>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="tgl_hrs_kembali" class="form-label">Tanggal Harus Kembali<span class="text-danger">*</span></label>
           <input type="date" class="form-control @error('tgl_hrs_kembali') is-invalid @enderror" id="tgl_hrs_kembali" name="tgl_hrs_kembali" value="{{ old('tgl_hrs_kembali') }}">
           <div class="invalid-feedback">
@@ -87,7 +87,7 @@
             {{ $message }}
             @enderror
           </div>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-peminjaman" id="btn-peminjaman-simpan" onclick="return confirm('yakin ingin melakukan peminjaman buku?')" disabled>Simpan</button>
         <button type="submit" class="btn btn-peminjaman" id="btn-peminjaman-tunggu" disabled>Tunggu ....</button>
         </form>

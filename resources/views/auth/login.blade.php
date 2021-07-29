@@ -29,24 +29,24 @@
                 @enderror
             </div>
         </div>
-        <button class="btn btn-auth" disabled>Masuk</button>
-        <button class="btn btn-auth btn-disabled" disabled>Tunggu Sebentar...<i class="spinner-border text-light"></i></button>
+        <button class="btn btn-auth" id="btn-login" disabled>Masuk</button>
+        <button class="btn btn-auth btn-disabled" id="btn-disabled" disabled>Tunggu Sebentar...<i class="spinner-border text-light"></i></button>
     </form>
 </div>
 <script>
     $(document).ready(function() {
-        $('.btn-disabled').hide();
+        $('#btn-disabled').hide();
         $('#email').on('keypress', function() {
             if ($('#email').val().length >= 1) {
                 $('#password').focus();
             }
         });
         $('#password').on('keypress', function() {
-            $('.btn-auth').removeAttr('disabled'); 
+            $('#btn-login').removeAttr('disabled'); 
         });
-        $('.btn-auth').on('click', function() {
-            $('.btn-auth').hide();
-            $('.btn-disabled').show();
+        $('#btn-login').on('click', function() {
+            $('#btn-login').hide();
+            $('#btn-disabled').show();
         })
     });
 </script>

@@ -40,10 +40,10 @@ class PetugasController extends Controller
         $id_buku = $buku + 1;
         $judul = $request->judul;
 
-        if($request->foto != '') {
+        if ($request->foto != '') {
             $image = str_replace(' ', '_', $judul) . '.' . $request->foto->extension();
             $request->foto->move(public_path('img/buku'), $image);
-        }else{
+        } else {
             $image = 'default.jpg';
         }
 
@@ -86,29 +86,30 @@ class PetugasController extends Controller
             'id_anggota'  => 'required',
             'id_buku'   => 'required',
             'tgl_pinjam'    => 'required',
-            'tgl_hrs_kembali'   => 'required',
             'qty'   => 'required'
-        ]); 
+        ]);
 
         date_default_timezone_set('Asia/Jakarta');
         $peminjaman = DB::table('peminjaman')->max('id_peminjaman');
         $id_peminjaman = $peminjaman + 1;
-        $qty = $request->qty;
+        $tgl_pinjam = $request->tgl_pinjam;
+        $tgl_hrs_kembali = date('Y-m-d', strtotime('+7 days', strtotime($tgl_pinjam)));
         $stok = Buku_model::where('id_buku', $request->id_buku)->first();
-        if($qty > $stok['stok']) {
+        $qty = $request->qty;
+        if ($qty > $stok['stok']) {
             return redirect('dataPeminjaman')->with('err', 'Jumlah peminjaman buku melebihi stok!');
-        }else{
+        } else {
             PeminjamanModel::create([
-                    'id_peminjaman' => $id_peminjaman,
-                    'id_anggota'    => $request->id_anggota,
-                    'id_buku'       => $request->id_buku,
-                    'qty'           => $request->qty,
-                    'tgl_pinjam'    => $request->tgl_pinjam,
-                    'tgl_hrs_kembali'   => $request->tgl_hrs_kembali,
-                    'id_petugas'    => $request->id_petugas,
-                    'status'        => 'Dikonfirmasi',
-                    'created_at'    => date('Y-m-d h:i:s'),
-                    'updated_at'    => null
+                'id_peminjaman' => $id_peminjaman,
+                'id_anggota'    => $request->id_anggota,
+                'id_buku'       => $request->id_buku,
+                'qty'           => $request->qty,
+                'tgl_pinjam'    => $tgl_pinjam,
+                'tgl_hrs_kembali'   => $tgl_hrs_kembali,
+                'id_petugas'    => $request->id_petugas,
+                'status'        => 'Dikonfirmasi',
+                'created_at'    => date('Y-m-d h:i:s'),
+                'updated_at'    => null
             ]);
 
             return redirect('dataPeminjaman')->with('status', 'Data peminjaman berhasil direkam');
@@ -118,6 +119,31 @@ class PetugasController extends Controller
     public function detailPeminjaman($id)
     {
         $peminjaman = PeminjamanModel::getDetailPeminjaman($id);
-        return view('petugas.detail-peminjaman', compact('peminjaman'));
+        $anggota = PeminjamanModel::getDataAnggota($id);
+        return view('petugas.detail-peminjaman', compact('peminjaman', 'anggota'));
+    }
+
+    public function getPeminjamanRow(Request $request)
+    {
+        $peminjaman = PeminjamanModel::where('id_peminjaman', $request->id)->first();
+        return response()->json($peminjaman);
+    }
+
+    public function perpanjangPinjam(Request $request)
+    {
+        $request->validate([
+            'perpanjang_pinjam' => 'required|max:1'
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta');
+        $perpanjang_pinjam = $request->perpanjang_pinjam;
+        $tgl_hrs_kembali = date('Y-m-d', strtotime('+' . $perpanjang_pinjam . ' days', strtotime($request->tgl_hrs_kembali)));
+
+            DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
+                'perpanjang_pinjam' => $perpanjang_pinjam,
+                'tgl_hrs_kembali'   => $tgl_hrs_kembali,
+                'updated_at'        => date('Y-m-d h:i:s')
+            ]);
+            return redirect('/detailPeminjaman/' . $request->id_anggota)->with('status', 'Perpanjangan Pinjam Berhasil');
     }
 }
