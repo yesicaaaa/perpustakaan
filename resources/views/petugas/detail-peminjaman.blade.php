@@ -68,7 +68,7 @@
       @foreach($peminjaman as $p)
       <?php
       $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
-      $btnPerpanjangan = ($perpanjangan != null) ? 'disabled' : '';
+      $btnPerpanjangan = ($perpanjangan != '-') ? 'disabled' : '';
       ?>
       <tr>
         <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
@@ -176,6 +176,8 @@
 
     if($('#btnPerpanjangan').hasClass('disabled')) {
       $(this).prop('disabled');
+    }else{
+      $(this).removeAttr('disabled');
     }
   })
 </script>

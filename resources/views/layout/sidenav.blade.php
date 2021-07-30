@@ -46,6 +46,7 @@
         <li><a href="/daftarBukuPetugas" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
         <li><a href="/dataAnggotaPetugas" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
         <li><a href="/dataPeminjaman" id="peminjaman"><i class="fa fa-fw fa-book"></i>Peminjaman</a></li>
+        <li><a href="/dataPengembalian" id="pengembalian"><i class="fa fa-fw fa-book"></i>Pengembalian</a></li>
         <div class="dropdown">
           <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-fw fa-check"></i> Konfirmasi

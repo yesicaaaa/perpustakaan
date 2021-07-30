@@ -225,3 +225,25 @@ th.sorting::before {
   background-color: #bd6646 !important;
   border-color: #bd6646 !important;
 }
+
+.data-peminjaman label{
+  margin-top: -15px;
+  font-size: 13px;
+}
+
+.data-peminjaman input {
+  font-size: 12px;
+  height: 0px;
+  margin-top: -10px;
+}
+
+.data-peminjaman {
+  background-color: #f7f7f7;
+  margin: -16px 0 0 -16px;
+  width: 107%;
+  padding-top: 20px;
+}
+
+.modal-footer {
+  margin-bottom: -35px;
+}

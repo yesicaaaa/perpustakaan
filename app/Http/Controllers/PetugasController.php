@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AnggotaModel;
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
+use App\Models\PengembalianModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -107,7 +108,7 @@ class PetugasController extends Controller
                 'tgl_pinjam'    => $tgl_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
                 'id_petugas'    => $request->id_petugas,
-                'status'        => 'Dikonfirmasi',
+                'status'        => 'Dipinjam',
                 'created_at'    => date('Y-m-d h:i:s'),
                 'updated_at'    => null
             ]);
@@ -145,5 +146,44 @@ class PetugasController extends Controller
                 'updated_at'        => date('Y-m-d h:i:s')
             ]);
             return redirect('/detailPeminjaman/' . $request->id_anggota)->with('status', 'Perpanjangan Pinjam Berhasil');
+    }
+
+    public function dataPengembalian()
+    {
+        $peminjaman = PeminjamanModel::getDataPeminjaman();
+        return view('petugas.data-pengembalian', compact('peminjaman'));
+    }
+
+    public function getPeminjamanPengembalianRow(Request $request)
+    {
+        $peminjaman = PeminjamanModel::getPeminjamanRow($request->id);
+
+        return response()->json($peminjaman);
+    }
+
+    public function pengembalian(Request $request)
+    {
+        $pengembalian = DB::table('pengembalian')->max('id_pengembalian');
+        $id_pengembalianMax = ($pengembalian == null) ? 0 : $pengembalian;
+        $id_pengembalian = $id_pengembalianMax + 1;
+        $buku = Buku_model::where('id_buku', $request->id_buku)->first();
+
+        date_default_timezone_set('Asia/Jakarta');
+        PengembalianModel::create([
+            'id_pengembalian'   => $id_pengembalian,
+            'id_peminjaman'     => $request->id_peminjaman,
+            'tgl_kembali'       => $request->tgl_kembali,
+            'terlambat'         => $request->terlambat,
+            'denda'             => $request->denda,
+            'id_petugas'        => $request->id_petugas,
+            'created_at'        => date('Y-m-d h:i:s'),
+            'updated_at'        => date('Y-m-d h:i:s')
+        ]);
+
+        DB::table('buku')->where('id_buku', $request->id_buku)->update([
+            'stok'  => $buku->stok + $request->qty
+        ]);
+
+        return redirect('/dataPengembalian')->with('status', 'Buku berhasil dikembalikan');
     }
 }

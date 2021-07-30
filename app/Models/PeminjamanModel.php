@@ -61,11 +61,19 @@ class PeminjamanModel extends Model
                             ->get();
   }
 
-  public static function getNamaPetugas($id)
+  public static function getDataPeminjaman()
   {
     return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                            ->select('users.name')
-                            ->where('users.id', $id)
-                            ->first();
+                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->where('peminjaman.status', 'Dipinjam')
+                            ->get();
+  }
+
+  public static function getPeminjamanRow($id)
+  {
+    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
+                          ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                          ->where('peminjaman.id_peminjaman', $id)
+                          ->first();
   }
 }
