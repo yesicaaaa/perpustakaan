@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Encode+Sans+SC&family=Yellowtail&display=swap');
+
+body {
+  overflow-x: hidden !important;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main {
+  margin-left: 280px;
+  margin-top: -451px;
+}
+
+.img-top {
+  width: 100%;
+  height: 180px;
+  filter: grayscale(70%);
+  margin-top: -110px;
+}
+
+.top-bg h1 {
+  font-family: 'Encode Sans SC', sans-serif;
+  color: #253e4c;
+  text-align: center;
+  margin-bottom: -48px;
+  margin-top: 25px;
+  z-index: 12;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 35px 0;
+  font-size: 50px;
+  letter-spacing: 30px;
+  font-weight: bold;
+}
+
+.top-bg span {
+  font-family: 'Yellowtail', cursive;
+  color: #bc542e;
+  font-weight: normal;
+}
+
+.nav-anggota {
+  height: 445px;
+  background-color: #263e4a;
+  width: 20%;
+  margin: 38px 0 0 5px;
+}
+
+.nav-anggota h4 {
+  color: white;
+  letter-spacing: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.divider-menu {
+  border-bottom: 3px solid #38505c;
+}
+
+.menu-list {
+  color: white;
+}
+
+.menu-list li {
+  list-style: none;
+  margin-left: -32px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.menu-list a {
+  color: white;
+}
+
+.divider-list {
+  border-bottom: 1px solid #38505c;
+  margin-left: -32px;
+}
+
+.menu-list li:hover {
+  background-color: #344e5c;
+}
+
+.menu-list a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.active {
+  background-color: #38505c; 
+}
+
+.active a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.list-end {
+  margin-top: 125px;
+}
+
+.divider-buku {
+  border-bottom: 2px solid #263e4a;
+  width: 90%;
+  margin-top: -6px;
+}
+
+.daftar-buku {
+  margin-top: 10px;
+}
+
+.daftar-buku img{
+  width: 70%;
+}
+
+.daftar-buku h6 {
+  font-weight: bold;
+}
+
+.daftar-buku p {
+  margin-top: -10px;
+  font-size: 13px;
+}
+
+.out-stok {
+  filter: opacity(0.2);
+}
+
+.cari input{
+  height: 30px;
+  margin-left: 10px;
+}
+
+.cari p {
+  margin-left: 57%;
+  font-size: 20px;
+}
+
+svg {
+    width: 3%;
+    color: #bc542d;
+}
+
+.flex-1 {
+    display: none !important;
+}
+
+.text-sm span {
+    color: #bc542d;
+}

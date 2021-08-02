@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\AnggotaController;
 use App\Models\PetugasModel;
 
 /*
@@ -70,5 +71,12 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::get('/dataPengembalian', [PetugasController::class, 'dataPengembalian']);
     Route::post('/getPeminjamanPengembalianRow/', [PetugasController::class, 'getPeminjamanPengembalianRow']);
     Route::post('/pengembalian', [PetugasController::class, 'pengembalian']);
+});
+
+//auth route for anggota
+Route::group(['middleware' => ['auth', 'role:anggota']], function() {
+    Route::get('/dashboardAnggota', [AnggotaController::class, 'index']);
+    Route::get('/daftarBukuAnggota', [AnggotaController::class, 'daftarBuku']);
+    Route::get('/cariBukuAnggota', [AnggotaController::class, 'cariBukuAnggota']);
 });
 require __DIR__.'/auth.php';

@@ -146,6 +146,7 @@
                 <option value="Sci-Fi">
                 <option value="Mistery">
                 <option value="Documenter">
+                <option value="Pelajaran">
                 <option value="Biografi">
               </datalist>
             </div>
