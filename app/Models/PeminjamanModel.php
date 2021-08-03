@@ -76,4 +76,21 @@ class PeminjamanModel extends Model
                           ->where('peminjaman.id_peminjaman', $id)
                           ->first();
   }
+
+  public static function getPeminjamanSaya($id, $cari = null)
+  {
+    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->join('users', 'users.id', '=', 'peminjaman.id_petugas')
+                            ->where('peminjaman.id_anggota', $id)
+                            ->where('peminjaman.status', '!=', 'Dikembalikan')
+                            ->where('judul', 'like', '%'.$cari.'%')
+                            ->get();
+  }
+
+  public static function getPerpanjanganAnggotaRow($id)
+  {
+    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->where('peminjaman.id_peminjaman', $id)
+                            ->first();
+  }
 }

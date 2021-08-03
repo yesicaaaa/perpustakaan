@@ -90,7 +90,6 @@ class PetugasController extends Controller
             'qty'   => 'required'
         ]);
 
-        date_default_timezone_set('Asia/Jakarta');
         $peminjaman = DB::table('peminjaman')->max('id_peminjaman');
         $id_peminjaman = $peminjaman + 1;
         $tgl_pinjam = $request->tgl_pinjam;
@@ -100,6 +99,7 @@ class PetugasController extends Controller
         if ($qty > $stok['stok']) {
             return redirect('dataPeminjaman')->with('err', 'Jumlah peminjaman buku melebihi stok!');
         } else {
+            date_default_timezone_set('Asia/Jakarta');
             PeminjamanModel::create([
                 'id_peminjaman' => $id_peminjaman,
                 'id_anggota'    => $request->id_anggota,
@@ -143,7 +143,7 @@ class PetugasController extends Controller
             DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
                 'perpanjang_pinjam' => $perpanjang_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
-                'updated_at'        => date('Y-m-d h:i:s')
+                'updated_at'        => date('Y-m-d h:i:s')  
             ]);
             return redirect('/detailPeminjaman/' . $request->id_anggota)->with('status', 'Perpanjangan Pinjam Berhasil');
     }

@@ -82,11 +82,6 @@ class AdminController extends Controller
     public function hapusBuku(Request $request)
     {
         foreach ($request->id as $id) {
-            $image = Buku_model::where('id_buku', $id)->first();
-            if($image->foto != 'default.jpg') {
-                File::delete('img/buku/' . $image->foto);
-            }
-
             Buku_model::where('id_buku', $id)->delete();
         }
         return redirect('daftarBuku')->with('status', 'Data buku berhasil dihapus.');

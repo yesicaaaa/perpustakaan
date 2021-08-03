@@ -102,7 +102,7 @@ a {
 
 .divider-buku {
   border-bottom: 2px solid #263e4a;
-  width: 90%;
+  width: 70%;
   margin-top: -6px;
 }
 
@@ -128,13 +128,14 @@ a {
 }
 
 .cari input{
-  height: 30px;
-  margin-left: 10px;
+  height: 25px;
+  margin-left: 5px;
+  width: 45%;
 }
 
 .cari p {
-  margin-left: 57%;
-  font-size: 20px;
+  margin-left: 74%;
+  font-size: 15px;
 }
 
 svg {
@@ -148,4 +149,78 @@ svg {
 
 .text-sm span {
     color: #bc542d;
+}
+
+.card {
+  width: 100%;
+  height: 114px;
+}
+
+.img-fluid {
+  max-width: 70%;
+}
+
+.card-body {
+  margin: -15px 0 0 -40px;
+  font-size: 12px;
+}
+
+.card-body h6 {
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 3px;
+  margin-top: -4px;
+}
+
+.card-body span {
+  font-weight: bold;
+}
+
+.card-body .bg-success {
+  width: 102%;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.batas_waktu {
+  font-size: 13px;
+  padding: 0px 22px;
+}
+
+.card-body a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-header {
+  color: white;
+  background:linear-gradient(90deg, #0f0f69 0%, #0b35b3 34%, #5188df 82%, #1619b3 100%);
+}
+
+.btn-simpan {
+  background:linear-gradient(90deg, #0f0f69 0%, #0b35b3 34%, #5188df 82%, #1619b3 100%);
+}
+
+.alert {
+  width: 31%;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+  margin: -18px 0 -55px 760px;
+  border: none;
+}
+
+.alert-success {
+  background-color: rgba(209, 230, 221, 0.9) !important;
+}
+
+.alert-danger {
+  background-color: rgba(247, 215, 218, 0.9) !important;
+}
+
+.btn-success {
+  width: 100%;
+  padding: 0 0;
+  font-size: 13px;
 }

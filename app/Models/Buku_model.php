@@ -23,6 +23,7 @@ class Buku_model extends Model
     {
         return Buku_model::where('judul', 'like', '%' . $cari . '%')
                             ->orWhere('pengarang', 'like', '%' . $cari . '%')
+                            ->orderBy('judul', 'ASC')
                             ->get();
     }
 }

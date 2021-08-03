@@ -78,5 +78,8 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function() {
     Route::get('/dashboardAnggota', [AnggotaController::class, 'index']);
     Route::get('/daftarBukuAnggota', [AnggotaController::class, 'daftarBuku']);
     Route::get('/cariBukuAnggota', [AnggotaController::class, 'cariBukuAnggota']);
+    Route::get('/peminjamanSaya/{id}', [AnggotaController::class, 'peminjamanSaya']);
+    Route::post('/getPerpanjanganAnggotaRow', [AnggotaController::class, 'getPerpanjanganAnggotaRow']);
+    Route::post('/perpanjanganAnggota', [AnggotaController::class, 'perpanjangPeminjaman']);
 });
 require __DIR__.'/auth.php';

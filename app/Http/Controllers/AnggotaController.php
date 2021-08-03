@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku_model;
+use App\Models\PeminjamanModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnggotaController extends Controller
 {
@@ -35,5 +37,38 @@ class AnggotaController extends Controller
         }
 
         echo json_encode($output);
+    }
+
+    public function peminjamanSaya($id, $cari = null)
+    {
+        $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($id, $cari);
+        $url = 'peminjamanSaya';
+        return view('anggota.peminjaman-saya', compact('url', 'peminjamanSaya'));
+    }
+
+    public function getPerpanjanganAnggotaRow(Request $request)
+    {
+        $peminjaman = PeminjamanModel::getPerpanjanganAnggotaRow($request->id);
+
+        return response()->json($peminjaman);
+    }
+
+    public function perpanjangPeminjaman(Request $request)
+    {
+        $request->validate([
+            'perpanjang_pinjam' => 'required|max:1'
+        ]);
+
+        $perpanjang_pinjam = $request->perpanjang_pinjam;
+        $tgl_hrs_kembali = date('Y-m-d', strtotime('+' . $perpanjang_pinjam . ' days', strtotime($request->tgl_hrs_kembali)));
+
+        date_default_timezone_set('Asia/Jakarta');
+        DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
+            'perpanjang_pinjam' => $perpanjang_pinjam,
+            'tgl_hrs_kembali'   => $tgl_hrs_kembali,
+            'updated_at'    => date('Y-m-d h:i:s')
+        ]);
+
+        return redirect('/peminjamanSaya/' . $request->id_anggota)->with('status', 'Perpanjangan pinjam buku berhasil');
     }
 }

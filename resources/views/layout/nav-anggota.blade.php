@@ -11,7 +11,7 @@
       <div class="divider-list"></div>
       <li class="{{ ($url == 'daftarBuku') ? 'active' : ''}}"><a href="/daftarBukuAnggota">Daftar Buku</a></li>
       <div class="divider-list"></div>
-      <li><a href="">Peminjaman Saya</a></li>
+      <li class="{{ ($url == 'peminjamanSaya') ? 'active' : ''}}"><a href="/peminjamanSaya/{{Auth::user()->id}}">Peminjaman Saya</a></li>
       <div class="divider-list"></div>
       <li><a href="">History Pinjaman</a></li>
       <div class="divider-list"></div>
