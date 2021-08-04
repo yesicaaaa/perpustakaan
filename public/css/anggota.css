@@ -153,7 +153,7 @@ svg {
 
 .card {
   width: 100%;
-  height: 114px;
+  height: 117px;
 }
 
 .img-fluid {
@@ -182,6 +182,7 @@ svg {
   width: 102%;
   padding: 4px 0;
   font-size: 12px;
+  margin-top: 8px;
 }
 
 .batas_waktu {
@@ -223,4 +224,99 @@ svg {
   width: 100%;
   padding: 0 0;
   font-size: 13px;
+}
+
+.greet {
+  margin: 10px 0 -33px 11px;
+}
+
+.divider-history {
+  border-bottom: 2px solid #263e4a;
+  width: 20%;
+  margin-top: -6px;
+  margin-bottom: 5px;
+}
+
+thead>tr {
+  background:linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.odd,
+.even,
+.sorting_1 {
+  border-color: #e0e1e3 !important;
+}
+
+.current {
+  color: white !important;
+  background:linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: white !important;
+}
+
+.dataTables_filter {
+  margin-bottom: 5px;
+}
+
+.profile-saya h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 90%;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.profile-saya img {
+  margin: 0 37%;
+  border-radius: 90px;
+  height: 121px;
+  width: 17%;
+}
+
+.ml-35 {
+  margin-left: 35px;
+}
+
+.profile-saya label {
+  font-size: 14px;
+}
+
+.profile-saya input {
+  margin-left: -100px;
+  height: 30px;
+}
+
+.profile-saya textarea {
+  margin-left: -100px;
+  height: 35px;
+}
+
+.btn-save {
+  width: 15%;
+  padding: 5px;
+  border-radius: 0;
+  margin: -9px 0 0 174px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.btn-save:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary {
+  margin-top: -9px;
+  border-radius: 0;
+  height: 36px;
+}
+
+.btn-secondary:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-saya .invalid-feedback {
+  margin-left: -100px;
 }

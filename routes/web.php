@@ -81,5 +81,9 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function() {
     Route::get('/peminjamanSaya/{id}', [AnggotaController::class, 'peminjamanSaya']);
     Route::post('/getPerpanjanganAnggotaRow', [AnggotaController::class, 'getPerpanjanganAnggotaRow']);
     Route::post('/perpanjanganAnggota', [AnggotaController::class, 'perpanjangPeminjaman']);
+    Route::get('/cariPeminjamanAnggota', [AnggotaController::class, 'cariPeminjamanAnggota']);
+    Route::get('/historySaya/{id}', [AnggotaController::class, 'historySaya']);
+    Route::get('/profileSaya', [AnggotaController::class, 'profileSaya']);
+    Route::post('/ubahProfileSaya', [AnggotaController::class, 'ubahProfileSaya']);
 });
 require __DIR__.'/auth.php';

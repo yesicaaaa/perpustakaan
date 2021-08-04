@@ -39,9 +39,9 @@ class AnggotaController extends Controller
         echo json_encode($output);
     }
 
-    public function peminjamanSaya($id, $cari = null)
+    public function peminjamanSaya($id)
     {
-        $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($id, $cari);
+        $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($id);
         $url = 'peminjamanSaya';
         return view('anggota.peminjaman-saya', compact('url', 'peminjamanSaya'));
     }
@@ -59,16 +59,89 @@ class AnggotaController extends Controller
             'perpanjang_pinjam' => 'required|max:1'
         ]);
 
+        date_default_timezone_set('Asia/Jakarta');
         $perpanjang_pinjam = $request->perpanjang_pinjam;
         $tgl_hrs_kembali = date('Y-m-d', strtotime('+' . $perpanjang_pinjam . ' days', strtotime($request->tgl_hrs_kembali)));
+        $perpanjangan = PeminjamanModel::where('id_peminjaman', $request->id_peminjaman)->first();
+        $hrs_kembali = strtotime($request->tgl_hrs_kembali);
+        $now = date('Y-m-d');
+
+        if($perpanjangan->perpanjang_pinjam != null)
+        {
+            return redirect('/peminjamanSaya/'.$request->id_anggota)->with('err', 'Perpanjangan pinjam sudah pernah dilakukan!');
+        }elseif($hrs_kembali >= $now) {
+            return redirect('/peminjamanSaya/' . $request->id_anggota)->with('err', 'Buku sudah harus dikembalikan!');
+        }else{
+            DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
+                'perpanjang_pinjam' => $perpanjang_pinjam,
+                'tgl_hrs_kembali'   => $tgl_hrs_kembali,
+                'updated_at'    => date('Y-m-d h:i:s')
+            ]);
+            return redirect('/peminjamanSaya/' . $request->id_anggota)->with('status', 'Perpanjangan pinjam buku berhasil');
+        }
+    }
+
+    public function cariPeminjamanAnggota(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $output = '';
+        $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($request->id, $request->cari);
+        foreach($peminjamanSaya as $ps)
+        {
+            $hrs_kembali = strtotime($ps->tgl_hrs_kembali);
+            $now = strtotime(date('Y-m-d'));
+            $kembalikan = ($hrs_kembali <= $now) ? 'text-danger' : 'text-success';
+            $perpanjang_pinjam = ($ps->perpanjang_pinjam != null) ? $ps->perpanjang_pinjam : '-';
+            $output .= '
+                <div class="col-md-4">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/img/buku/'.$ps->foto.'" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                        <h6 class="card-title">'.$ps->judul.'</h6>
+                        <p class="card-text">Peminjaman : <span>'.$ps->tgl_pinjam.'</span></p>
+                        <p class="card-text '.$kembalikan.'">Harus Kembali : <span>'.$ps->tgl_hrs_kembali.'</span></p>
+                        <p class="card-text">Perpanjangan Pinjam : <span>'.$perpanjang_pinjam.'</span> Hari</p>
+                        <a href="javascript:getData('.$ps->id_peminjaman.')" class="badge bg-success perpanjang-pinjam">Perpanjang Pinjam</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>';
+        }
+        echo json_encode($output);
+    }
+
+    public function historySaya($id)
+    {
+        $history = PeminjamanModel::getHistoryPeminjaman($id);
+        $url = 'historySaya';
+        return view('anggota.history-saya', compact('history', 'url'));
+    }
+
+    public function profileSaya()
+    {
+        $url = 'profileSaya';
+        return view('anggota.profile-saya', compact('url'));
+    }
+
+    public function ubahProfileSaya(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|max:13',
+            'alamat'    => 'required'
+        ]);
 
         date_default_timezone_set('Asia/Jakarta');
-        DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
-            'perpanjang_pinjam' => $perpanjang_pinjam,
-            'tgl_hrs_kembali'   => $tgl_hrs_kembali,
+        DB::table('users')->where('id', $request->id)->update([
+            'phone' => $request->phone,
+            'alamat'    => $request->alamat,
             'updated_at'    => date('Y-m-d h:i:s')
         ]);
 
-        return redirect('/peminjamanSaya/' . $request->id_anggota)->with('status', 'Perpanjangan pinjam buku berhasil');
+        return redirect('/profileSaya')->with('status', 'Profile berhasil diubah');
     }
 }
