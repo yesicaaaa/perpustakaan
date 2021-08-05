@@ -10,10 +10,16 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
+  @if(session('err'))
+  <div class="alert alert-danger fade show" role="alert">
+    {{session('err')}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
   <h5>Profile Saya</h5>
   <div class="divider-history"></div>
   <div class="row">
-    <div class="col-md-8 profile-saya">
+    <div class="col-md-6 profile-saya">
       <h5>Ubah Profile Saya</h5>
       <img src="/img/user_img/{{Auth::user()->image}}" alt="">
       <form action="/ubahProfileSaya" method="post" id="form_ubah">
@@ -66,9 +72,27 @@
           </div>
         </div>
         <button type="submit" class="btn btn-save" onclick="return confirm('Yakin ingin mengubah profile?')"><i class="fa fa-fw fa-save"></i> Simpan</button>
-        <button type="button" class="btn btn-secondary" id="reset_ubah"><i class="fa fa-fw fa-cut"></i> Setel Ulang</button>
+        <!-- <button type="button" class="btn btn-secondary" id="reset_ubah"><i class="fa fa-fw fa-cut"></i> Setel Ulang</button> -->
       </form>
     </div>
+    <!-- <div class="col-md-4 ubah-pass">
+      <h5>Ubah Password</h5>
+      <form action="" method="get">
+        <div class="mb-3 row mt-3 ml-35">
+          <label for="password" class="col-sm-4 col-form-label">Password<span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+        </div>
+        <div class="mb-3 row mt-3 ml-35">
+          <label for="confirm_password" class="col-sm-4 col-form-label">Konfirmasi Password<span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-ubah"><i class="fa fa-fw fa-save"></i> Simpan</button>
+      </form>
+    </div> -->
   </div>
 </div>
 @endsection

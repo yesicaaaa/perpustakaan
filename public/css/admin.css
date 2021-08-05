@@ -43,7 +43,7 @@ body {
 .btn-tambah-buku {
   border-radius: 0;
   padding: 5px;
-  background-color: #243e4b;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
   color: white;
   margin-left: 185px;
 }
@@ -68,7 +68,7 @@ body {
 }
 
 .table-orange {
-  background-color: #bc542d;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
   color: white;
 }
 
@@ -78,7 +78,7 @@ body {
 
 .btn-daftar-buku {
   border-radius: 0;
-  margin: -14px 0 5px -6px;
+  margin: -35px 0 -35px 0px;
 }
 
 .alert-success,
@@ -110,6 +110,13 @@ body {
 
 .btn-export {
   margin-left: 0px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.btn-hapus {
+  background:linear-gradient(90deg, #8c0404 0%, #9c0000 30%, #cc0a0d 79%, #8f0e10 100%);
+  color: white ;
 }
 
 .detail-buku img {
@@ -268,3 +275,134 @@ svg {
   margin-top: 5px !important;
 }
 
+.profile-saya {
+  background-color: #f1f0f0;
+  margin-left: 20px;
+  width: 58% !important;
+}
+
+.profile-saya h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 657px !important;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: -12px;
+}
+
+.profile-saya img {
+  margin: 0px 41%;
+  border-radius: 90px;
+  height: 103px;
+  width: 17%;
+}
+
+.ml-35 {
+  margin-left: 35px;
+}
+
+.profile-saya label {
+  font-size: 14px;
+  margin-left: 0px;
+}
+
+.profile-saya input {
+  margin-left: -50px;
+  height: 30px;
+}
+
+.profile-saya textarea {
+  margin-left: -50px;
+  height: 35px;
+}
+
+.btn-save {
+  width: 18%;
+  padding: 5px;
+  border-radius: 0;
+  margin: -9px 0 0 197px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.btn-save:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary {
+  margin-top: -9px;
+  border-radius: 0;
+  height: 36px;
+}
+
+.btn-secondary:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-saya .invalid-feedback {
+  margin-left: -50px;
+}
+
+.ubah-pass h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 403px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: -12px;
+}
+
+.ubah-pass label {
+  margin-left: -44px;
+  font-size: 14px;
+}
+
+.ubah-pass input {
+  height: 30px;
+  width: 120%;
+}
+
+.ubah-pass {
+  background-color: #f1f0f0;
+  margin-left: 19px;
+  width: 37%;
+  height: 215px;
+}
+
+.btn-ubah {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  border-radius: 0;
+  margin-top: -8px;
+  margin-left: 4px;
+}
+
+.buku-table div.dataTables_wrapper div.dataTables_length label,
+.petugas-table div.dataTables_wrapper div.dataTables_length label,
+.anggota-table div.dataTables_wrapper div.dataTables_length label {
+  margin-left: 265px;
+  margin-bottom: 10px;
+  margin-top: -25px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%) !important;
+}
+
+.current {
+  color: white !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+  margin-top: -20px;
+  margin-right: 10px;
+}
+
+.menu-list .active {
+    background-color: #e07a54;
+}
+
+.menu-list .active a {
+    color: rgba(255, 255, 255, 0.7) !important;
+}

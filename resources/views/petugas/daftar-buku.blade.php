@@ -23,40 +23,40 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
+  <div class="buku-table">
   <a href="" class="btn btn-tambah-buku" data-bs-toggle="modal" data-bs-target="#tambahBukuModal"><i class="fa fa-fw fa-plus-circle"></i> Tambah</a>
-  <table class="table table-buku-petugas">
-    <thead class="table-orange">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Kode</th>
-        <th scope="col">Judul</th>
-        <th scope="col">Pengarang</th>
-        <th scope="col">Penerbit</th>
-        <th scope="col">Tahun Terbit</th>
-        <th scope="col">Bahasa</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Jumlah Halaman</th>
-        <th scope="col">Stok</th>
-        <th scope="col" class="column-foto">Foto</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($buku as $index => $b)
-      <td>{{$index + $buku->firstItem()}}</td>
-      <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
-      <td>{{$b->judul}}</td>
-      <td>{{$b->pengarang}}</td>
-      <td>{{$b->penerbit}}</td>
-      <td>{{$b->tahun_terbit}}</td>
-      <td>{{$b->bahasa}}</td>
-      <td>{{$b->genre}}</td>
-      <td>{{$b->jml_halaman}}</td>
-      <td>{{$b->stok}}</td>
-      <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+    <table class="table table-buku-petugas">
+      <thead class="table-orange">
+        <tr>
+          <th scope="col">Kode</th>
+          <th scope="col">Judul</th>
+          <th scope="col">Pengarang</th>
+          <th scope="col">Penerbit</th>
+          <th scope="col">Terbit</th>
+          <th scope="col">Bahasa</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Halaman</th>
+          <th scope="col">Stok</th>
+          <th scope="col" class="column-foto">Foto</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($buku as $index => $b)
+        <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
+        <td>{{$b->judul}}</td>
+        <td>{{$b->pengarang}}</td>
+        <td>{{$b->penerbit}}</td>
+        <td>{{$b->tahun_terbit}}</td>
+        <td>{{$b->bahasa}}</td>
+        <td>{{$b->genre}}</td>
+        <td>{{$b->jml_halaman}}</td>
+        <td>{{$b->stok}}</td>
+        <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
   {{$buku->links()}}
 </div>
 
@@ -156,4 +156,10 @@
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.table-buku-petugas').DataTable();
+  })
+</script>
 @endsection

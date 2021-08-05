@@ -23,7 +23,7 @@
   </div>
   @endif
   <table class="table table-striped table-bordered data-buku data-pengembalian">
-    <thead>
+    <thead class="table-orange">
       <tr>
         <th>Kode</th>
         <th>Nama</th>

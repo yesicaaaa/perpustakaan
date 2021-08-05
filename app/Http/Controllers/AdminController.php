@@ -22,7 +22,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $url = 'dashboardAdmin';
+        return view('admin.dashboard', compact('url'));
     }
 
     public function daftarBuku(Request $request)
@@ -33,8 +34,9 @@ class AdminController extends Controller
         }else{
             $cari = $request->session()->get('cari');
         }
+        $url = 'daftarBuku';
         $buku = Buku_model::getBuku($cari);
-        return view('admin.daftar-buku', compact('buku'));
+        return view('admin.daftar-buku', compact('buku', 'url'));
     }
 
     public function tambahBuku(Request $request)
@@ -72,7 +74,7 @@ class AdminController extends Controller
             'genre' => $request->genre,
             'jml_halaman'   => $request->jml_halaman,
             'stok'  => $request->stok,
-            'created_at'    => date('Y-m-d h:i:s'),
+            'created_at'    => date('Y-m-d G:i:s'),
             'updated_at'    => null
         ]);
 
@@ -138,7 +140,7 @@ class AdminController extends Controller
                 'pengarang' => $request->pengarang,
                 'jml_halaman' => $request->jml_halaman,
                 'stok'  => $stok,
-                'updated_at'    => Date('Y-m-d h:i:s')
+                'updated_at'    => Date('Y-m-d G:i:s')
             ]);
         }else{
             File::delete('img/buku/' . $buku->foto);
@@ -157,7 +159,7 @@ class AdminController extends Controller
                 'pengarang' => $request->pengarang,
                 'jml_halaman' => $request->jml_halaman,
                 'stok'  => $stok,
-                'updated_at'    => Date('Y-m-d h:i:s')
+                'updated_at'    => Date('Y-m-d G:i:s')
             ]);
         }
 
@@ -169,12 +171,12 @@ class AdminController extends Controller
         return Excel::download(new BukuExport, 'Daftar-Buku.xlsx');
     }   
 
-    public function exportBukuPdf($cari = null)
-    {
-        $buku = Buku_model::getBuku($cari);
-        $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4', 'landscape');
-        return $pdf->download('daftar-buku.pdf');
-    }
+    // public function exportBukuPdf($cari = null)
+    // {
+    //     $buku = Buku_model::getBuku($cari);
+    //     $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4', 'landscape');
+    //     return $pdf->download('daftar-buku.pdf');
+    // }
 
     public function refreshBuku()
     {
@@ -190,9 +192,9 @@ class AdminController extends Controller
         }else{
             $cari = $request->session()->get('cari');
         }
-
+        $url = 'dataPetugas';
         $petugas = PetugasModel::getPetugas($cari);
-        return view('admin.data-petugas', compact('petugas'));
+        return view('admin.data-petugas', compact('petugas', 'url'));
     }
 
     public function hapusPetugas(Request $request)
@@ -219,12 +221,12 @@ class AdminController extends Controller
         return Excel::download(new PetugasExport, 'Data Petugas.xlsx');
     }
 
-    public function exportPetugasPdf($cari = null)
-    {
-        $petugas = PetugasModel::getPetugas($cari);
-        $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4', 'landscape');
-        return $pdf->download('Data Petugas.pdf');
-    }
+    // public function exportPetugasPdf($cari = null)
+    // {
+    //     $petugas = PetugasModel::getPetugas($cari);
+    //     $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4', 'landscape');
+    //     return $pdf->download('Data Petugas.pdf');
+    // }
 
 
     public function detailPetugas($id)
@@ -241,8 +243,9 @@ class AdminController extends Controller
         }else{
             $cari = $request->session()->get('cari');
         }
+        $url = 'dataAnggota';
         $anggota = AnggotaModel::getAnggota($cari);
-        return view('admin.data-anggota', compact('anggota'));
+        return view('admin.data-anggota', compact('anggota', 'url'));
     }
 
     public function detailAnggota($id)
@@ -274,15 +277,37 @@ class AdminController extends Controller
         return Excel::download(new AnggotaExport, 'Data Anggota.xlsx');
     }
 
-    public function exportAnggotaPdf($cari = null)
-    {
-        $anggota = AnggotaModel::getAnggota($cari);
-        $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4', 'landscape');
-        return $pdf->download('Data Anggota.pdf');
-    }
+    // public function exportAnggotaPdf($cari = null)
+    // {
+    //     $anggota = AnggotaModel::getAnggota($cari);
+    //     $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4', 'landscape');
+    //     return $pdf->download('Data Anggota.pdf');
+    // }
 
     public function profileSaya()
     {
         return view('admin.profile-saya');
+    }
+
+    public function ubahProfileSaya(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|max:13',
+            'alamat'    => 'required'
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta'); 
+        $user = User::where('id', $request->id)->first();
+        if($user->phone == $request->phone && $user->alamat == $request->alamat) {
+            return redirect('/profileSayaAdmin')->with('err', 'Tidak ada perubahan apapun!');
+        }else{
+            DB::table('users')->where('id', $request->id)->update([
+                'phone' => $request->phone,
+                'alamat'    => $request->alamat,
+                'updated_at'    => date('Y-m-d G:i:s')
+            ]);
+
+            return redirect('/profileSayaAdmin')->with('status', 'Data profile berhasil diubah');
+        }
     }
 }

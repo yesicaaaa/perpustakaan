@@ -123,48 +123,48 @@
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif
-      <form action="/daftarBuku" method="get">
+      <!-- <form action="/daftarBuku" method="get">
         @csrf
         <input type="text" name="cari" class="form-control form-search" placeholder="Cari...">
         <button class="btn btn-search" type="Submit">Cari</button>
       </form>
-      <a href="/refreshBuku" class="btn btn-refresh">Refresh</a>
-      <form action="hapusBuku" method="post">
-        @csrf
-        <button type="submit" class="btn btn-danger btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
-        <a href="/exportBukuExcel" class="btn btn-success btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-        <a href="/exportBukuPdf/{{session('cari')}}" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
-        <table class="table table-daftar-buku">
-          <thead class="table-orange">
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">#</th>
-              <th scope="col">Kode</th>
-              <th scope="col">Judul</th>
-              <th scope="col" class="column-foto">Foto</th>
-              <th scope="col">Stok</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($buku as $index => $b)
-            <tr>
-              <th scope="row">
-                <input type="checkbox" name="id[]" id="id" value="{{$b->id_buku}}">
-      </form>
-      </th>
-      <td>{{$index + $buku->firstItem()}}</td>
-      <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
-      <td>{{$b->judul}}</td>
-      <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
-      <td>{{$b->stok}}</td>
-      <td>
-        <a href="detailBuku/{{$b->id_buku}}" class="badge bg-success">Detail</a>
-      </td>
-      </tr>
-      @endforeach
-      </tbody>
-      </table>
+      <a href="/refreshBuku" class="btn btn-refresh">Refresh</a> -->
+      <div class="buku-table">
+        <form action="hapusBuku" method="post">
+          @csrf
+          <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+          <a href="/exportBukuExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+          <a href="/exportBukuPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <table class="table table-daftar-buku">
+            <thead class="table-orange">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Kode</th>
+                <th scope="col">Judul</th>
+                <th scope="col" class="column-foto">Foto</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($buku as $index => $b)
+              <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" value="{{$b->id_buku}}">
+        </form>
+        </th>
+        <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
+        <td>{{$b->judul}}</td>
+        <td><img class="img-buku" src="/img/buku/{{$b->foto}}" alt=""></td>
+        <td>{{$b->stok}}</td>
+        <td>
+          <a href="detailBuku/{{$b->id_buku}}" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+        @endforeach
+        </tbody>
+        </table>
+      </div>
       @if(empty($buku))
       <div class="alert alert-danger alert-not-found">
         Data buku tidak ditemukan!
@@ -175,4 +175,9 @@
   </div>
 </div>
 
+<script>
+  $(document).ready(function() {
+    $('.table-daftar-buku').DataTable();
+  });
+</script>
 @endsection

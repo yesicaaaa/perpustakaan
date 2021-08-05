@@ -261,18 +261,25 @@ thead>tr {
   margin-bottom: 5px;
 }
 
+.profile-saya {
+  background-color: #f1f0f0;
+  margin-left: 12px;
+  width: 58% !important;
+}
+
 .profile-saya h5 {
   background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
   color: white;
-  width: 90%;
+  width: 634px !important;
   padding: 5px 10px;
   font-size: 16px;
+  margin-left: -12px;
 }
 
 .profile-saya img {
-  margin: 0 37%;
+  margin: 0px 41%;
   border-radius: 90px;
-  height: 121px;
+  height: 103px;
   width: 17%;
 }
 
@@ -282,23 +289,24 @@ thead>tr {
 
 .profile-saya label {
   font-size: 14px;
+  margin-left: 0px;
 }
 
 .profile-saya input {
-  margin-left: -100px;
+  margin-left: -50px;
   height: 30px;
 }
 
 .profile-saya textarea {
-  margin-left: -100px;
+  margin-left: -50px;
   height: 35px;
 }
 
 .btn-save {
-  width: 15%;
+  width: 18%;
   padding: 5px;
   border-radius: 0;
-  margin: -9px 0 0 174px;
+  margin: -9px 0 0 192px;
   background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
   color: white;
 }
@@ -319,4 +327,38 @@ thead>tr {
 
 .profile-saya .invalid-feedback {
   margin-left: -100px;
+}
+
+.ubah-pass h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 403px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: -12px;
+}
+
+.ubah-pass label{
+  margin-left: -44px;
+  font-size: 14px;
+}
+
+.ubah-pass input {
+  height: 30px;
+  width: 120%;
+}
+
+.ubah-pass {
+  background-color: #f1f0f0;
+  margin-left: 19px;
+  width: 37%;
+  height: 215px;
+}
+
+.btn-ubah {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  border-radius: 0;
+  margin-top: -8px;
+  margin-left: 4px;
 }

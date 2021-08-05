@@ -23,40 +23,42 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
+  <div class="anggota-table">
   <a href="" class="btn btn-tambah-buku" data-bs-toggle="modal" data-bs-target="#tambahAnggotaModal"><i class="fa fa-fw fa-plus-circle"></i> Tambah</a>
-  <table class="table table-buku-petugas">
-    <thead class="table-orange">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nama</th>
-        <th scope="col">Email</th>
-        <th scope="col">Telepon</th>
-        <th scope="col">Alamat</th>
-        <th scope="col">Dibuat</th>
-        <th scope="col">Diubah</th>
-        <th scope="col">Status</th>
-        <th scope="col" class="column-foto">Foto</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($anggota as $index => $a)
-      <?php 
-        $updated_at = ($a->updated_at) ? $a->updated_at : '-';
-        $is_active = ($a->is_active == 1) ? 'Online' : 'Offline';
-      ?>
-      <td>{{$index + $anggota->firstItem()}}</td>
-      <td>{{$a->name}}</td>
-      <td>{{$a->email}}</td>
-      <td>{{$a->phone}}</td>
-      <td>{{$a->alamat}}</td>
-      <td>{{$a->created_at}}</td>
-      <td>{{$updated_at}}</td>
-      <td class="is_active">{{$is_active}}</td>
-      <td><img class="img-buku" src="/img/user_img/{{$a->image}}" alt=""></td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+    <table class="table table-buku-petugas">
+      <thead class="table-orange">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Email</th>
+          <th scope="col">Telepon</th>
+          <th scope="col">Alamat</th>
+          <th scope="col">Dibuat</th>
+          <th scope="col">Diubah</th>
+          <th scope="col">Status</th>
+          <th scope="col" class="column-foto">Foto</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($anggota as $index => $a)
+        <?php 
+          $updated_at = ($a->updated_at) ? $a->updated_at : '-';
+          $is_active = ($a->is_active == 1) ? 'Online' : 'Offline';
+        ?>
+        <td>{{$index + $anggota->firstItem()}}</td>
+        <td>{{$a->name}}</td>
+        <td>{{$a->email}}</td>
+        <td>{{$a->phone}}</td>
+        <td>{{$a->alamat}}</td>
+        <td>{{$a->created_at}}</td>
+        <td>{{$updated_at}}</td>
+        <td class="is_active">{{$is_active}}</td>
+        <td><img class="img-buku" src="/img/user_img/{{$a->image}}" alt=""></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
   {{$anggota->links()}}
 </div>
 
@@ -131,4 +133,10 @@
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.table-buku-petugas').DataTable();
+  })
+</script>
 @endsection

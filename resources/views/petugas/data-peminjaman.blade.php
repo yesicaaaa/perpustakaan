@@ -94,8 +94,8 @@
       </div>
     </div>
   </div>
-  <table class="table table-striped table-bordered data-buku">
-    <thead>
+  <table class="table table-buku-petugas">
+    <thead class="table-orange">
       <tr>
         <th>ID</th>
         <th>Nama</th>

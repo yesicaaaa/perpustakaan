@@ -24,7 +24,7 @@ a:hover {
 }
 
 .table-orange {
-  background-color: #bc542d;
+  background:linear-gradient(90deg, #243e4b 0%, #164159 30%, #306480 74%, #243e4b 100%);
   color: white;
 }
 
@@ -42,11 +42,16 @@ a:hover {
 }
 
 .btn-tambah-buku {
-  background:linear-gradient(90deg, #ff4f03 0%, #f98b58 27%, #ff7f1d 38%, #ffc78f 69%, #ff8f2e 83%);
+  background:linear-gradient(90deg, #243e4b 0%, #164159 30%, #306480 74%, #243e4b 100%);
   color: white;
   border-radius: 0;
   border: none;
   margin: 0px 0 5px 5px;
+}
+
+.buku-table a,
+.anggota-table a {
+  margin: 0px 0 -102px 16px !important; 
 }
 
 .btn-tambah-buku:hover {
@@ -62,7 +67,7 @@ a:hover {
 }
 
 .modal-header {
-  background:linear-gradient(90deg, #ff4f03 0%, #f98b58 27%, #ff7f1d 38%, #ffc78f 69%, #ff8f2e 83%);
+  background:linear-gradient(90deg, #243e4b 0%, #164159 30%, #306480 74%, #243e4b 100%);
   color: white;
 }
 
@@ -141,7 +146,7 @@ svg {
 }
 
 .btn-peminjaman {
-  background:linear-gradient(90deg, #f26513 0%, #ff6841 46%, #ffae17 75%, #ff6347 97%);
+  background:linear-gradient(90deg, #243e4b 0%, #164159 30%, #306480 74%, #243e4b 100%);
   color: white;
   border-radius: 2px;
   margin: -5px 0 5px 9px;
@@ -177,7 +182,7 @@ th.sorting::before {
 }
 
 .current {
-  background: linear-gradient(90deg, #f26513 0%, #ff6841 46%, #ffae17 75%, #ff6347 97%) !important;
+  background:linear-gradient(90deg, #243e4b 0%, #164159 30%, #306480 74%, #243e4b 100%) !important;
   padding: 3px 15px !important;
 }
 
@@ -244,6 +249,126 @@ th.sorting::before {
   padding-top: 20px;
 }
 
-.modal-footer {
-  margin-bottom: -35px;
+.buku-table div.dataTables_wrapper div.dataTables_length label,
+.anggota-table div.dataTables_wrapper div.dataTables_length label {
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+  margin-left: 110px;
+  margin-top: -15px;
+}
+
+.buku-table div.dataTables_wrapper div.dataTables_filter label,
+.anggota-table div.dataTables_wrapper div.dataTables_filter label {
+  margin-top: -19px;
+}
+
+.profile-saya {
+  background-color: #f1f0f0;
+  margin-left: 20px;
+  width: 58% !important;
+}
+
+.profile-saya h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 657px !important;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: -12px;
+}
+
+.profile-saya img {
+  margin: 0px 41%;
+  border-radius: 90px;
+  height: 103px;
+  width: 17%;
+}
+
+.ml-35 {
+  margin-left: 35px;
+}
+
+.profile-saya label {
+  font-size: 14px;
+  margin-left: 0px;
+}
+
+.profile-saya input {
+  margin-left: -50px;
+  height: 30px;
+}
+
+.profile-saya textarea {
+  margin-left: -50px;
+  height: 35px;
+}
+
+.btn-save {
+  width: 18%;
+  padding: 5px;
+  border-radius: 0;
+  margin: -9px 0 0 197px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.btn-save:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary {
+  margin-top: -9px;
+  border-radius: 0;
+  height: 36px;
+}
+
+.btn-secondary:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-saya .invalid-feedback {
+  margin-left: -50px;
+}
+
+.ubah-pass h5 {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  width: 403px;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin-left: -12px;
+}
+
+.ubah-pass label {
+  margin-left: -44px;
+  font-size: 14px;
+}
+
+.ubah-pass input {
+  height: 30px;
+  width: 120%;
+}
+
+.ubah-pass {
+  background-color: #f1f0f0;
+  margin-left: 19px;
+  width: 37%;
+  height: 215px;
+}
+
+.btn-ubah {
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  border-radius: 0;
+  margin-top: -8px;
+  margin-left: 4px;
+}
+
+.menu-list .active {
+  background-color: #e07a54;
+}
+
+.menu-list .active a {
+  color: rgba(255, 255, 255, 0.7) !important;
 }

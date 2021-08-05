@@ -1,6 +1,6 @@
 @extends('layout.template')
 @extends('layout.sidenav')
-@section('css', 'admin.css')
+@section('css', 'petugas.css')
 @section('sidenavcss', 'sidenav.css')
 @section('title', 'Profile Saya | Fiore Library')
 @section('content')
@@ -26,7 +26,7 @@
     <div class="col-md-6 profile-saya">
       <h5>Ubah Profile Saya</h5>
       <img src="/img/user_img/{{Auth::user()->image}}" alt="">
-      <form action="/ubahProfileSayaAdmin" method="post" id="form_ubah">
+      <form action="/ubahProfileSayaPetugas" method="post" id="form_ubah">
         @csrf
         <input type="hidden" name="id" value="{{Auth::user()->id}}">
         <div class="mb-3 row mt-3 ml-35">

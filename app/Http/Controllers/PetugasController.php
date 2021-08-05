@@ -6,6 +6,7 @@ use App\Models\AnggotaModel;
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
 use App\Models\PengembalianModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,13 +14,15 @@ class PetugasController extends Controller
 {
     public function index()
     {
-        return view('petugas.dashboard');
+        $url = 'dashboardPetugas';
+        return view('petugas.dashboard', compact('url'));
     }
 
     public function daftarBuku($cari = null)
     {
+        $url = 'daftarBukuPetugas';
         $buku = Buku_model::getBuku($cari);
-        return view('petugas.daftar-buku', compact('buku'));
+        return view('petugas.daftar-buku', compact('buku', 'url'));
     }
 
     public function tambahBuku(Request $request)
@@ -59,7 +62,7 @@ class PetugasController extends Controller
             'jml_halaman' => $request->jml_halaman,
             'foto' => $image,
             'stok' => $request->stok,
-            'created_at'    => date('Y-m-d h:i:s'),
+            'created_at'    => date('Y-m-d G:i:s'),
             'updated_at'    => null
         ]);
 
@@ -68,17 +71,19 @@ class PetugasController extends Controller
 
     public function dataAnggota($cari = null)
     {
+        $url = 'dataAnggotaPetugas';
         $anggota = AnggotaModel::getAnggota($cari);
-        return view('petugas.data-anggota', compact('anggota'));
+        return view('petugas.data-anggota', compact('anggota', 'url'));
     }
 
     public function dataPeminjaman($id = null)
     {
+        $url = 'dataPeminjaman';
         $anggota = AnggotaModel::getListAnggota();
         $buku = Buku_model::all();
         // $detailPinjaman = PeminjamanModel::getDetailPinjam($id);
         $peminjaman = PeminjamanModel::getPinjaman();
-        return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman'));
+        return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman','url'));
     }
 
     public function tambahPeminjaman(Request $request)
@@ -109,7 +114,7 @@ class PetugasController extends Controller
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
                 'id_petugas'    => $request->id_petugas,
                 'status'        => 'Dipinjam',
-                'created_at'    => date('Y-m-d h:i:s'),
+                'created_at'    => date('Y-m-d G:i:s'),
                 'updated_at'    => null
             ]);
 
@@ -150,8 +155,9 @@ class PetugasController extends Controller
 
     public function dataPengembalian()
     {
+        $url = 'dataPengembalian';
         $peminjaman = PeminjamanModel::getDataPeminjaman();
-        return view('petugas.data-pengembalian', compact('peminjaman'));
+        return view('petugas.data-pengembalian', compact('peminjaman', 'url'));
     }
 
     public function getPeminjamanPengembalianRow(Request $request)
@@ -176,8 +182,8 @@ class PetugasController extends Controller
             'terlambat'         => $request->terlambat,
             'denda'             => $request->denda,
             'id_petugas'        => $request->id_petugas,
-            'created_at'        => date('Y-m-d h:i:s'),
-            'updated_at'        => date('Y-m-d h:i:s')
+            'created_at'        => date('Y-m-d G:i:s'),
+            'updated_at'        => date('Y-m-d G:i:s')
         ]);
 
         DB::table('buku')->where('id_buku', $request->id_buku)->update([
@@ -185,5 +191,32 @@ class PetugasController extends Controller
         ]);
 
         return redirect('/dataPengembalian')->with('status', 'Buku berhasil dikembalikan');
+    }
+
+    public function profileSaya()
+    {
+        return view('petugas.profile-saya');
+    }
+
+    public function ubahProfileSaya(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|max:13',
+            'alamat'    => 'required'
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta');
+        $user = User::where('id', $request->id)->first();
+        if($user->phone == $request->phone && $user->alamat == $request->alamat) {
+            return redirect('/profileSayaPetugas')->with('err', 'Tidak ada perubahan apapun!');
+        }else{
+            DB::table('users')->where('id', $request->id)->update([
+                'phone' => $request->phone,
+                'alamat'    => $request->alamat,
+                'updated_at'    => date('Y-m-d G:i:s')
+            ]);
+
+            return redirect('profileSayaPetugas')->with('status', 'Data profile berhasil diubah!');
+        }
     }
 }

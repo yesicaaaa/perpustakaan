@@ -90,48 +90,48 @@
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif
-      <form action="/dataPetugas" method="get">
+      <!-- <form action="/dataPetugas" method="get">
         @csrf
         <input type="text" name="cari" class="form-control form-search" placeholder="Cari...">
         <button class="btn btn-search" type="Submit">Cari</button>
       </form>
-      <a href="/refreshPetugas" class="btn btn-refresh">Refresh</a>
-      <form action="hapusPetugas" method="post">
-        @csrf
-        <button type="submit" class="btn btn-danger btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus petugas?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
-        <a href="/exportPetugasExcel" class="btn btn-success btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-        <a href="/exportPetugasPdf/{{session('cari')}}" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>PDF</a>
-        <table class="table table-daftar-buku">
-          <thead class="table-orange">
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">#</th>
-              <th scope="col">Nama Lengkap</th>
-              <th scope="col">Email</th>
-              <th scope="col">No. Telepon</th>
-              <th scope="col">Role</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($petugas as $index => $p)
-            <tr>
-              <th scope="row">
-                <input type="checkbox" name="id[]" id="id" value="{{$p->id}}">
-      </form>
-      </th>
-      <td>{{$index + $petugas->firstItem()}}</td>
-      <td>{{$p->name}}</td>
-      <td>{{$p->email}}</td>
-      <td>{{$p->phone}}</td>
-      <td>{{$p->display_name}}</td>
-      <td>
-        <a href="detailPetugas/{{$p->id}}" class="badge bg-success">Detail</a>
-      </td>
-      </tr>
-      @endforeach
-      </tbody>
-      </table>
+      <a href="/refreshPetugas" class="btn btn-refresh">Refresh</a> -->
+      <div class="petugas-table">
+        <form action="hapusPetugas" method="post">
+          @csrf
+          <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus petugas?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+          <a href="/exportPetugasExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+          <a href="/exportPetugasPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <table class="table table-daftar-buku">
+            <thead class="table-orange">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nama Lengkap</th>
+                <th scope="col">Email</th>
+                <th scope="col">No. Telepon</th>
+                <th scope="col">Role</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($petugas as $index => $p)
+              <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" value="{{$p->id}}">
+        </form>
+        </th>
+        <td>{{$p->name}}</td>
+        <td>{{$p->email}}</td>
+        <td>{{$p->phone}}</td>
+        <td>{{$p->display_name}}</td>
+        <td>
+          <a href="detailPetugas/{{$p->id}}" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+        @endforeach
+        </tbody>
+        </table>
+      </div>
       @if(empty($petugas))
       <div class="alert alert-danger alert-not-found">
         Data petugas tidak ditemukan!
@@ -141,4 +141,10 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.table-daftar-buku').DataTable();
+  });
+</script>
 @endsection

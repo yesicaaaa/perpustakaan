@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -75,7 +76,7 @@ class AnggotaController extends Controller
             DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
                 'perpanjang_pinjam' => $perpanjang_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
-                'updated_at'    => date('Y-m-d h:i:s')
+                'updated_at'    => date('Y-m-d G:i:s')
             ]);
             return redirect('/peminjamanSaya/' . $request->id_anggota)->with('status', 'Perpanjangan pinjam buku berhasil');
         }
@@ -135,13 +136,18 @@ class AnggotaController extends Controller
             'alamat'    => 'required'
         ]);
 
-        date_default_timezone_set('Asia/Jakarta');
-        DB::table('users')->where('id', $request->id)->update([
-            'phone' => $request->phone,
-            'alamat'    => $request->alamat,
-            'updated_at'    => date('Y-m-d h:i:s')
-        ]);
-
-        return redirect('/profileSaya')->with('status', 'Profile berhasil diubah');
+        $user = User::where('id', $request->id)->first();
+        if($user->phone == $request->phone && $user->alamat == $request->alamat) {
+            return redirect('/profileSaya')->with('err', 'Tidak ada perubahan apapun!');
+        } else{
+            date_default_timezone_set('Asia/Jakarta');
+            DB::table('users')->where('id', $request->id)->update([
+                'phone' => $request->phone,
+                'alamat'    => $request->alamat,
+                'updated_at'    => date('Y-m-d G:i:s')
+            ]);
+    
+            return redirect('/profileSaya')->with('status', 'Profile berhasil diubah');
+        }
     }
 }

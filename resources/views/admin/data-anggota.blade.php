@@ -90,48 +90,48 @@
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif
-      <form action="/dataAnggota" method="get">
+      <!-- <form action="/dataAnggota" method="get">
         @csrf
         <input type="text" name="cari" class="form-control form-search" placeholder="Cari...">
         <button class="btn btn-search" type="Submit">Cari</button>
       </form>
-      <a href="/refreshAnggota" class="btn btn-refresh">Refresh</a>
-      <form action="/hapusAnggota" method="post">
-        @csrf
-        <button type="submit" class="btn btn-danger btn-daftar-buku" id="hapus_anggota" onclick="return confirm('Yakin ingin menghapus anggota?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
-        <a href="/exportAnggotaExcel" class="btn btn-success btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport anggota?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-        <a href="/exportAnggotaPdf/{{session('cari')}}" class="btn btn-danger btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport anggota?')"><i class="fa fa-fw fa-download"></i>PDF</a>
-        <table class="table table-daftar-buku">
-          <thead class="table-orange">
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">#</th>
-              <th scope="col">Nama Lengkap</th>
-              <th scope="col">Email</th>
-              <th scope="col">No. Telepon</th>
-              <th scope="col">Role</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($anggota as $index => $a)
-            <tr>
-              <th scope="row">
-                <input type="checkbox" name="id[]" id="id" value="{{$a->id}}">
-      </form>
-      </th>
-      <td>{{$index + $anggota->firstItem()}}</td>
-      <td>{{$a->name}}</td>
-      <td>{{$a->email}}</td>
-      <td>{{$a->phone}}</td>
-      <td>{{$a->display_name}}</td>
-      <td>
-        <a href="detailAnggota/{{$a->id}}" class="badge bg-success">Detail</a>
-      </td>
-      </tr>
-      @endforeach
-      </tbody>
-      </table>
+      <a href="/refreshAnggota" class="btn btn-refresh">Refresh</a> -->
+      <div class="anggota-table">
+        <form action="/hapusAnggota" method="post">
+          @csrf
+          <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_anggota" onclick="return confirm('Yakin ingin menghapus anggota?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+          <a href="/exportAnggotaExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport anggota?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+          <a href="/exportAnggotaPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport anggota?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <table class="table table-daftar-buku">
+            <thead class="table-orange">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nama Lengkap</th>
+                <th scope="col">Email</th>
+                <th scope="col">No. Telepon</th>
+                <th scope="col">Role</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($anggota as $index => $a)
+              <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" value="{{$a->id}}">
+        </form>
+        </th>
+        <td>{{$a->name}}</td>
+        <td>{{$a->email}}</td>
+        <td>{{$a->phone}}</td>
+        <td>{{$a->display_name}}</td>
+        <td>
+          <a href="detailAnggota/{{$a->id}}" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+        @endforeach
+        </tbody>
+        </table>
+      </div>
       @if(empty($anggota))
       <div class="alert alert-danger alert-not-found">
         Data anggota tidak ditemukan!
@@ -141,4 +141,10 @@
     </div>
   </div>
 </div> 
+
+<script>
+  $(document).ready(function() {
+    $('.table-daftar-buku').DataTable();
+  })
+</script>
 @endsection

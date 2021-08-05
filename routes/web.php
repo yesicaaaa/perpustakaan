@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 //auth route for admin
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
-    Route::get('/profileSaya', [AdminController::class, 'profileSaya']);
     Route::get('/dashboardAdmin', [AdminController::class, 'index']);
     Route::get('/daftarBuku', [AdminController::class, 'daftarBuku']);
     Route::post('/tambahBuku', [AdminController::class, 'tambahBuku']);
@@ -55,6 +54,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/refreshAnggota', [AdminController::class, 'refreshAnggota']);
     Route::get('/exportAnggotaExcel', [AdminController::class, 'exportAnggotaExcel']);
     Route::get('/exportAnggotaPdf/{cari}', [AdminController::class, 'exportAnggotaPdf']);
+    Route::get('/profileSayaAdmin', [AdminController::class, 'profileSaya']);
+    Route::post('/ubahProfileSayaAdmin', [AdminController::class, 'ubahProfileSaya']);
 });
 
 //auth route for petugas
@@ -71,6 +72,8 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::get('/dataPengembalian', [PetugasController::class, 'dataPengembalian']);
     Route::post('/getPeminjamanPengembalianRow/', [PetugasController::class, 'getPeminjamanPengembalianRow']);
     Route::post('/pengembalian', [PetugasController::class, 'pengembalian']);
+    Route::get('/profileSayaPetugas', [PetugasController::class, 'profileSaya']);
+    Route::post('/ubahProfileSayaPetugas', [PetugasController::class, 'ubahProfileSaya']);
 });
 
 //auth route for anggota
