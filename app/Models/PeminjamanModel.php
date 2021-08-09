@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Models\Buku_model;
 use App\Models\AnggotaModel;
 
@@ -101,6 +102,25 @@ class PeminjamanModel extends Model
                             ->where('peminjaman.id_anggota', $id)
                             ->where('peminjaman.status', '=', 'Dikembalikan')
                             ->where('judul', 'like', '%'.$cari.'%')
+                            ->get();
+  }
+
+  public static function getLaporanPeminjaman()
+  {
+    return PeminjamanModel::select([
+                            'tgl_pinjam',
+                            DB::raw('count(id_peminjaman) as buku_dipinjam')])
+                            ->groupBy('tgl_pinjam')
+                            ->orderBy('tgl_pinjam', 'DESC')
+                            ->get();
+  }
+
+  public static function getDetailLaporanPeminjaman($tgl)
+  {
+    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
+                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->where('peminjaman.tgl_pinjam', $tgl)
+                            ->orderBy('peminjaman.created_at', 'DESC')
                             ->get();
   }
 }

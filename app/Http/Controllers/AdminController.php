@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\File;
 use App\Exports\BukuExport;
 use App\Exports\PetugasExport;
 use App\Exports\AnggotaExport;
+use App\Models\PeminjamanModel;
+use App\Models\PengembalianModel;
 use Illuminate\Container\RewindableGenerator;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -286,7 +288,8 @@ class AdminController extends Controller
 
     public function profileSaya()
     {
-        return view('admin.profile-saya');
+        $url = '';
+        return view('admin.profile-saya', compact('url'));
     }
 
     public function ubahProfileSaya(Request $request)
@@ -309,5 +312,35 @@ class AdminController extends Controller
 
             return redirect('/profileSayaAdmin')->with('status', 'Data profile berhasil diubah');
         }
+    }
+
+    public function laporanPeminjaman()
+    {
+        $url = 'laporanPeminjaman';
+        $peminjaman = PeminjamanModel::getLaporanPeminjaman();
+        return view('admin.laporan-peminjaman', compact('url', 'peminjaman'));
+    }
+
+    public function detailLaporanPeminjaman($tgl)
+    {
+        $url = '';
+        $tanggal = $tgl;
+        $detail = PeminjamanModel::getDetailLaporanPeminjaman($tgl);
+        return view('admin.detail-laporan-peminjaman', compact('detail', 'url', 'tanggal'));
+    }
+
+    public function laporanPengembalian()
+    {
+        $url = 'laporanPengembalian';
+        $pengembalian = PengembalianModel::getLaporanPengembalian();
+        return view('admin.laporan-pengembalian', compact('url', 'pengembalian'));
+    }
+
+    public function detailLaporanPengembalian($tgl)
+    {
+        $url = '';
+        $tanggal = $tgl;
+        $detail = PengembalianModel::getDetailLaporanPengembalian($tgl);
+        return view('admin.detail-laporan-pengembalian', compact('detail', 'url', 'tanggal'));
     }
 }

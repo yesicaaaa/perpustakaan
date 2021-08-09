@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/exportAnggotaPdf/{cari}', [AdminController::class, 'exportAnggotaPdf']);
     Route::get('/profileSayaAdmin', [AdminController::class, 'profileSaya']);
     Route::post('/ubahProfileSayaAdmin', [AdminController::class, 'ubahProfileSaya']);
+    Route::get('/laporanPeminjaman', [AdminController::class, 'laporanPeminjaman']);
+    Route::get('/detailLaporanPeminjaman/{tgl}', [AdminController::class, 'detailLaporanPeminjaman']);
+    Route::get('/laporanPengembalian', [AdminController::class, 'laporanPengembalian']);
+    Route::get('/detailLaporanPengembalian/{tgl}', [AdminController::class, 'detailLaporanPengembalian']);
 });
 
 //auth route for petugas
