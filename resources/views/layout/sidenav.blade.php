@@ -37,13 +37,13 @@
     <div class="menu-list">
       <ul>
         @if(Auth::user()->hasRole('admin'))
-        <li class="{{($url == 'dashboardAdmin') ? 'active' : ''}}"><a href="" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li class="{{($url == 'dashboardAdmin') ? 'active' : ''}}"><a href="/dashboardAdmin" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li class="{{($url == 'daftarBuku') ? 'active' : ''}}"><a href="/daftarBuku" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
         <li class="{{($url == 'dataPetugas') ? 'active' : ''}}"><a href="/dataPetugas" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
         <li class="{{($url == 'dataAnggota') ? 'active' : ''}}"><a href="/dataAnggota" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
         <li class="{{($url == 'laporanPeminjaman') ? 'active' : ''}}"><a href="/laporanPeminjaman" id="laporanPeminjaman"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
         <li class="{{($url == 'laporanPengembalian') ? 'active' : ''}}"><a href="/laporanPengembalian" id="laporanPengembalian"><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
-        <li class="{{($url == 'generateLaporan') ? 'active' : ''}}"><a href="/generateLaporan" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li>
+        <!-- <li class="{{($url == 'generateLaporan') ? 'active' : ''}}"><a href="/generateLaporan" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li> -->
         @endif
         @if(Auth::user()->hasRole('petugas'))
         <li class="{{($url == 'dashboardPetugas') ? 'active' : ''}}"><a href="/dashboardPetugas" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>

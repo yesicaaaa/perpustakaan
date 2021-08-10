@@ -11,6 +11,7 @@
       <tr>
         <th scope="col">Kode</th>
         <th scope="col">Judul</th>
+        <th scope="col">Qty</th>
         <th scope="col">Harus Kembali</th>
         <th scope="col">Kembali</th>
         <th scope="col">Terlambat</th>
@@ -27,6 +28,7 @@
       <tr>
         <th scope="row">PGM{{str_pad($h->id_pengembalian, 4, 0, STR_PAD_LEFT)}}</th>
         <td>{{$h->judul}}</td>
+        <td>{{$h->qty}}</td>
         <td>{{$h->tgl_hrs_kembali}}</td>
         <td>{{$h->tgl_kembali}}</td>
         <td>{{$terlambat}}</td>

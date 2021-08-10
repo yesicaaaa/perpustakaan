@@ -25,7 +25,11 @@ class AdminController extends Controller
     public function index()
     {
         $url = 'dashboardAdmin';
-        return view('admin.dashboard', compact('url'));
+        $buku = Buku_model::count('id_buku');
+        $anggota = AnggotaModel::getJumlahAnggota();
+        $peminjaman = PeminjamanModel::count('id_peminjaman');
+        $pengembalian = PengembalianModel::count('id_pengembalian');
+        return view('admin.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian'));
     }
 
     public function daftarBuku(Request $request)
@@ -93,8 +97,9 @@ class AdminController extends Controller
 
     public function detailBuku($id)
     {
+        $url = '';
         $buku = Buku_model::where('id_buku', $id)->first();
-        return view('admin.detail-buku', compact('buku'));
+        return view('admin.detail-buku', compact('buku', 'url'));
     }
 
     public function getBukuRow(Request $request)
@@ -180,12 +185,6 @@ class AdminController extends Controller
     //     return $pdf->download('daftar-buku.pdf');
     // }
 
-    public function refreshBuku()
-    {
-        session()->forget('cari');
-        return redirect('daftarBuku');
-    }
-
     public function dataPetugas(Request $request)
     {
         if($request->cari != '') {
@@ -212,12 +211,6 @@ class AdminController extends Controller
         return redirect('dataPetugas')->with('status', 'Data petugas berhasil dihapus.');
     }
 
-    public function refreshPetugas()
-    {
-        session()->forget('cari');
-        return redirect('/dataPetugas');
-    }
-
     public function exportPetugasExcel()
     {
         return Excel::download(new PetugasExport, 'Data Petugas.xlsx');
@@ -233,8 +226,9 @@ class AdminController extends Controller
 
     public function detailPetugas($id)
     {
+        $url = '';
         $petugas = PetugasModel::getDetailPetugas($id);
-        return view('admin.detail-petugas', compact('petugas'));
+        return view('admin.detail-petugas', compact('petugas', 'url'));
     }
 
     public function dataAnggota(Request $request)
@@ -252,8 +246,9 @@ class AdminController extends Controller
 
     public function detailAnggota($id)
     {
+        $url = '';
         $anggota = AnggotaModel::getDetailAnggota($id);
-        return view('admin.detail-anggota', compact('anggota'));
+        return view('admin.detail-anggota', compact('anggota', 'url'));
     }
 
     public function hapusAnggota(Request $request)
@@ -266,12 +261,6 @@ class AdminController extends Controller
             AnggotaModel::where('id', $id)->delete();
         }
         return redirect('dataAnggota')->with('status', 'Data anggota berhasil dihapus.');
-    }
-
-    public function refreshAnggota()
-    {
-        session()->forget('cari');
-        return redirect('dataAnggota');
     }
 
     public function exportAnggotaExcel()

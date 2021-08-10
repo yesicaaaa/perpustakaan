@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
+use App\Models\PengembalianModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AnggotaController extends Controller
 {
-    public function index()
+    public function index($id = null)
     {
         $url = 'dashboard';
-        return view('anggota.dashboard', compact('url'));
+        $peminjaman = PeminjamanModel::where('id_anggota', $id)->sum('qty');
+        $pengembalian = PengembalianModel::getJumlahBukuPengembalian($id);
+        $hrs_dikembalikan = PeminjamanModel::getBukuHrsDikembalikan($id);
+        $denda = PengembalianModel::getTotalDenda($id);
+        return view('anggota.dashboard', compact('url', 'peminjaman', 'pengembalian', 'hrs_dikembalikan', 'denda'));
     }
 
     public function daftarBuku()
@@ -105,7 +110,8 @@ class AnggotaController extends Controller
                         <h6 class="card-title">'.$ps->judul.'</h6>
                         <p class="card-text">Peminjaman : <span>'.$ps->tgl_pinjam.'</span></p>
                         <p class="card-text '.$kembalikan.'">Harus Kembali : <span>'.$ps->tgl_hrs_kembali.'</span></p>
-                        <p class="card-text">Perpanjangan Pinjam : <span>'.$perpanjang_pinjam.'</span> Hari</p>
+                        <p class="card-text">Perpanjangan Pinjam : <span>'.$perpanjang_pinjam. '</span> Hari</p>
+                        <p class="card-text">Jumlah : <span>' . $ps->qty . '</span> Buku</p>
                         <a href="javascript:getData('.$ps->id_peminjaman.')" class="badge bg-success perpanjang-pinjam">Perpanjang Pinjam</a>
                         </div>
                     </div>
@@ -149,5 +155,19 @@ class AnggotaController extends Controller
     
             return redirect('/profileSaya')->with('status', 'Profile berhasil diubah');
         }
+    }
+
+    public function bukuDipinjam($id)
+    {
+        $url = 'dashboard';
+        $peminjaman = PeminjamanModel::getAllPeminjamanAnggota($id);
+        return view('anggota.buku-dipinjam', compact('url', 'peminjaman'));
+    }
+
+    public function harusDikembalikan($id)
+    {
+        $url = 'dashboard';
+        $hrs_dikembalikan = PeminjamanModel::getHarusDikembalikanAnggota($id);
+        return view('anggota.harus-dikembalikan', compact('url', 'hrs_dikembalikan'));
     }
 }

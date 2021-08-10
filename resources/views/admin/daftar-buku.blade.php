@@ -8,7 +8,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Daftar Buku</li>
+      <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fa-book"></i> Daftar Buku</li>
     </ol>
   </nav>
   <div class="row daftar-buku">

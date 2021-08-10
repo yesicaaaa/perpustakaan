@@ -8,7 +8,7 @@
   <div class="divider-menu"></div>
   <div class="menu-list">
     <ul>
-      <li class="{{ ($url == 'dashboard') ? 'active' : ''}}"><a href="/dashboardAnggota">Dashboard</a></li>
+      <li class="{{ ($url == 'dashboard') ? 'active' : ''}}"><a href="/dashboardAnggota/{{Auth::user()->id}}">Dashboard</a></li>
       <div class="divider-list"></div>
       <li class="{{ ($url == 'daftarBuku') ? 'active' : ''}}"><a href="/daftarBukuAnggota">Daftar Buku</a></li>
       <div class="divider-list"></div>

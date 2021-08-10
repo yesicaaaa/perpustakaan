@@ -7,7 +7,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page"><a href="/laporanPeminjaman" class="prev">Laporan Peminjaman</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a href="/laporanPeminjaman" class="prev"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
       <li class="breadcrumb-item active" aria-current="page">Detail</li>
     </ol>
   </nav>

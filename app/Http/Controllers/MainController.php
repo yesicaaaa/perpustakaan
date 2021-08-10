@@ -13,7 +13,7 @@ class MainController extends Controller {
     } elseif (Auth::user()->hasRole('petugas')) {
       return redirect('/dashboardPetugas');
     } elseif (Auth::user()->hasRole('anggota')) {
-      return redirect('/dashboardAnggota');
+      return redirect('/dashboardAnggota/' . Auth::user()->id);
     }
   }
 }

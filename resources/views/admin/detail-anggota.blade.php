@@ -7,7 +7,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page"><a href="/dataAnggota" class="prev">Data Anggota</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a href="/dataAnggota" class="prev"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
       <li class="breadcrumb-item active" aria-current="page">Detail</li>
     </ol>
   </nav>

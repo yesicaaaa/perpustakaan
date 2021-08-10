@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Buku_model;
 use App\Models\AnggotaModel;
+use PhpParser\Node\Expr\Cast;
 
 class PeminjamanModel extends Model
 {
@@ -121,6 +122,29 @@ class PeminjamanModel extends Model
                             ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
                             ->where('peminjaman.tgl_pinjam', $tgl)
                             ->orderBy('peminjaman.created_at', 'DESC')
+                            ->get();
+  }
+
+  public static function getBukuHrsDikembalikan($id)
+  {
+    return PeminjamanModel::where('id_anggota', $id)
+                            ->where('status', 'Dipinjam')
+                            ->sum('qty');
+  }
+
+  public static function getAllPeminjamanAnggota($id)
+  {
+    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->join('users', 'users.id', '=', 'peminjaman.id_petugas')
+                            ->where('peminjaman.id_anggota', $id)
+                            ->get();
+  }
+
+  public static function getHarusDikembalikanAnggota($id)
+  {
+    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                            ->where('peminjaman.id_anggota', $id)
+                            ->where('peminjaman.status', 'Dipinjam')
                             ->get();
   }
 }

@@ -39,4 +39,22 @@ class PengembalianModel extends Model
                                 ->orderBy('pengembalian.created_at', 'DESC')
                                 ->get();
     }
+
+    public static function getJumlahBukuPengembalian($id)
+    {
+        return PengembalianModel::select([
+                                DB::raw('sum(peminjaman.qty) as jml_buku')
+                                ])
+                                ->join('peminjaman', 'peminjaman.id_peminjaman', '=', 'pengembalian.id_peminjaman')
+                                ->where('peminjaman.id_anggota', $id)
+                                ->first();
+    }
+
+    public static function getTotalDenda($id)
+    {
+        return PengembalianModel::select([DB::raw('sum(pengembalian.denda) as denda')])
+                                ->join('peminjaman', 'peminjaman.id_peminjaman', '=', 'pengembalian.id_peminjaman')
+                                ->where('peminjaman.id_anggota', $id)
+                                ->first();
+    }
 }

@@ -15,7 +15,11 @@ class PetugasController extends Controller
     public function index()
     {
         $url = 'dashboardPetugas';
-        return view('petugas.dashboard', compact('url'));
+        $buku = Buku_model::count('id_buku');
+        $anggota = AnggotaModel::getJumlahAnggota();
+        $peminjaman = PeminjamanModel::count('id_peminjaman');
+        $pengembalian = PengembalianModel::count('id_pengembalian');
+        return view('petugas.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian'));
     }
 
     public function daftarBuku($cari = null)
@@ -124,9 +128,10 @@ class PetugasController extends Controller
 
     public function detailPeminjaman($id)
     {
+        $url = '';
         $peminjaman = PeminjamanModel::getDetailPeminjaman($id);
         $anggota = PeminjamanModel::getDataAnggota($id);
-        return view('petugas.detail-peminjaman', compact('peminjaman', 'anggota'));
+        return view('petugas.detail-peminjaman', compact('peminjaman', 'anggota', 'url'));
     }
 
     public function getPeminjamanRow(Request $request)
@@ -195,7 +200,8 @@ class PetugasController extends Controller
 
     public function profileSaya()
     {
-        return view('petugas.profile-saya');
+        $url = '';
+        return view('petugas.profile-saya', compact('url'));
     }
 
     public function ubahProfileSaya(Request $request)

@@ -372,3 +372,169 @@ th.sorting::before {
 .menu-list .active a {
   color: rgba(255, 255, 255, 0.7) !important;
 }
+
+.jml-buku {
+  height: 100px;
+  width: 250px;
+  background-color: #dd4c39;
+  margin: -5px 0 0 10px;
+}
+
+.jml-buku .row {
+  margin-bottom: 1px;
+}
+
+.jml-buku .col-md-4 i {
+  font-size: 60px;
+  color: #bd3f30;
+  margin: 10px -20px;
+}
+
+.jml-buku h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-buku p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-buku a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #bc402f;
+}
+
+.jml-buku a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #cc4230;
+}
+
+.jml-user {
+  height: 100px;
+  width: 250px;
+  background-color: #00c0ee;
+  margin: -5px 0 0 4px;
+}
+
+.jml-user .row {
+  margin-bottom: 1px;
+}
+
+.jml-user .col-md-4 i {
+  font-size: 60px;
+  color: #00add7;
+  margin: 10px -20px;
+}
+
+.jml-user h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-user p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-user a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #00add7;
+}
+
+.jml-user a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #20b3d8;
+}
+
+.jml-peminjaman {
+  height: 100px;
+  width: 250px;
+  background-color: #00a65a;
+  margin: -5px 0 0 0;
+}
+
+.jml-peminjaman .row {
+  margin-bottom: 1px;
+}
+
+.jml-peminjaman .col-md-4 i {
+  font-size: 60px;
+  color: #009551;
+  margin: 10px -20px;
+}
+
+.jml-peminjaman h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-peminjaman p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-peminjaman a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #009551;
+}
+
+.jml-peminjaman a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #059b57;
+}
+
+.jml-pengembalian {
+  height: 100px;
+  width: 250px;
+  background-color: #f39c11;
+  margin: -5px 0 0 -5px;
+}
+
+.jml-pengembalian .row {
+  margin-bottom: 1px;
+}
+
+.jml-pengembalian .col-md-4 i {
+  font-size: 60px;
+  color: #da8c10;
+  margin: 10px -20px;
+}
+
+.jml-pengembalian h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-pengembalian p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-pengembalian a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #da8c10;
+}
+
+.jml-pengembalian a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #e49619;
+}
+
+.daftar-jumlah {
+  background-color: #f8f8f8;
+  padding: 30px 0;
+  margin-top: -16px;
+}

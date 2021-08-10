@@ -7,7 +7,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Profile Saya</li>
+      <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fa-user"></i> Profile Saya</li>
     </ol>
   </nav>
   @if(session('status'))

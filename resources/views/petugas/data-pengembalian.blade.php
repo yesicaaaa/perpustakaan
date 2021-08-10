@@ -7,7 +7,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Data Pengembalian</li>
+      <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fa-book"></i> Data Pengembalian</li>
     </ol>
   </nav>
   @if(session('err'))

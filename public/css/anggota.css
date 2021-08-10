@@ -130,7 +130,7 @@ a {
 .cari input{
   height: 25px;
   margin-left: 5px;
-  width: 45%;
+  width: 80%;
 }
 
 .cari p {
@@ -139,16 +139,16 @@ a {
 }
 
 svg {
-    width: 3%;
-    color: #bc542d;
+width: 3%;
+color: #bc542d;
 }
 
 .flex-1 {
-    display: none !important;
+display: none !important;
 }
 
 .text-sm span {
-    color: #bc542d;
+color: #bc542d;
 }
 
 .card {
@@ -182,7 +182,7 @@ svg {
   width: 102%;
   padding: 4px 0;
   font-size: 12px;
-  margin-top: 8px;
+  margin-top: -4px;
 }
 
 .batas_waktu {
@@ -201,6 +201,8 @@ svg {
 
 .btn-simpan {
   background:linear-gradient(90deg, #0f0f69 0%, #0b35b3 34%, #5188df 82%, #1619b3 100%);
+  margin-top: -8px;
+  border-radius: 0;
 }
 
 .alert {
@@ -235,6 +237,21 @@ svg {
   width: 20%;
   margin-top: -6px;
   margin-bottom: 5px;
+}
+
+.divider-dipinjam {
+  border-bottom: 2px solid #263e4a;
+  width: 30%;
+  margin-top: -6px;
+  margin-bottom: 5px;
+}
+
+h5 a {
+  color: #ba552f;
+}
+
+h5 a:hover {
+  color: #e27f5c;
 }
 
 thead>tr {
@@ -361,4 +378,171 @@ thead>tr {
   border-radius: 0;
   margin-top: -8px;
   margin-left: 4px;
+}
+
+.jml-hrs-dikembalikan {
+  height: 100px;
+  width: 250px;
+  background-color: #dd4c39;
+  margin: -5px 0 0 -2px;
+}
+
+.jml-hrs-dikembalikan .row {
+  margin-bottom: 1px;
+}
+
+.jml-hrs-dikembalikan .col-md-4 i {
+  font-size: 60px;
+  color: #bd3f30;
+  margin: 10px -20px;
+}
+
+.jml-hrs-dikembalikan h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-hrs-dikembalikan p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-hrs-dikembalikan a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #bc402f;
+}
+
+.jml-hrs-dikembalikan a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #cc4230;
+}
+
+.jml-dikembalikan {
+  height: 100px;
+  width: 250px;
+  background-color: #00c0ee;
+  margin: -5px 0 0 0;
+}
+
+.jml-dikembalikan .row {
+  margin-bottom: 1px;
+}
+
+.jml-dikembalikan .col-md-4 i {
+  font-size: 60px;
+  color: #00add7;
+  margin: 10px -20px;
+}
+
+.jml-dikembalikan h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-dikembalikan p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-dikembalikan a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #00add7;
+}
+
+.jml-dikembalikan a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #20b3d8;
+}
+
+.jml-buku {
+  height: 100px;
+  width: 250px;
+  background-color: #00a65a;
+  margin: -5px 0 0 0;
+}
+
+.jml-buku .row {
+  margin-bottom: 1px;
+}
+
+.jml-buku .col-md-4 i {
+  font-size: 60px;
+  color: #009551;
+  margin: 10px -20px;
+}
+
+.jml-buku h1 {
+  color: white;
+  margin: 10px 0 0 40px;
+}
+
+.jml-buku p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: -5px 0 0 40px;
+}
+
+.jml-buku a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #009551;
+}
+
+.jml-buku a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #059b57;
+}
+
+.jml-pengembalian {
+  height: 100px;
+  width: 250px;
+  background-color: #f39c11;
+  margin: -5px 0 0 -5px;
+}
+
+.jml-pengembalian .row {
+  margin-bottom: 1px;
+}
+
+.jml-pengembalian .col-md-4 i {
+  font-size: 60px;
+  color: #da8c10;
+  margin: 10px -20px;
+}
+
+.jml-pengembalian h3 {
+  color: white;
+  margin: 16px 0 0 40px;
+}
+
+.jml-pengembalian p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0px 0 0 40px;
+}
+
+.jml-pengembalian a {
+  color: white;
+  font-size: 12px;
+  padding: 3px 103px;
+  background-color: #da8c10;
+}
+
+.jml-pengembalian a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: #e49619;
+}
+
+.daftar-jumlah {
+  background-color: #f8f8f8;
+  padding: 30px 0;
+  margin: 0;
+  width: 100%;
 }

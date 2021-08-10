@@ -7,7 +7,7 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item breadcrumb-link" aria-current="page"><a href="/dataPeminjaman">Data Peminjaman</a></li>
+      <li class="breadcrumb-item breadcrumb-link" aria-current="page"><a href="/dataPeminjaman"><i class="fa fa-fw fa-book"></i> Data Peminjaman</a></li>
       <li class="breadcrumb-item active" aria-current="page">Detail Peminjaman</li>
     </ol>
   </nav>
