@@ -332,4 +332,9 @@ class AdminController extends Controller
         $detail = PengembalianModel::getDetailLaporanPengembalian($tgl);
         return view('admin.detail-laporan-pengembalian', compact('detail', 'url', 'tanggal'));
     }
+
+    public function restore(){
+        $restore = Buku_model::onlyTrashed();
+        $restore->restore();
+    }
 }

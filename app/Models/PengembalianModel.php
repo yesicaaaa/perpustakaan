@@ -57,4 +57,28 @@ class PengembalianModel extends Model
                                 ->where('peminjaman.id_anggota', $id)
                                 ->first();
     }
+
+    public static function getDendaAnggota($id)
+    {
+        return PengembalianModel::join('peminjaman', 'peminjaman.id_peminjaman', '=', 'pengembalian.id_peminjaman')
+                                ->rightJoin('users', 'users.id', '=', 'pengembalian.id_petugas')
+                                ->where('peminjaman.id_anggota', $id)
+                                ->where('pengembalian.denda', '!=', null)
+                                ->get();
+    }
+
+    public static function getPeminjamanTerbanyak($id)
+    {
+        return PeminjamanModel::select([
+                                'peminjaman.*',
+                                'buku.*',
+                                DB::raw('count(qty) as most_qty')
+                                ])
+                                ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                                ->where('peminjaman.id_anggota', $id)
+                                ->groupBy('peminjaman.qty')
+                                ->orderBy('most_qty', 'DESC')
+                                ->limit(1)
+                                ->first();
+    }
 }

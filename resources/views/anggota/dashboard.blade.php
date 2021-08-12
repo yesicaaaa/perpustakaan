@@ -11,7 +11,7 @@
       <div class="jml-buku">
         <div class="row">
           <div class="col-md-8">
-            <h1>{{$peminjaman}}+</h1>
+            <h1>{{($peminjaman != null) ? $peminjaman . '+' : '0'}}</h1>
             <p>Buku Dipinjam</p>
           </div>
           <div class="col-md-4">
@@ -25,7 +25,7 @@
       <div class="jml-dikembalikan">
         <div class="row">
           <div class="col-md-8">
-            <h1>{{$pengembalian['jml_buku']}}+</h1>
+            <h1>{{($pengembalian['jml_buku'] != null) ? $pengembalian['jml_buku'] . '+' : '0'}}</h1>
             <p>Buku Dikembalikan</p>
           </div>
           <div class="col-md-4">
@@ -39,7 +39,7 @@
       <div class="jml-hrs-dikembalikan">
         <div class="row">
           <div class="col-md-8">
-            <h1>{{$hrs_dikembalikan}}+</h1>
+            <h1>{{($hrs_dikembalikan != null) ? $hrs_dikembalikan . '+' : '0'}}</h1>
             <p>Harus Dikembalikan</p>
           </div>
           <div class="col-md-4">
@@ -60,8 +60,45 @@
             <i class="fa fa-fw fa-money"></i>
           </div>
         </div>
-        <a href="/dataPengembalian">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/dendaAnggota/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 most-book">
+      <h5>Sering dipinjam</h5>
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/img/buku/{{$most_book['foto']}}" alt="">
+        </div>
+        <div class="col-md-9">
+          <table class="table table-bordered">
+            <tr>
+              <th>Judul</th>
+              <td>{{$most_book['judul']}}</td>
+            </tr>
+            <tr>
+              <th>Bahasa</th>
+              <td>{{$most_book['bahasa']}}</td>
+            </tr>
+            <tr>
+              <th>Genre</th>
+              <td>{{$most_book['genre']}}</td>
+            </tr>
+            <tr>
+              <th>Halaman</th>
+              <td>{{$most_book['jml_halaman']}}</td>
+            </tr>
+            <tr>
+              <th>Jumlah Dipinjam</th>
+              <td>{{$most_book['most_qty']}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 svg-illust">
+      <img src="/img/most_book.svg" alt="">
     </div>
   </div>
 </div>

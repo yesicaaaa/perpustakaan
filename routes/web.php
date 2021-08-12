@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //auth route for admin
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
+    Route::get('/restore', [AdminController::class, 'restore']);
     Route::get('/dashboardAdmin', [AdminController::class, 'index']);
     Route::get('/daftarBuku', [AdminController::class, 'daftarBuku']);
     Route::post('/tambahBuku', [AdminController::class, 'tambahBuku']);
@@ -94,5 +95,6 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function() {
     Route::post('/ubahProfileSaya', [AnggotaController::class, 'ubahProfileSaya']);
     Route::get('/bukuDipinjam/{id}', [AnggotaController::class, 'bukuDipinjam']);
     Route::get('/harusDikembalikan/{id}', [AnggotaController::class, 'harusDikembalikan']);
+    Route::get('/dendaAnggota/{id}', [AnggotaController::class, 'dendaAnggota']);
 });
 require __DIR__.'/auth.php';

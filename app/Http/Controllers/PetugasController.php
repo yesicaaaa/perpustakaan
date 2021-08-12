@@ -192,7 +192,7 @@ class PetugasController extends Controller
         ]);
 
         DB::table('buku')->where('id_buku', $request->id_buku)->update([
-            'stok'  => $buku->stok + $request->qty
+            'stok'  => $buku['stok'] + $request->qty
         ]);
 
         return redirect('/dataPengembalian')->with('status', 'Buku berhasil dikembalikan');

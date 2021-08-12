@@ -164,6 +164,7 @@
         @endforeach
         </tbody>
         </table>
+        <a href="/restore" class="btn btn-success">restore</a>
       </div>
       @if(empty($buku))
       <div class="alert alert-danger alert-not-found">

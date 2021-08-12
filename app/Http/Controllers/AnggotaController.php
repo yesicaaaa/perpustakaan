@@ -18,7 +18,8 @@ class AnggotaController extends Controller
         $pengembalian = PengembalianModel::getJumlahBukuPengembalian($id);
         $hrs_dikembalikan = PeminjamanModel::getBukuHrsDikembalikan($id);
         $denda = PengembalianModel::getTotalDenda($id);
-        return view('anggota.dashboard', compact('url', 'peminjaman', 'pengembalian', 'hrs_dikembalikan', 'denda'));
+        $most_book = PengembalianModel::getPeminjamanTerbanyak($id);
+        return view('anggota.dashboard', compact('url', 'peminjaman', 'pengembalian', 'hrs_dikembalikan', 'denda', 'most_book'));
     }
 
     public function daftarBuku()
@@ -35,10 +36,38 @@ class AnggotaController extends Controller
         foreach($buku as $b) {
             $null = ($b->stok < 1) ? 'out-stok' : '';
             $output .= '
-            <div class="col-md-3 ' . $null . '">
-            <img src="/img/buku/'. $b->foto .'" alt="">
-            <h6>'.$b->judul . '</h5>
-            <p>Pengarang ' . $b->pengarang . '</p>
+            <div class="col-md-3 ' . $null . ' list-buku">
+                <img src="/img/buku/'. $b->foto .'" alt="">
+                <h6>'.$b->judul . '</h5>
+                <p>Pengarang ' . $b->pengarang . '</p>
+            <div class="desc-buku" id="desc_buku">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Penerbit</th>
+                        <td>'.$b->penerbit. '</td>
+                    </tr>
+                    <tr>
+                        <th>Tahun Terbit</th>
+                        <td>' . $b->tahun_terbit . '</td>
+                    </tr>
+                    <tr>
+                        <th>Bahasa</th>
+                        <td>' . $b->bahasa . '</td>
+                    </tr>
+                    <tr>
+                        <th>Genre</th>
+                        <td>' . $b->genre . '</td>
+                    </tr>
+                    <tr>
+                        <th>Halaman</th>
+                        <td>' . $b->jml_halaman . '</td>
+                    </tr>
+                    <tr>
+                        <th>Stok</th>
+                        <td>' . $b->stok . '</td>
+                    </tr>
+                </table>
+            </div>
             </div>';
         }
 
@@ -92,32 +121,38 @@ class AnggotaController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $output = '';
         $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($request->id, $request->cari);
-        foreach($peminjamanSaya as $ps)
-        {
-            $hrs_kembali = strtotime($ps->tgl_hrs_kembali);
-            $now = strtotime(date('Y-m-d'));
-            $kembalikan = ($hrs_kembali <= $now) ? 'text-danger' : 'text-success';
-            $perpanjang_pinjam = ($ps->perpanjang_pinjam != null) ? $ps->perpanjang_pinjam : '-';
-            $output .= '
-                <div class="col-md-4">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
+        if($peminjamanSaya == null) {
+            foreach($peminjamanSaya as $ps)
+            {
+                $hrs_kembali = strtotime($ps->tgl_hrs_kembali);
+                $now = strtotime(date('Y-m-d'));
+                $kembalikan = ($hrs_kembali <= $now) ? 'text-danger' : 'text-success';
+                $perpanjang_pinjam = ($ps->perpanjang_pinjam != null) ? $ps->perpanjang_pinjam : '-';
+                $output .= '
                     <div class="col-md-4">
-                        <img src="/img/buku/'.$ps->foto.'" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                        <h6 class="card-title">'.$ps->judul.'</h6>
-                        <p class="card-text">Peminjaman : <span>'.$ps->tgl_pinjam.'</span></p>
-                        <p class="card-text '.$kembalikan.'">Harus Kembali : <span>'.$ps->tgl_hrs_kembali.'</span></p>
-                        <p class="card-text">Perpanjangan Pinjam : <span>'.$perpanjang_pinjam. '</span> Hari</p>
-                        <p class="card-text">Jumlah : <span>' . $ps->qty . '</span> Buku</p>
-                        <a href="javascript:getData('.$ps->id_peminjaman.')" class="badge bg-success perpanjang-pinjam">Perpanjang Pinjam</a>
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="/img/buku/'.$ps->foto.'" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                            <h6 class="card-title">'.$ps->judul.'</h6>
+                            <p class="card-text">Peminjaman : <span>'.$ps->tgl_pinjam.'</span></p>
+                            <p class="card-text '.$kembalikan.'">Harus Kembali : <span>'.$ps->tgl_hrs_kembali.'</span></p>
+                            <p class="card-text">Perpanjangan Pinjam : <span>'.$perpanjang_pinjam. '</span> Hari</p>
+                            <p class="card-text">Jumlah : <span>' . $ps->qty . '</span> Buku</p>
+                            <a href="javascript:getData('.$ps->id_peminjaman.')" class="badge bg-success perpanjang-pinjam">Perpanjang Pinjam</a>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                </div>';
+                    </div>';
+            }
+        }else{
+            $output = '
+            <p class="none-peminjaman">Tidak ada peminjaman</p>
+            ';
         }
         echo json_encode($output);
     }
@@ -169,5 +204,12 @@ class AnggotaController extends Controller
         $url = 'dashboard';
         $hrs_dikembalikan = PeminjamanModel::getHarusDikembalikanAnggota($id);
         return view('anggota.harus-dikembalikan', compact('url', 'hrs_dikembalikan'));
+    }
+
+    public function dendaAnggota($id)
+    {
+        $url = 'dashboard';
+        $denda = PengembalianModel::getDendaAnggota($id);
+        return view('anggota.denda', compact('url', 'denda'));
     }
 }
