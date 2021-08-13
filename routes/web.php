@@ -65,11 +65,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
 //auth route for petugas
 Route::group(['middleware' => ['auth', 'role:petugas']], function() {
-    Route::get('dashboardPetugas', [PetugasController::class, 'index']);
+    Route::get('/dashboardPetugas/{id}', [PetugasController::class, 'index']);
     Route::get('/daftarBukuPetugas', [PetugasController::class, 'daftarBuku']);
     Route::post('/tambahBukuPetugas', [PetugasController::class, 'tambahBuku']);
     Route::get('/dataAnggotaPetugas', [PetugasController::class, 'dataAnggota']);
-    Route::get('/dataPeminjaman', [PetugasController::class, 'dataPeminjaman']);
+    Route::get('/dataPeminjaman/{id}', [PetugasController::class, 'dataPeminjaman']);
     Route::post('/tambahPeminjaman', [PetugasController::class, 'tambahPeminjaman']);
     Route::get('/detailPeminjaman/{id}', [PetugasController::class, 'detailPeminjaman']);
     Route::post('/getPeminjamanRow', [PetugasController::class, 'getPeminjamanRow']);
@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::post('/pengembalian', [PetugasController::class, 'pengembalian']);
     Route::get('/profileSayaPetugas', [PetugasController::class, 'profileSaya']);
     Route::post('/ubahProfileSayaPetugas', [PetugasController::class, 'ubahProfileSaya']);
+    Route::get('/historyPengembalian/{id}', [PetugasController::class, 'historyPengembalian']);
 });
 
 //auth route for anggota

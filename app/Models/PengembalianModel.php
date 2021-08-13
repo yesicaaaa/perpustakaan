@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PengembalianModel extends Model
 {
@@ -78,6 +79,30 @@ class PengembalianModel extends Model
                                 ->where('peminjaman.id_anggota', $id)
                                 ->groupBy('peminjaman.qty')
                                 ->orderBy('most_qty', 'DESC')
+                                ->limit(1)
+                                ->first();
+    }
+
+    public static function getHistoryPengembalian($id)
+    {
+        return PengembalianModel::join('peminjaman', 'peminjaman.id_peminjaman', '=', 'pengembalian.id_peminjaman')
+                                ->join('users', 'users.id', '=', 'peminjaman.id_anggota')
+                                ->where('pengembalian.id_petugas', $id)
+                                ->orderBy('tgl_kembali', 'DESC')
+                                ->get();
+    }
+
+    public static function getDendaperWeek($id)
+    { 
+        $now = date('Y-m-d');
+        return PengembalianModel::select([
+                                'tgl_kembali',
+                                DB::raw('sum(denda) as denda')
+                                ])
+                                ->where('tgl_kembali', '=', $now)
+                                ->where('id_petugas', $id)
+                                ->groupBy('tgl_kembali')
+                                ->orderBy('created_at', 'DESC')
                                 ->limit(1)
                                 ->first();
     }

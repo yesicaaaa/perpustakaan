@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class PetugasController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $url = 'dashboardPetugas';
         $buku = Buku_model::count('id_buku');
         $anggota = AnggotaModel::getJumlahAnggota();
-        $peminjaman = PeminjamanModel::count('id_peminjaman');
-        $pengembalian = PengembalianModel::count('id_pengembalian');
-        return view('petugas.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian'));
+        $peminjaman = PeminjamanModel::where('id_petugas', $id)->count('id_peminjaman');
+        $pengembalian = PengembalianModel::where('id_petugas', $id)->count('id_pengembalian');
+        $reportWeek = PengembalianModel::getDendaperWeek($id);
+        $peminjamanGrafik = PeminjamanModel::getPeminjamanGrafik($id);
+        return view('petugas.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian', 'reportWeek', 'peminjamanGrafik'));
     }
 
     public function daftarBuku($cari = null)
@@ -86,7 +88,7 @@ class PetugasController extends Controller
         $anggota = AnggotaModel::getListAnggota();
         $buku = Buku_model::all();
         // $detailPinjaman = PeminjamanModel::getDetailPinjam($id);
-        $peminjaman = PeminjamanModel::getPinjaman();
+        $peminjaman = PeminjamanModel::getPinjaman($id);
         return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman','url'));
     }
 
@@ -122,7 +124,7 @@ class PetugasController extends Controller
                 'updated_at'    => null
             ]);
 
-            return redirect('dataPeminjaman')->with('status', 'Data peminjaman berhasil direkam');
+            return redirect('dataPeminjaman/' . $request->id_petugas)->with('status', 'Data peminjaman berhasil direkam');
         }
     }
 
@@ -149,13 +151,19 @@ class PetugasController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $perpanjang_pinjam = $request->perpanjang_pinjam;
         $tgl_hrs_kembali = date('Y-m-d', strtotime('+' . $perpanjang_pinjam . ' days', strtotime($request->tgl_hrs_kembali)));
+        $hrs_kembali = strtotime($request->tgl_hrs_kembali);
+        $now = strtotime(date('Y-m-d'));
 
+        if($hrs_kembali <= $now) {
+            return redirect('/detailPeminjaman/' . $request->id_anggota)->with('err', 'Buku sudah harus dikembalikan!');
+        }else{
             DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
                 'perpanjang_pinjam' => $perpanjang_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
                 'updated_at'        => date('Y-m-d h:i:s')  
             ]);
             return redirect('/detailPeminjaman/' . $request->id_anggota)->with('status', 'Perpanjangan Pinjam Berhasil');
+        }
     }
 
     public function dataPengembalian()
@@ -224,5 +232,12 @@ class PetugasController extends Controller
 
             return redirect('profileSayaPetugas')->with('status', 'Data profile berhasil diubah!');
         }
+    }
+
+    public function historyPengembalian($id)
+    {
+        $url = 'historyPengembalian';
+        $historyPengembalian = PengembalianModel::getHistoryPengembalian($id);
+        return view('petugas.history-pengembalian', compact('url', 'historyPengembalian'));
     }
 }

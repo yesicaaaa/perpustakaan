@@ -17,6 +17,12 @@
     <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
+  @if(session('err'))
+  <div class="alert alert-danger" role="alert">
+    {{session('err')}}
+    <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
   @error('perpanjang_pinjam')
   <div class="alert alert-danger" role="alert">
     Perpanjangan tidak boleh lebih dari 7 hari!
@@ -68,7 +74,7 @@
       @foreach($peminjaman as $p)
       <?php
       $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
-      $btnPerpanjangan = ($perpanjangan != '-') ? 'disabled' : '';
+      $btnPerpanjangan = ($perpanjangan != '-' || $p->status == 'Dikembalikan') ? 'disabled' : '';
       ?>
       <tr>
         <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
@@ -79,7 +85,7 @@
         <td>{{$p->tgl_hrs_kembali}}</td>
         <td>{{$p->status}}</td>
         <td>
-          <button href="javascript:getData({{$p->id_peminjaman}})" class="btn btn-success {{$btnPerpanjangan}}" id="btnPerpanjangan">Perpanjangan</button>
+          <a href="javascript:getData({{$p->id_peminjaman}})" class="btn btn-success {{$btnPerpanjangan}}" id="btnPerpanjangan">Perpanjangan</button>
         </td>
       </tr>
       @endforeach
@@ -174,9 +180,9 @@
       $('.btn-simpan-tunggu').show();
     });
 
-    if($('#btnPerpanjangan').hasClass('disabled')) {
+    if ($('#btnPerpanjangan').hasClass('disabled')) {
       $(this).prop('disabled');
-    }else{
+    } else {
       $(this).removeAttr('disabled');
     }
   })

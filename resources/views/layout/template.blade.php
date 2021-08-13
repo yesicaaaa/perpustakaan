@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/css/@yield('css')">
   <link rel="stylesheet" type="text/css" href="/css/@yield('sidenavcss')">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script type="text/javascript" src="/DataTables/DataTables-1.10.25/js/jquery.dataTables.js"></script>

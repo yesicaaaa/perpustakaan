@@ -46,11 +46,12 @@
         <!-- <li class="{{($url == 'generateLaporan') ? 'active' : ''}}"><a href="/generateLaporan" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li> -->
         @endif
         @if(Auth::user()->hasRole('petugas'))
-        <li class="{{($url == 'dashboardPetugas') ? 'active' : ''}}"><a href="/dashboardPetugas" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li class="{{($url == 'dashboardPetugas') ? 'active' : ''}}"><a href="/dashboardPetugas/{{Auth::user()->id}}" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li class="{{($url == 'daftarBukuPetugas') ? 'active' : ''}}"><a href="/daftarBukuPetugas" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
-        <li class="{{($url == 'dataAnggotaPetugas') ? 'active' : ''}}"><a href="/dataAnggotaPetugas" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
-        <li class="{{($url == 'dataPeminjaman') ? 'active' : ''}}"><a href="/dataPeminjaman" id="peminjaman"><i class="fa fa-fw fa-book"></i>Peminjaman</a></li>
+        <li class="{{($url == 'dataAnggotaPetugas') ? 'active' : ''}}"><a href="/dataAnggotaPetugas" id="dataAnggo  ta"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
+        <li class="{{($url == 'dataPeminjaman') ? 'active' : ''}}"><a href="/dataPeminjaman/{{Auth::user()->id}}" id="peminjaman"><i class="fa fa-fw fa-book"></i>Peminjaman</a></li>
         <li class="{{($url == 'dataPengembalian') ? 'active' : ''}}"><a href="/dataPengembalian" id="pengembalian"><i class="fa fa-fw fa-book"></i>Pengembalian</a></li>
+        <li class="{{($url == 'historyPengembalian') ? 'active' : ''}}"><a href="/historyPengembalian/{{Auth::user()->id}}" id="historyPengembalian"><i class="fa fa-fw fa-history"></i>History Pengembalian</a></li>
         @endif
       </ul>
     </div>

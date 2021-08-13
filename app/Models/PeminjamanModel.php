@@ -37,11 +37,12 @@ class PeminjamanModel extends Model
   //                           ->first();
   // }
 
-  public static function getPinjaman()
+  public static function getPinjaman($id)
   {
     return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
                           ->join('users', 'users.id', '=', 'peminjaman.id_anggota')
                           ->select('*')
+                          ->where('peminjaman.id_petugas', $id)
                           ->groupBy('users.id')
                           ->get();
 
@@ -78,6 +79,7 @@ class PeminjamanModel extends Model
                           ->where('peminjaman.id_peminjaman', $id)
                           ->first();
   }
+  
 
   public static function getPeminjamanSaya($id, $cari = null)
   {
@@ -145,6 +147,19 @@ class PeminjamanModel extends Model
     return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
                             ->where('peminjaman.id_anggota', $id)
                             ->where('peminjaman.status', 'Dipinjam')
+                            ->get();
+  }
+
+  public static function getPeminjamanGrafik($id)
+  { 
+    return PeminjamanModel::select([
+                            '*',
+                            DB::raw('count(id_peminjaman) as total')
+                            ])
+                            ->where('id_petugas', $id)
+                            ->groupBy('tgl_pinjam')
+                            ->orderBy('tgl_pinjam', 'DESC')
+                            ->limit(7)
                             ->get();
   }
 }
