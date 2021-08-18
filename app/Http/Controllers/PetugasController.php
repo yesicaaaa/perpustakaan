@@ -89,7 +89,7 @@ class PetugasController extends Controller
         $buku = Buku_model::all();
         // $detailPinjaman = PeminjamanModel::getDetailPinjam($id);
         $peminjaman = PeminjamanModel::getPinjaman($id);
-        return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman','url'));
+        return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman', 'url'));
     }
 
     public function tambahPeminjaman(Request $request)
@@ -154,13 +154,13 @@ class PetugasController extends Controller
         $hrs_kembali = strtotime($request->tgl_hrs_kembali);
         $now = strtotime(date('Y-m-d'));
 
-        if($hrs_kembali <= $now) {
+        if ($hrs_kembali <= $now) {
             return redirect('/detailPeminjaman/' . $request->id_anggota)->with('err', 'Buku sudah harus dikembalikan!');
-        }else{
+        } else {
             DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
                 'perpanjang_pinjam' => $perpanjang_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
-                'updated_at'        => date('Y-m-d h:i:s')  
+                'updated_at'        => date('Y-m-d h:i:s')
             ]);
             return redirect('/detailPeminjaman/' . $request->id_anggota)->with('status', 'Perpanjangan Pinjam Berhasil');
         }
@@ -221,9 +221,9 @@ class PetugasController extends Controller
 
         date_default_timezone_set('Asia/Jakarta');
         $user = User::where('id', $request->id)->first();
-        if($user->phone == $request->phone && $user->alamat == $request->alamat) {
+        if ($user->phone == $request->phone && $user->alamat == $request->alamat) {
             return redirect('/profileSayaPetugas')->with('err', 'Tidak ada perubahan apapun!');
-        }else{
+        } else {
             DB::table('users')->where('id', $request->id)->update([
                 'phone' => $request->phone,
                 'alamat'    => $request->alamat,

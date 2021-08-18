@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -49,4 +50,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getTotalUser()
+    {
+        return User::join('role_user', 'role_user.user_id', '=', 'users.id')
+                    ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                    ->select([
+                        'roles.name',
+                        DB::raw('count(users.id) as total')
+                    ])
+                    ->groupBy('role_user.role_id')
+                    ->get();
+    }
 }

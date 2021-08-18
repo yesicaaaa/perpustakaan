@@ -29,7 +29,13 @@ class AdminController extends Controller
         $anggota = AnggotaModel::getJumlahAnggota();
         $peminjaman = PeminjamanModel::count('id_peminjaman');
         $pengembalian = PengembalianModel::count('id_pengembalian');
-        return view('admin.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian'));
+        $date = AdminController::convertDate(date('m-d'));
+        $day = AdminController::convertDay(date('l'));
+        $peminjamanGrafik = PeminjamanModel::getPeminjamanGrafikAdmin();
+        $mostbook = PeminjamanModel::getPeminjamanBukuTerbanyak();
+        $userGrafik = User::getTotalUser();
+        $pengembalianGrafik = PengembalianModel::getPengembalianGrafik();
+        return view('admin.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian', 'date', 'day', 'mostbook', 'peminjamanGrafik', 'userGrafik', 'pengembalianGrafik'));
     }
 
     public function daftarBuku(Request $request)
@@ -336,5 +342,51 @@ class AdminController extends Controller
     public function restore(){
         $restore = Buku_model::onlyTrashed();
         $restore->restore();
+    }
+
+    private function convertDate($string)
+    {
+        $namaBulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        $tanggal = explode('-', $string)[1];
+        $bulan = explode('-', $string)[0];
+
+        return $namaBulan[abs($bulan)] . ' ' . $tanggal;
+    }
+
+    // private function convertDay($date)
+    // {
+    //     setlocale(LC_ALL, 'id_ID');
+    //     return strftime('%A', strtotime($date));
+    // }
+
+    private function convertDay($date)
+    {
+        $day = $date;
+
+        switch($day) {
+            case 'Monday':
+                $hari = 'Senin';
+                break;
+            case 'Tuesday':
+                $hari = 'Selasa';
+                break;
+            case 'Wednesday':
+                $hari = 'Rabu';
+                break;
+            case 'Thursday':
+                $hari = 'Kamis';
+                break;
+            case 'Friday':
+                $hari = 'Jum\'at';
+                break;
+            case 'Saturday':
+                $hari = 'Sabtu';
+                break;
+            case 'Sunday':
+                $hari = 'Minggu';
+                break;
+        }
+        return $hari;
     }
 }

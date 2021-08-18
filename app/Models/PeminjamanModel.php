@@ -162,4 +162,28 @@ class PeminjamanModel extends Model
                             ->limit(7)
                             ->get();
   }
+
+  public static function getPeminjamanGrafikAdmin()
+  {
+    return PeminjamanModel::select([
+      '*',
+      DB::raw('count(id_peminjaman) as total')
+    ])
+      ->groupBy('tgl_pinjam')
+      ->orderBy('tgl_pinjam', 'DESC')
+      ->limit(7)
+      ->get();
+  }
+
+  public static function getPeminjamanBukuTerbanyak()
+  {
+    return PeminjamanModel::select(['peminjaman.*', 'buku.*',
+                          DB::raw('count(peminjaman.id_peminjaman) as total')
+                          ])
+                          ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                          ->groupBy('peminjaman.id_buku')
+                          ->orderBy('peminjaman.tgl_pinjam', 'DESC')
+                          ->limit(3)
+                          ->get();
+  }
 }

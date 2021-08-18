@@ -106,4 +106,13 @@ class PengembalianModel extends Model
                                 ->limit(1)
                                 ->first();
     }
+
+    public static function getPengembalianGrafik()
+    {
+        return PengembalianModel::select(['*', DB::raw('count(id_pengembalian) as total')])
+                                ->groupBy('tgl_kembali')
+                                ->orderBy('tgl_kembali', 'DESC')
+                                ->limit(7)
+                                ->get();
+    }
 }
