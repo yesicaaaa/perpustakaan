@@ -1,34 +1,29 @@
-<h1>Daftar Buku Fiore Library</h1>
-<table>
+<table style="border-collapse: collapse;">
   <tr>
-    <th scope="col">#</th>
-    <th scope="col">Kode</th>
-    <th scope="col">Judul</th>
-    <th scope="col">Pengarang</th>
-    <th scope="col">Penerbit</th>
-    <th scope="col">Tahun Terbit</th>
-    <th scope="col">Bahasa</th>
-    <th scope="col">Genre</th>
-    <th scope="col">Jumlah Halaman</th>
-    <th scope="col">Stok</th>
-    <th scope="col">Created at</th>
-    <th scope="col">Updated at</th>
+    <th style="border: 1px solid; padding: 5px" width="3%">#</th>
+    <th style="border: 1px solid; padding: 5px">Kode</th>
+    <th style="border: 1px solid; padding: 5px">Judul</th>
+    <th style="border: 1px solid; padding: 5px">Pengarang</th>
+    <th style="border: 1px solid; padding: 5px">Penerbit</th>
+    <th style="border: 1px solid; padding: 5px">Tahun Terbit</th>
+    <th style="border: 1px solid; padding: 5px">Bahasa</th>
+    <th style="border: 1px solid; padding: 5px">Genre</th>
+    <th style="border: 1px solid; padding: 5px">Jumlah Halaman</th>
+    <th style="border: 1px solid; padding: 5px">Stok</th>
   </tr>
   <tbody>
     @foreach($buku as $b)
     <tr>
-      <td>{{$loop->iteration}}</td>
-      <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
-      <td>{{$b->judul}}</td>
-      <td>{{$b->pengarang}}</td>
-      <td>{{$b->penerbit}}</td>
-      <td>{{$b->tahun_terbit}}</td>
-      <td>{{$b->bahasa}}</td>
-      <td>{{$b->genre}}</td>
-      <td>{{$b->jml_halaman}}</td>
-      <td>{{$b->stok}}</td>
-      <td>{{$b->created_at}}</td>
-      <td>{{$b->updated_at}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$loop->iteration}}</td>
+      <td style="border: 1px solid; padding: 5px">BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->judul}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->pengarang}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->penerbit}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->tahun_terbit}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->bahasa}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->genre}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->jml_halaman}}</td>
+      <td style="border: 1px solid; padding: 5px">{{$b->stok}}</td>
     </tr>
     @endforeach
   </tbody>

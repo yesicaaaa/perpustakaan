@@ -122,6 +122,11 @@
         {{session('status')}}
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+      @elseif(session('err'))
+      <div class="alert alert-danger" role="alert">
+        {{session('err')}}
+        <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       @endif
       <!-- <form action="/daftarBuku" method="get">
         @csrf
@@ -134,7 +139,7 @@
           @csrf
           <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
           <a href="/exportBukuExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-          <a href="/exportBukuPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <a href="/exportBukuPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
           <table class="table table-daftar-buku">
             <thead class="table-orange">
               <tr>
@@ -150,7 +155,7 @@
               @foreach($buku as $index => $b)
               <tr>
                 <th scope="row">
-                  <input type="checkbox" name="id[]" id="id" value="{{$b->id_buku}}">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="{{$b->id_buku}}">
         </form>
         </th>
         <td>BK{{str_pad($b->id_buku, 4, '0', STR_PAD_LEFT)}}</td>
@@ -164,14 +169,12 @@
         @endforeach
         </tbody>
         </table>
-        <a href="/restore" class="btn btn-success">restore</a>
       </div>
       @if(empty($buku))
       <div class="alert alert-danger alert-not-found">
         Data buku tidak ditemukan!
       </div>
       @endif
-      {{$buku->links()}}
     </div>
   </div>
 </div>

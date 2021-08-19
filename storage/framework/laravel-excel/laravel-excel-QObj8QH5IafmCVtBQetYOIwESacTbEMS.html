@@ -1,0 +1,315 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-blue sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">Fiore <span>Library</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </ul>
+  </div>
+  <div class="sidenav">
+    <div class="row user-info">
+      <div class="col-md-4">
+        <img src="/img/user_img/default.png" alt="user_photo">
+      </div>
+      <div class="col-md-8">
+        <h5>Yesica Anggraeni</p>
+                    <h6>Administrator</h6>
+                    <div class="row">
+            <div class="col-md-6">
+                            <a href="/profileSayaAdmin" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile Saya"><i class="fa fa-fw fa-user"></i></a>
+                          </div>
+            <div class="col-md-6">
+              <a href="http://localhost:8000/logout" data-bs-toggle="tooltip" data-bs-placement="top" title="Keluar" onclick="return confirm('Yakin ingin keluar dari halaman?')"><i class="bi-box-arrow-in-left"></i></a>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="menu-list">
+      <ul>
+                <li class=""><a href="/dashboardAdmin" id="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li class="active"><a href="/daftarBuku" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
+        <li class=""><a href="/dataPetugas" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
+        <li class=""><a href="/dataAnggota" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
+        <li class=""><a href="/laporanPeminjaman" id="laporanPeminjaman"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
+        <li class=""><a href="/laporanPengembalian" id="laporanPengembalian"><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
+        <!-- <li class=""><a href="/generateLaporan" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li> -->
+                      </ul>
+    </div>
+  </div>
+</nav><!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="WtYLXpZGhCxfGhEhiHlps9vdfm24yYjgGg6yFO1y">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/admin.css">
+  <link rel="stylesheet" type="text/css" href="/css/sidenav.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/DataTables/DataTables-1.10.25/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.25/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.25/css/dataTables.bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.js">
+  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="/img/library.png">
+
+  <title>Daftar Buku | Fiore Library</title>
+</head>
+
+<body>
+  <div class="main">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fa-book"></i> Daftar Buku</li>
+    </ol>
+  </nav>
+  <div class="row daftar-buku">
+    <div class="col-md-3 tambah-buku">
+      <h6>Tambah Buku</h6>
+      <form action="tambahBuku" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="WtYLXpZGhCxfGhEhiHlps9vdfm24yYjgGg6yFO1y">        <div class="mb-3">
+          <label for="judul" class="form-label">Judul<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="judul" name="judul" value="">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="pengarang" class="form-label">Pengarang<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="pengarang" name="pengarang" value="">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="penerbit" class="form-label">Penerbit<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="penerbit" name="penerbit" value="">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="tahun_terbit" class="form-label">Tahun Terbit<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="tahun_terbit" name="tahun_terbit" value="" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="bahasa" class="form-label">Bahasa<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="bahasa" name="bahasa" value="">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="genre" class="form-label">Genre<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " list="datalistOptions" id="genre" name="genre" value="">
+          <datalist id="datalistOptions">
+            <option value="Drama">
+            <option value="Action">
+            <option value="Comedy">
+            <option value="Horror">
+            <option value="Romance">
+            <option value="Fantasy">
+            <option value="Adventure">
+            <option value="Thiller">
+            <option value="Sci-Fi">
+            <option value="Mistery">
+            <option value="Documenter">
+            <option value="Pelajaran">
+            <option value="Biografi">
+          </datalist>
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="jml_halaman" class="form-label">Jumlah Halaman<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="jml_halaman" name="jml_halaman" value="" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="foto" class="form-label">Foto Buku</label>
+          <input type="file" class="form-control " id="foto" name="foto">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <div class="mb-3">
+          <label for="stok" class="form-label">Stok<span class="text-danger">*</span></label>
+          <input type="text" class="form-control " id="stok" name="stok" value="" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+          <div class="invalid-feedback">
+                      </div>
+        </div>
+        <button class="btn btn-tambah-buku" onclick="return confirm('Yakin ingin menambahkan buku baru?')" type="submit" disabled>Tambah</button>
+        <button class="btn btn-tambah-buku-tunggu" disabled>Tunggu...</button>
+      </form>
+    </div>
+    <div class="col-md-9">
+            <!-- <form action="/daftarBuku" method="get">
+        <input type="hidden" name="_token" value="WtYLXpZGhCxfGhEhiHlps9vdfm24yYjgGg6yFO1y">        <input type="text" name="cari" class="form-control form-search" placeholder="Cari...">
+        <button class="btn btn-search" type="Submit">Cari</button>
+      </form>
+      <a href="/refreshBuku" class="btn btn-refresh">Refresh</a> -->
+      <div class="buku-table">
+        <form action="hapusBuku" method="post">
+          <input type="hidden" name="_token" value="WtYLXpZGhCxfGhEhiHlps9vdfm24yYjgGg6yFO1y">          <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus data buku?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
+          <a href="/exportBukuExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+          <a href="/exportBukuPdf/" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport data buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <table class="table table-daftar-buku">
+            <thead class="table-orange">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Kode</th>
+                <th scope="col">Judul</th>
+                <th scope="col" class="column-foto">Foto</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="1">
+        </form>
+        </th>
+        <td>BK0001</td>
+        <td>A Book of Lost Friends</td>
+        <td><img class="img-buku" src="/img/buku/A_Book_of_Lost_Friends.jpg" alt=""></td>
+        <td>29</td>
+        <td>
+          <a href="detailBuku/1" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="2">
+        </form>
+        </th>
+        <td>BK0002</td>
+        <td>Anak Rantau</td>
+        <td><img class="img-buku" src="/img/buku/Anak_Rantau.jpg" alt=""></td>
+        <td>21</td>
+        <td>
+          <a href="detailBuku/2" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="3">
+        </form>
+        </th>
+        <td>BK0003</td>
+        <td>Senja Dimata Bintang</td>
+        <td><img class="img-buku" src="/img/buku/Senja_Dimata_Bintang.jpg" alt=""></td>
+        <td>2</td>
+        <td>
+          <a href="detailBuku/3" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="4">
+        </form>
+        </th>
+        <td>BK0004</td>
+        <td>Peony&#039;s World</td>
+        <td><img class="img-buku" src="/img/buku/Peony&#039;s_World.jpg" alt=""></td>
+        <td>8</td>
+        <td>
+          <a href="detailBuku/4" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="5">
+        </form>
+        </th>
+        <td>BK0005</td>
+        <td>Bukan Cinderella</td>
+        <td><img class="img-buku" src="/img/buku/Bukan_Cinderella.jpg" alt=""></td>
+        <td>2</td>
+        <td>
+          <a href="detailBuku/5" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="6">
+        </form>
+        </th>
+        <td>BK0006</td>
+        <td>Dhirga</td>
+        <td><img class="img-buku" src="/img/buku/Dhirga.jpg" alt=""></td>
+        <td>20</td>
+        <td>
+          <a href="detailBuku/6" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="7">
+        </form>
+        </th>
+        <td>BK0007</td>
+        <td>Nebula</td>
+        <td><img class="img-buku" src="/img/buku/Nebula.jpg" alt=""></td>
+        <td>12</td>
+        <td>
+          <a href="detailBuku/7" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="8">
+        </form>
+        </th>
+        <td>BK0008</td>
+        <td>Sam Kok</td>
+        <td><img class="img-buku" src="/img/buku/Sam_Kok.jpg" alt=""></td>
+        <td>13</td>
+        <td>
+          <a href="detailBuku/8" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                      <tr>
+                <th scope="row">
+                  <input type="checkbox" name="id[]" id="id" class="idBukucheck" value="9">
+        </form>
+        </th>
+        <td>BK0009</td>
+        <td>Negeri Para Bedebah</td>
+        <td><img class="img-buku" src="/img/buku/Negeri_Para_Bedebah.png" alt=""></td>
+        <td>0</td>
+        <td>
+          <a href="detailBuku/9" class="badge bg-success">Detail</a>
+        </td>
+        </tr>
+                </tbody>
+        </table>
+      </div>
+          </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.table-daftar-buku').DataTable();
+  });
+</script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="/js/daftar_buku.js"></script>
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

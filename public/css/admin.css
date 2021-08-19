@@ -377,6 +377,11 @@ svg {
   margin-left: 4px;
 }
 
+.buku-table a:hover,
+.buku-table button:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .buku-table div.dataTables_wrapper div.dataTables_length label,
 .petugas-table div.dataTables_wrapper div.dataTables_length label,
 .anggota-table div.dataTables_wrapper div.dataTables_length label {

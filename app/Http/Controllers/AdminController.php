@@ -18,7 +18,8 @@ use App\Models\PeminjamanModel;
 use App\Models\PengembalianModel;
 use Illuminate\Container\RewindableGenerator;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
+use App;
 
 class AdminController extends Controller
 {
@@ -40,14 +41,8 @@ class AdminController extends Controller
 
     public function daftarBuku(Request $request)
     {
-        if($request->cari != '') {
-            $cari = $request->cari;
-            $request->session()->put('cari', $request->cari);
-        }else{
-            $cari = $request->session()->get('cari');
-        }
         $url = 'daftarBuku';
-        $buku = Buku_model::getBuku($cari);
+        $buku = Buku_model::all();
         return view('admin.daftar-buku', compact('buku', 'url'));
     }
 
@@ -95,10 +90,14 @@ class AdminController extends Controller
 
     public function hapusBuku(Request $request)
     {
-        foreach ($request->id as $id) {
-            Buku_model::where('id_buku', $id)->delete();
+        if($request->id == null) {
+            return redirect('daftarBuku')->with('err', 'Tidak ada buku yang dipilih');
+        } else {
+            foreach ($request->id as $id) {
+                Buku_model::where('id_buku', $id)->delete();
+            }
+            return redirect('daftarBuku')->with('status', 'Data buku berhasil dihapus.');
         }
-        return redirect('daftarBuku')->with('status', 'Data buku berhasil dihapus.');
     }
 
     public function detailBuku($id)
@@ -181,15 +180,15 @@ class AdminController extends Controller
 
     public function exportBukuExcel()
     {
-        return Excel::download(new BukuExport, 'Daftar-Buku.xlsx');
+        return Excel::download(new BukuExport, 'Daftar Buku.xlsx');
     }   
 
-    // public function exportBukuPdf($cari = null)
-    // {
-    //     $buku = Buku_model::getBuku($cari);
-    //     $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4', 'landscape');
-    //     return $pdf->download('daftar-buku.pdf');
-    // }
+    public function exportBukuPdf()
+    {
+        $buku = Buku_model::all();
+        $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4');
+        return $pdf->download('Daftar Buku.pdf');
+    }
 
     public function dataPetugas(Request $request)
     {
@@ -337,11 +336,6 @@ class AdminController extends Controller
         $tanggal = $tgl;
         $detail = PengembalianModel::getDetailLaporanPengembalian($tgl);
         return view('admin.detail-laporan-pengembalian', compact('detail', 'url', 'tanggal'));
-    }
-
-    public function restore(){
-        $restore = Buku_model::onlyTrashed();
-        $restore->restore();
     }
 
     private function convertDate($string)
