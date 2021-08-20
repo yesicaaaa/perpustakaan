@@ -1,26 +1,23 @@
-<h1>Data Petugas Fiore Library</h1>
-<table>
+<table style="border-collapse: collapse;">
   <tr>
-    <th scope="col">#</th>
-    <th scope="col">Nama Lengkap</th>
-    <th scope="col">Email</th>
-    <th scope="col">No. Telepon</th>
-    <th scope="col">Alamat</th>
-    <th scope="col">Role</th>
-    <th scope="col">Created at</th>
-    <th scope="col">Updated at</th>
+    <th style="border: 1px solid; padding:2px">#</th>
+    <th style="border: 1px solid; padding:2px">Nama Lengkap</th>
+    <th style="border: 1px solid; padding:2px">Email</th>
+    <th style="border: 1px solid; padding:2px">No. Telepon</th>
+    <th style="border: 1px solid; padding:2px">Alamat</th>
+    <th style="border: 1px solid; padding:2px">Role</th>
+    <th style="border: 1px solid; padding:2px">Created_at</th>
   </tr>
   <tbody>
     @foreach($petugas as $p)
     <tr>
-      <td>{{$loop->iteration}}</td>
-      <td>{{$p->name}}</td>
-      <td>{{$p->email}}</td>
-      <td>{{$p->phone}}</td>
-      <td>{{$p->alamat}}</td>
-      <td>{{$p->display_name}}</td>
-      <td>{{$p->created_at}}</td>
-      <td>{{$p->updated_at}}</td>
+      <td style="border: 1px solid; padding:2px">{{$loop->iteration}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->name}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->email}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->phone}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->alamat}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->display_name}}</td>
+      <td style="border: 1px solid; padding:2px">{{$p->created_at}}</td>
     </tr>
     @endforeach
   </tbody>

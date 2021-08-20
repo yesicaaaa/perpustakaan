@@ -12,7 +12,7 @@
   </nav>
   <div class="laporan-peminjaman-table">
     <a href="/exportLaporanPeminjamanExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan peminjaman?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-    <a href="/exportLaporanPeminjamanPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan peminjaman?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+    <a href="/exportLaporanPeminjamanPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan peminjaman?')"><i class="fa fa-fw fa-download"></i>PDF</a>
     <table class="table table-daftar-buku" id="table-daftar-buku">
       <thead class="table-orange">
         <tr>
@@ -34,11 +34,6 @@
       </tbody>
     </table>
   </div>
-  @if(empty($peminjaman))
-  <div class="alert alert-danger alert-not-found">
-    Data peminjaman tidak ditemukan!
-  </div>
-  @endif
 </div>
 
 <script>

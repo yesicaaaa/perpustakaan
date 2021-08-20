@@ -378,8 +378,16 @@ svg {
 }
 
 .buku-table a:hover,
-.buku-table button:hover {
-  color: rgba(255, 255, 255, 0.7);
+.buku-table button:hover,
+.petugas-table a:hover,
+.petugas-table button:hover,
+.anggota-table a:hover,
+.anggota-table button:hover,
+.laporan-peminjaman-table a:hover,
+.laporan-peminjaman-table button:hover,
+.laporan-pengembalian-table a:hover,
+.laporan-pengembalian-table button:hover {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .buku-table div.dataTables_wrapper div.dataTables_length label,

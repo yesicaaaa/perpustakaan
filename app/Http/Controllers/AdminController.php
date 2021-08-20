@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\File;
 use App\Exports\BukuExport;
 use App\Exports\PetugasExport;
 use App\Exports\AnggotaExport;
+use App\Exports\PeminjamanExport;
+use App\Exports\DetailPeminjamanExport;
+use App\Exports\PengembalianExport;
+use App\Exports\DetailPengembalianExport;
 use App\Models\PeminjamanModel;
 use App\Models\PengembalianModel;
 use Illuminate\Container\RewindableGenerator;
@@ -188,6 +192,8 @@ class AdminController extends Controller
         $buku = Buku_model::all();
         $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4');
         return $pdf->download('Daftar Buku.pdf');
+        // $buku = Buku_model::all();
+        // return view('admin.export-buku', compact('buku'));
     }
 
     public function dataPetugas(Request $request)
@@ -205,15 +211,19 @@ class AdminController extends Controller
 
     public function hapusPetugas(Request $request)
     {
-        foreach ($request->id as $id) {
-            $image = User::where('id', $id)->first();
-            if ($image->image != 'default.png') {
-                File::delete('img/user_img/' . $image->image);
+        if($request->id == null) {
+            return redirect('/dataPetugas')->with('err', 'Tidak ada data yang dipilih!');
+        } else {
+            foreach ($request->id as $id) {
+                $image = User::where('id', $id)->first();
+                if ($image->image != 'default.png') {
+                    File::delete('img/user_img/' . $image->image);
+                }
+    
+                PetugasModel::where('id', $id)->delete();
             }
-
-            PetugasModel::where('id', $id)->delete();
+            return redirect('/dataPetugas')->with('status', 'Data petugas berhasil dihapus.');
         }
-        return redirect('dataPetugas')->with('status', 'Data petugas berhasil dihapus.');
     }
 
     public function exportPetugasExcel()
@@ -221,12 +231,15 @@ class AdminController extends Controller
         return Excel::download(new PetugasExport, 'Data Petugas.xlsx');
     }
 
-    // public function exportPetugasPdf($cari = null)
-    // {
-    //     $petugas = PetugasModel::getPetugas($cari);
-    //     $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4', 'landscape');
-    //     return $pdf->download('Data Petugas.pdf');
-    // }
+    public function exportPetugasPdf()
+    {
+        $petugas = PetugasModel::select('users.*', 'roles.display_name')
+                                ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                                ->get();
+        $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4');
+        return $pdf->download('Data Petugas.pdf');
+    }
 
 
     public function detailPetugas($id)
@@ -258,14 +271,18 @@ class AdminController extends Controller
 
     public function hapusAnggota(Request $request)
     {
-        foreach($request->id as $id){
-            $image = AnggotaModel::where('id', $id)->first();
-            if($image->image != 'default.png') {
-                File::delete('img/user_img/' . $image->image);
+        if($request->id == null) {
+            return redirect('dataAnggota')->with('err', 'Tidak ada data yang dipilih!');
+        }else{
+            foreach($request->id as $id){
+                $image = AnggotaModel::where('id', $id)->first();
+                if($image->image != 'default.png') {
+                    File::delete('img/user_img/' . $image->image);
+                }
+                AnggotaModel::where('id', $id)->delete();
             }
-            AnggotaModel::where('id', $id)->delete();
+            return redirect('dataAnggota')->with('status', 'Data anggota berhasil dihapus.');
         }
-        return redirect('dataAnggota')->with('status', 'Data anggota berhasil dihapus.');
     }
 
     public function exportAnggotaExcel()
@@ -273,12 +290,16 @@ class AdminController extends Controller
         return Excel::download(new AnggotaExport, 'Data Anggota.xlsx');
     }
 
-    // public function exportAnggotaPdf($cari = null)
-    // {
-    //     $anggota = AnggotaModel::getAnggota($cari);
-    //     $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4', 'landscape');
-    //     return $pdf->download('Data Anggota.pdf');
-    // }
+    public function exportAnggotaPdf()
+    {
+        $anggota = AnggotaModel::select('users.*', 'roles.display_name')
+                                ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                                ->where('role_user.role_id', 3)
+                                ->get();
+        $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4');
+        return $pdf->download('Data Anggota.pdf');
+    }
 
     public function profileSaya()
     {
@@ -315,12 +336,36 @@ class AdminController extends Controller
         return view('admin.laporan-peminjaman', compact('url', 'peminjaman'));
     }
 
+    public function exportLaporanPeminjamanExcel()
+    {
+        return Excel::download(new PeminjamanExport, 'Laporan Peminjaman.xlsx');
+    }
+
+    public function exportLaporanPeminjamanPdf()
+    {
+        $laporanPeminjaman = PeminjamanModel::getLaporanPeminjaman();
+        $pdf = PDF::loadView('admin.export-laporan-peminjaman', compact('laporanPeminjaman'))->setPaper('a4');
+        return $pdf->download('Laporan Peminjaman.pdf');
+    }
+
     public function detailLaporanPeminjaman($tgl)
     {
         $url = '';
         $tanggal = $tgl;
         $detail = PeminjamanModel::getDetailLaporanPeminjaman($tgl);
         return view('admin.detail-laporan-peminjaman', compact('detail', 'url', 'tanggal'));
+    }
+
+    public function exportDetailLaporanPeminjamanExcel($tgl)
+    {
+        return Excel::download(new DetailPeminjamanExport($tgl), 'Detail Peminjaman ' . $tgl . '.xlsx');
+    }
+
+    public function exportDetailLaporanPeminjamanPdf($tgl)
+    {
+        $detailLaporan = PeminjamanModel::getDetailLaporanPeminjaman($tgl);
+        $pdf = PDF::loadView('admin.export-detail-laporan-peminjaman', compact('detailLaporan'))->setPaper('a4');
+        return $pdf->download('Detail Peminjaman ' . $tgl . '.pdf');
     }
 
     public function laporanPengembalian()
@@ -330,12 +375,36 @@ class AdminController extends Controller
         return view('admin.laporan-pengembalian', compact('url', 'pengembalian'));
     }
 
+    public function exportLaporanPengembalianExcel()
+    {
+        return Excel::download(new PengembalianExport, 'Laporan Pengembalian.xlsx');
+    }
+
+    public function exportLaporanPengembalianPdf()
+    {
+        $laporanPengembalian = PengembalianModel::getLaporanPengembalian();
+        $pdf = PDF::loadView('admin.export-laporan-pengembalian', compact('laporanPengembalian'))->setPaper('a4');
+        return $pdf->download('Laporan Pengembalian.pdf');
+    }
+
     public function detailLaporanPengembalian($tgl)
     {
         $url = '';
         $tanggal = $tgl;
         $detail = PengembalianModel::getDetailLaporanPengembalian($tgl);
         return view('admin.detail-laporan-pengembalian', compact('detail', 'url', 'tanggal'));
+    }
+
+    public function exportDetailLaporanPengembalianExcel($tgl)
+    {
+        return Excel::download(new DetailPengembalianExport($tgl), 'Detail Pengembalian ' . $tgl . '.xlsx');
+    }
+
+    public function exportDetailLaporanPengembalianPdf($tgl)
+    {
+        $detailLaporan = PengembalianModel::getDetailLaporanPengembalian($tgl);
+        $pdf = PDF::loadView('admin.export-detail-laporan-pengembalian',compact('detailLaporan'))->setPaper('a4');
+        return $pdf->download('Detail Pengembalian ' . $tgl . '.pdf');
     }
 
     private function convertDate($string)

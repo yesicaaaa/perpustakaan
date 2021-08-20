@@ -89,6 +89,11 @@
         {{session('status')}}
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+      @elseif(session('err'))
+      <div class="alert alert-danger" role="alert">
+        {{session('err')}}
+        <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       @endif
       <!-- <form action="/dataPetugas" method="get">
         @csrf
@@ -101,7 +106,7 @@
           @csrf
           <button type="submit" class="btn btn-hapus btn-daftar-buku" id="hapus_buku" onclick="return confirm('Yakin ingin menghapus petugas?')"><i class="fa fa-fw fa-minus-circle"></i> Hapus</button>
           <a href="/exportPetugasExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-          <a href="/exportPetugasPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+          <a href="/exportPetugasPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport petugas?')"><i class="fa fa-fw fa-download"></i>PDF</a>
           <table class="table table-daftar-buku">
             <thead class="table-orange">
               <tr>

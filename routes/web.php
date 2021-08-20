@@ -47,20 +47,28 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::post('/hapusPetugas', [AdminController::class, 'hapusPetugas']);
     Route::get('/refreshPetugas', [AdminController::class, 'refreshPetugas']);
     Route::get('/exportPetugasExcel', [AdminController::class, 'exportPetugasExcel']);
-    Route::get('/exportPetugasPdf/{cari}', [AdminController::class, 'exportPetugasPdf']);
+    Route::get('/exportPetugasPdf', [AdminController::class, 'exportPetugasPdf']);
     Route::get('/detailPetugas/{id}',[AdminController::class, 'detailPetugas']);
     Route::get('/dataAnggota', [AdminController::class, 'dataAnggota']);
     Route::get('/detailAnggota/{id}', [AdminController::class, 'detailAnggota']);
     Route::post('/hapusAnggota', [AdminController::class, 'hapusAnggota']);
     Route::get('/refreshAnggota', [AdminController::class, 'refreshAnggota']);
     Route::get('/exportAnggotaExcel', [AdminController::class, 'exportAnggotaExcel']);
-    Route::get('/exportAnggotaPdf/{cari}', [AdminController::class, 'exportAnggotaPdf']);
+    Route::get('/exportAnggotaPdf', [AdminController::class, 'exportAnggotaPdf']);
     Route::get('/profileSayaAdmin', [AdminController::class, 'profileSaya']);
     Route::post('/ubahProfileSayaAdmin', [AdminController::class, 'ubahProfileSaya']);
     Route::get('/laporanPeminjaman', [AdminController::class, 'laporanPeminjaman']);
     Route::get('/detailLaporanPeminjaman/{tgl}', [AdminController::class, 'detailLaporanPeminjaman']);
     Route::get('/laporanPengembalian', [AdminController::class, 'laporanPengembalian']);
     Route::get('/detailLaporanPengembalian/{tgl}', [AdminController::class, 'detailLaporanPengembalian']);
+    Route::get('/exportLaporanPeminjamanExcel', [AdminController::class, 'exportLaporanPeminjamanExcel']);
+    Route::get('/exportLaporanPeminjamanPdf', [AdminController::class, 'exportLaporanPeminjamanPdf']);
+    Route::get('/exportDetailLaporanPeminjamanExcel/{tgl}', [AdminController::class, 'exportDetailLaporanPeminjamanExcel']);
+    Route::get('/exportDetailLaporanPeminjamanPdf/{tgl}', [AdminController::class, 'exportDetailLaporanPeminjamanPdf']);
+    Route::get('/exportLaporanPengembalianExcel', [AdminController::class, 'exportLaporanPengembalianExcel']);
+    Route::get('/exportLaporanPengembalianPdf', [AdminController::class, 'exportLaporanPengembalianPdf']);
+    Route::get('/exportDetailLaporanPengembalianExcel/{tgl}', [AdminController::class, 'exportDetailLaporanPengembalianExcel']);
+    Route::get('/exportDetailLaporanPengembalianPdf/{tgl}', [AdminController::class, 'exportDetailLaporanPengembalianPdf']);
 });
 
 //auth route for petugas

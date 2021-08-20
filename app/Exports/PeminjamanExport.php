@@ -2,25 +2,24 @@
 
 namespace App\Exports;
 
-use App\Models\Buku_model;
+use App\Models\PeminjamanModel;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class BukuExport implements FromView, WithHeadings, ShouldAutoSize, WithEvents
+class PeminjamanExport implements FromView, WithEvents, WithHeadings, ShouldAutoSize
 {
     /**
      * @return \Illuminate\Support\Collection
      */
-    use Exportable;
     public function view(): View
     {
-        return view('admin.export-buku', [
-            'buku'  => Buku_model::all()
+        return view('admin.export-laporan-peminjaman', [
+            'laporanPeminjaman' => PeminjamanModel::getLaporanPeminjaman()
         ]);
     }
 
@@ -28,15 +27,8 @@ class BukuExport implements FromView, WithHeadings, ShouldAutoSize, WithEvents
     {
         return [
             '#',
-            'Kode',
-            'Judul',
-            'Pengarang',
-            'Penerbit',
-            'Tahun Terbit',
-            'Bahasa',
-            'Genre',
-            'Jumlah Halaman',
-            'Stok'
+            'Tanggal',
+            'Buku Dipinjam'
         ];
     }
 
@@ -44,9 +36,8 @@ class BukuExport implements FromView, WithHeadings, ShouldAutoSize, WithEvents
     {
         return [
             AfterSheet::class   => function (AfterSheet $event) {
-                $cellRange = 'A1:J1';
+                $cellRange = 'A1:C1';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(13)->setBold(true);
-                // ->getFill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('AB1A26');
             }
         ];
     }

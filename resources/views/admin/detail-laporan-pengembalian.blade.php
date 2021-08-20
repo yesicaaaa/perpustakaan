@@ -12,8 +12,8 @@
     </ol>
   </nav>
   <div class="laporan-pengembalian-table">
-    <a href="/exportLaporanPengembalianExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan pengembalian?')"><i class="fa fa-fw fa-download"></i>Excel</a>
-    <a href="/exportLaporanPengembalianPdf/{{session('cari')}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan pengembalian?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+    <a href="/exportDetailLaporanPengembalianExcel/{{$tanggal}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan pengembalian?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+    <a href="/exportDetailLaporanPengembalianPdf/{{$tanggal}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan pengembalian?')"><i class="fa fa-fw fa-download"></i>PDF</a>
     <table class="table table-daftar-buku">
       <thead class="table-orange">
         <tr>

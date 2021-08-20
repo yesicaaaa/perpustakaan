@@ -89,6 +89,11 @@
         {{session('status')}}
         <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+      @elseif(session('err'))
+      <div class="alert alert-danger" role="alert">
+        {{session('err')}}
+        <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       @endif
       <!-- <form action="/dataAnggota" method="get">
         @csrf
@@ -140,7 +145,7 @@
       {{$anggota->links()}}
     </div>
   </div>
-</div> 
+</div>
 
 <script>
   $(document).ready(function() {
