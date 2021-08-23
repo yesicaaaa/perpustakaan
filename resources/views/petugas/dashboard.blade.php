@@ -15,14 +15,14 @@
       <div class="jml-buku">
         <div class="row">
           <div class="col-md-8">
-            <h1>{{($buku != null) ? $buku . '+' : '0'}}</h1>
-            <p>Buku</p>
+            <h1>{{($buku['total'] != null) ? $buku['total'] . '+' : '0'}}</h1>
+            <p>Buku Ditambahkan</p>
           </div>
           <div class="col-md-4">
             <i class="fa fa-fw fa-book"></i>
           </div>
         </div>
-        <a href="/daftarBukuPetugas">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/bukuDitambahkanPetugas">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -30,13 +30,13 @@
         <div class="row">
           <div class="col-md-8">
             <h1>{{($anggota['jml_anggota'] != null) ? $anggota['jml_anggota'] . '+' : '0'}}</h1>
-            <p>Anggota</p>
+            <p>Anggota Ditambahkan</p>
           </div>
           <div class="col-md-4">
             <i class="fa fa-fw fa-user-plus"></i>
           </div>
         </div>
-        <a href="/dataAnggotaPetugas">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/AnggotaDitambahkanPetugas">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -50,7 +50,7 @@
             <i class="fa fa-fw fa-inbox"></i>
           </div>
         </div>
-        <a href="/dataPeminjaman/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/dataPeminjaman">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -64,7 +64,7 @@
             <i class="fa fa-fw fa-inbox"></i>
           </div>
         </div>
-        <a href="/historyPengembalian/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/historyPengembalian">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>

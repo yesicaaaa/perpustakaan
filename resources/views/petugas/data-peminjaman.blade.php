@@ -59,8 +59,8 @@
               @enderror
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
         <div class="mb-3">
           <label for="qty" class="form-label">Jumlah Buku Dipinjam<span class="text-danger">*</span></label>
           <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty" value="{{ old('qty') }}" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
@@ -94,26 +94,30 @@
       </div>
     </div>
   </div>
-  <table class="table table-buku-petugas">
-    <thead class="table-orange">
-      <tr>
-        <th>ID</th>
-        <th>Nama</th>
-        <th>Detail</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($peminjaman as $p)
-      <tr>
-        <td>AGT{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
-        <td>{{$p->name}}</td>
-        <td>
-          <a href="/detailPeminjaman/{{$p->id}}" class="badge bg-success">Lihat>></a>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="laporan-peminjaman-table">
+    <a href="/exportPeminjamanPetugasExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan buku ditambahkan?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+    <a href="/exportPeminjamanPetugasPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan buku ditambahkan?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+    <table class="table table-buku-petugas">
+      <thead class="table-orange">
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($peminjaman as $p)
+        <tr>
+          <td>AGT{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
+          <td>{{$p->name}}</td>
+          <td>
+            <a href="/detailPeminjaman/{{$p->id}}" class="badge bg-success">Lihat>></a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>

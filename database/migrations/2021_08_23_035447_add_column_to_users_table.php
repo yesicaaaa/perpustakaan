@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToPengembalianTable extends Migration
+class AddColumnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnToPengembalianTable extends Migration
      */
     public function up()
     {
-        Schema::table('pengembalian', function (Blueprint $table) {
-            $table->dateTime('updated_at');
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('created_by')->after('is_active')->unsigned();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnToPengembalianTable extends Migration
      */
     public function down()
     {
-        Schema::table('pengembalian', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

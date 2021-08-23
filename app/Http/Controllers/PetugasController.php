@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AnggotaDitambahkanExport;
+use App\Exports\bukuDitambahkanExport;
+use App\Exports\DetailPeminjamanPetugasExport;
+use App\Exports\PeminjamanPetugasExport;
+use App\Exports\DataPengembalianPetugasExport;
+use App\Exports\HistoryPengembalianPetugasExport;
 use App\Models\AnggotaModel;
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
@@ -9,14 +15,20 @@ use App\Models\PengembalianModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade AS PDF;
 
 class PetugasController extends Controller
 {
-    public function index($id)
+    public function index()
     {
+        $id = Auth::user()->id;
         $url = 'dashboardPetugas';
-        $buku = Buku_model::count('id_buku');
-        $anggota = AnggotaModel::getJumlahAnggota();
+        $buku = Buku_model::select([ DB::raw('count(id_buku) as total')])
+                            ->where('created_by', $id)
+                            ->first();
+        $anggota = AnggotaModel::getJumlahAnggotaPetugas($id);
         $peminjaman = PeminjamanModel::where('id_petugas', $id)->count('id_peminjaman');
         $pengembalian = PengembalianModel::where('id_petugas', $id)->count('id_pengembalian');
         $reportWeek = PengembalianModel::getDendaperWeek($id);
@@ -24,10 +36,58 @@ class PetugasController extends Controller
         return view('petugas.dashboard', compact('url', 'buku', 'anggota', 'peminjaman', 'pengembalian', 'reportWeek', 'peminjamanGrafik'));
     }
 
-    public function daftarBuku($cari = null)
+    public function bukuDitambahkanPetugas()
+    {
+        $url = 'dashboardPetugas';
+        $id = Auth::user()->id;
+        $buku = Buku_model::where('created_by', $id)->get();
+        return view('petugas.buku-ditambahkan-petugas', compact('buku', 'url'));
+    }
+
+    public function exportBukuDitambahkanExcel()
+    {
+        $id = Auth::user()->id;
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        return Excel::download(new bukuDitambahkanExport, 'Buku Ditambahkan Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportBukuDitambahkanPdf()
+    {
+        $id = Auth::user()->id;
+        $buku = Buku_model::where('created_by', $id)->get();
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        $pdf = PDF::loadView('petugas.export-buku-ditambahkan-petugas', compact('buku'))->setPaper('a4');
+        return $pdf->download('Buku Ditambahkan Petugas[' . $petugas['name'] . '].pdf');
+    }
+
+    public function anggotaDitambahkanPetugas()
+    {
+        $url = 'dashboardPetugas';
+        $id = Auth::user()->id;
+        $anggota = AnggotaModel::getAnggotaPetugas($id);
+        return view('petugas.anggota-ditambahkan-petugas', compact('anggota', 'url'));
+    }
+
+    public function exportAnggotaDitambahkanExcel()
+    {
+        $id = Auth::user()->id;
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        return Excel::download(new AnggotaDitambahkanExport($id), 'Anggota Ditambahkan Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportAnggotaDitambahkanPdf()
+    {
+        $id = Auth::user()->id;
+        $anggota = AnggotaModel::getAnggotaPetugas($id);
+        $pdf = PDF::loadView('petugas.export-anggota-ditambahkan-petugas', compact('anggota'))->setPaper('a4');
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        return $pdf->download('Anggota Ditambahkan Petugas[' . $petugas['name'] . '].pdf');
+    }
+
+    public function daftarBuku()
     {
         $url = 'daftarBukuPetugas';
-        $buku = Buku_model::getBuku($cari);
+        $buku = Buku_model::all();
         return view('petugas.daftar-buku', compact('buku', 'url'));
     }
 
@@ -42,7 +102,7 @@ class PetugasController extends Controller
             'bahasa' => 'required',
             'genre' => 'required',
             'jml_halaman' => 'required',
-            'foto' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'foto'  => 'required|image|mimes: jpeg, jpg, png|max:2048',
             'stok' => 'required'
         ]);
 
@@ -75,19 +135,19 @@ class PetugasController extends Controller
         return redirect('daftarBukuPetugas')->with('status', 'Buku baru berhasil ditambahkan');
     }
 
-    public function dataAnggota($cari = null)
+    public function dataAnggota()
     {
         $url = 'dataAnggotaPetugas';
-        $anggota = AnggotaModel::getAnggota($cari);
+        $anggota = AnggotaModel::getAnggota();
         return view('petugas.data-anggota', compact('anggota', 'url'));
     }
 
-    public function dataPeminjaman($id = null)
+    public function dataPeminjaman()
     {
+        $id = Auth::user()->id;
         $url = 'dataPeminjaman';
         $anggota = AnggotaModel::getListAnggota();
-        $buku = Buku_model::all();
-        // $detailPinjaman = PeminjamanModel::getDetailPinjam($id);
+        $buku = Buku_model::where('stok' , '>', 0)->get();
         $peminjaman = PeminjamanModel::getPinjaman($id);
         return view('petugas.data-peminjaman', compact('anggota', 'buku', 'peminjaman', 'url'));
     }
@@ -124,8 +184,24 @@ class PetugasController extends Controller
                 'updated_at'    => null
             ]);
 
-            return redirect('dataPeminjaman/' . $request->id_petugas)->with('status', 'Data peminjaman berhasil direkam');
+            return redirect('dataPeminjaman')->with('status', 'Data peminjaman berhasil direkam');
         }
+    }
+
+    public function exportPeminjamanPetugasExcel()
+    {
+        $id = Auth::user()->id;
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        return Excel::download(new PeminjamanPetugasExport($id), 'Data Peminjaman Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportPeminjamanPetugasPdf()
+    {
+        $id = Auth::user()->id;
+        $peminjaman = PeminjamanModel::getPinjamanPetugas($id);
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        $pdf = PDF::loadView('petugas.export-peminjaman-petugas', compact('peminjaman'))->setPaper('a4');
+        return $pdf->download('Data Peminjaman Petugas[' . $petugas['name'] . '].pdf');
     }
 
     public function detailPeminjaman($id)
@@ -133,7 +209,29 @@ class PetugasController extends Controller
         $url = '';
         $peminjaman = PeminjamanModel::getDetailPeminjaman($id);
         $anggota = PeminjamanModel::getDataAnggota($id);
-        return view('petugas.detail-peminjaman', compact('peminjaman', 'anggota', 'url'));
+        $jml_dipinjam = PeminjamanModel::select([DB::raw('count(id_peminjaman) as jml')])
+                                        ->where('id_anggota', $id)
+                                        ->where('status', 'Dipinjam')
+                                        ->first();
+        return view('petugas.detail-peminjaman', compact('peminjaman', 'anggota', 'url', 'jml_dipinjam'));
+    }
+
+    public function exportDetailPeminjamanPetugasExcel($id_anggota)
+    {
+        $id = Auth::user()->id;
+        $anggota = PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')->first();
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        return Excel::download(new DetailPeminjamanPetugasExport($id_anggota, $id), 'Peminjaman AGT[' . $anggota['name'] . '] Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportDetailPeminjamanPetugasPdf($id_anggota)
+    {
+        $id = Auth::user()->id;
+        $anggota = PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')->first();
+        $peminjaman = PeminjamanModel::getDetailPeminjamanPetugas($id_anggota, $id);
+        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        $pdf = PDF::loadView('petugas.export-detail-peminjaman-petugas', compact('peminjaman'))->setPaper('a4');
+        return $pdf->download('Peminjaman AGT[' . $anggota['name'] . '] Petugas[' . $petugas['name'] . '].pdf');
     }
 
     public function getPeminjamanRow(Request $request)
@@ -171,6 +269,18 @@ class PetugasController extends Controller
         $url = 'dataPengembalian';
         $peminjaman = PeminjamanModel::getDataPeminjaman();
         return view('petugas.data-pengembalian', compact('peminjaman', 'url'));
+    }
+
+    public function exportDataPengembalianPetugasExcel()
+    {
+        return Excel::download(new DataPengembalianPetugasExport, 'Daftar Buku Harus Dikembalikan.xlsx');
+    }
+
+    public function exportDataPengembalianPetugasPdf()
+    {
+        $pengembalian = PeminjamanModel::getDataPeminjaman();
+        $pdf = PDF::loadView('petugas.export-data-pengembalian-petugas', compact('pengembalian'))->setPaper('a4');
+        return $pdf->download('Daftar Buku Harus Dikembalikan.pdf');
     }
 
     public function getPeminjamanPengembalianRow(Request $request)
@@ -234,10 +344,27 @@ class PetugasController extends Controller
         }
     }
 
-    public function historyPengembalian($id)
+    public function historyPengembalian()
     {
+        $id = Auth::user()->id;
         $url = 'historyPengembalian';
         $historyPengembalian = PengembalianModel::getHistoryPengembalian($id);
         return view('petugas.history-pengembalian', compact('url', 'historyPengembalian'));
+    }
+
+    public function exportHistoryPengembalianPetugasExcel()
+    {
+        $id = Auth::user()->id;
+        $petugas = PengembalianModel::join('users', 'users.id', 'pengembalian.id_petugas')->where('pengembalian.id_petugas', $id)->first();
+        return Excel::download(new HistoryPengembalianPetugasExport($id), 'History Pengembalian Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportHistoryPengembalianPetugasPdf()
+    {
+        $id = Auth::user()->id;
+        $petugas = PengembalianModel::join('users', 'users.id', 'pengembalian.id_petugas')->where('pengembalian.id_petugas', $id)->first();
+        $pengembalian = PengembalianModel::getHistoryPengembalian($id);
+        $pdf = PDF::loadView('petugas.export-history-pengembalian-petugas', compact('pengembalian'))->setPaper('a4');
+        return $pdf->download('History Pengembalian Petugas[' . $petugas['name'] . '].pdf');
     }
 }

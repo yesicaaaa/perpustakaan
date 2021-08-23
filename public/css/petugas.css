@@ -127,6 +127,7 @@ svg {
 .form-peminjaman {
   background-color: #f7f7f7;
   margin-top: -16px;
+  margin-bottom: 10px;
 }
 
 .form-peminjaman label {
@@ -214,6 +215,7 @@ th.sorting::before {
   background-color: #f8f5f5;
   margin-top: -16px;
   padding-top: 20px;
+  margin-bottom: 10px;
 }
 
 .btn-simpan {
@@ -583,4 +585,55 @@ th.sorting::before {
 .grf-peminjaman-img img {
   width: 70%;
   margin: 93px 619px;
+}
+
+.table-daftar-buku {
+  margin-left: -6px;
+}
+
+.btn-daftar-buku {
+  border-radius: 0;
+  margin: -35px 0 -35px 0px;
+}
+
+.btn-export {
+  margin-bottom: -40px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+}
+
+.laporan-peminjaman-table a:first-child {
+  margin-left: 185px !important;
+}
+
+.laporan-peminjaman-table div.dataTables_wrapper div.dataTables_length label {
+  margin-top: -40px;
+}
+
+.laporan-peminjaman-table div.dataTables_wrapper div.dataTables_filter label {
+  margin-top: -41px;
+}
+
+.prev {
+  color: #bc542d !important;
+}
+
+.laporan-peminjaman-table a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sedang-dipinjam h3 {
+  margin-left: 45px;
+  color: #888888;
+}
+
+.sedang-dipinjam h1 {
+  margin-left: 125px;
+  color: #636363;
+}
+
+.sedang-dipinjam p {
+  margin-left: 120px;
+  font-size: 16px;
+  color: #888888;
 }

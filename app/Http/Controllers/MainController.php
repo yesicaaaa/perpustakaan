@@ -11,9 +11,9 @@ class MainController extends Controller {
     if (Auth::user()->hasRole('admin')) {
       return redirect('/dashboardAdmin');
     } elseif (Auth::user()->hasRole('petugas')) {
-      return redirect('/dashboardPetugas/' . Auth::user()->id);
+      return redirect('/dashboardPetugas');
     } elseif (Auth::user()->hasRole('anggota')) {
-      return redirect('/dashboardAnggota/' . Auth::user()->id);
+      return redirect('/dashboardAnggota');
     }
   }
 }

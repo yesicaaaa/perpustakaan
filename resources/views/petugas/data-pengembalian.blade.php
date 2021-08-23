@@ -22,39 +22,43 @@
     <button type="button" class="btn-close btn-close-alert" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
-  <table class="table table-striped table-bordered data-buku data-pengembalian">
-    <thead class="table-orange">
-      <tr>
-        <th>Kode</th>
-        <th>Nama</th>
-        <th>Judul</th>
-        <th>QTY</th>
-        <th>Peminjaman</th>
-        <th>Perpanjangan</th>
-        <th>Pengembalian</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($peminjaman as $p)
-      <?php
-      $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
-      ?>
-      <tr>
-        <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
-        <td>{{$p->name}}</td>
-        <td>{{$p->judul}}</td>
-        <td>{{$p->qty}}</td>
-        <td>{{$p->tgl_pinjam}}</td>
-        <td>{{$perpanjangan}}</td>
-        <td>{{$p->tgl_hrs_kembali}}</td>
-        <td>
-          <a href="javascript:getData({{$p->id_peminjaman}})" class="badge bg-success">Pengembalian</a>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="laporan-peminjaman-table">
+    <a href="/exportDataPengembalianPetugasExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan buku belum dikembalikan?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+    <a href="/exportDataPengembalianPetugasPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan buku belum dikembalikan?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+    <table class="table table-striped table-bordered data-buku data-pengembalian">
+      <thead class="table-orange">
+        <tr>
+          <th>Kode</th>
+          <th>Nama</th>
+          <th>Judul</th>
+          <th>QTY</th>
+          <th>Peminjaman</th>
+          <th>Perpanjangan</th>
+          <th>Harus Kembali</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($peminjaman as $p)
+        <?php
+        $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
+        ?>
+        <tr>
+          <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
+          <td>{{$p->name}}</td>
+          <td>{{$p->judul}}</td>
+          <td>{{$p->qty}}</td>
+          <td>{{$p->tgl_pinjam}}</td>
+          <td>{{$perpanjangan}}</td>
+          <td>{{$p->tgl_hrs_kembali}}</td>
+          <td>
+            <a href="javascript:getData({{$p->id_peminjaman}})" class="badge bg-success">Pengembalian</a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -163,25 +167,25 @@
       success: function(data) {
         $('#id_peminjaman').val(data.id_peminjaman);
         $('#name').val(data.name),
-        $('#judul').val(data.judul),
+          $('#judul').val(data.judul),
           $('#qty').val(data.qty),
           $('#tgl_pinjam').val(data.tgl_pinjam),
           $('#perpanjang_pinjam').val(data.perpanjang_pinjam + ' Hari'),
           $('#tgl_hrs_kembali').val(data.tgl_hrs_kembali),
           $('#id_buku').val(data.id_buku),
           $('#Modalpengembalian').modal('show')
-        }
-      });
-    }
-    
-    $(document).ready(function() {
-      $('.data-pengembalian').dataTable();
-      // let hrs_kembali = new date($('.hrs-kembali').val());
-      // let hrs_kembali2 = hrs_kembali / 86400000;
-      // let tgl_kembali = new date($('.tgl-kembali').val());
-      // let tgl_kembali2 = tgl_kembali / 86400000;
-    
-      // let terlambat = hrs_kembali - tgl_kembali2;
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    $('.data-pengembalian').dataTable();
+    // let hrs_kembali = new date($('.hrs-kembali').val());
+    // let hrs_kembali2 = hrs_kembali / 86400000;
+    // let tgl_kembali = new date($('.tgl-kembali').val());
+    // let tgl_kembali2 = tgl_kembali / 86400000;
+
+    // let terlambat = hrs_kembali - tgl_kembali2;
 
     $('#terlambat, #denda').on('keyup', function() {
       var terlambat = $('#terlambat').val();

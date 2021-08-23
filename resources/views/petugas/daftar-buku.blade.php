@@ -24,7 +24,7 @@
   </div>
   @endif
   <div class="buku-table">
-  <a href="" class="btn btn-tambah-buku" data-bs-toggle="modal" data-bs-target="#tambahBukuModal"><i class="fa fa-fw fa-plus-circle"></i> Tambah</a>
+    <a href="" class="btn btn-tambah-buku" data-bs-toggle="modal" data-bs-target="#tambahBukuModal"><i class="fa fa-fw fa-plus-circle"></i> Tambah</a>
     <table class="table table-buku-petugas">
       <thead class="table-orange">
         <tr>
@@ -57,7 +57,6 @@
       </tbody>
     </table>
   </div>
-  {{$buku->links()}}
 </div>
 
 <!-- Modal Tambah Buku-->
@@ -109,20 +108,21 @@
           </div>
           <div class="mb-3">
             <label for="genre" class="form-label">Genre<span class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}">
+            <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}" autocomplete="off">
             <datalist id="datalistOptions">
               <option value="Drama">
-              <option value="Action">
-              <option value="Comedy">
-              <option value="Horror">
-              <option value="Romance">
-              <option value="Fantasy">
+              <option value="Aksi">
+              <option value="Komedi">
+              <option value="Horor">
+              <option value="Romantis">
+              <option value="Fantasi">
               <option value="Adventure">
               <option value="Thiller">
               <option value="Sci-Fi">
-              <option value="Mistery">
-              <option value="Documenter">
+              <option value="Misteri">
+              <option value="Dokumenter">
               <option value="Biografi">
+              <option value="Pelajaran">
             </datalist>
             <div class="invalid-feedback">
               Genre harus diisi!
@@ -138,6 +138,9 @@
           <div class="mb-3">
             <label for="foto" class="form-label">Foto Buku</label>
             <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
+            <div class="invalid-feedback">
+              Foto harus diisi!
+            </div>
           </div>
           <div class="mb-3">
             <label for="stok" class="form-label">Stok<span class="text-danger">*</span></label>

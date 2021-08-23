@@ -12,14 +12,23 @@ class AnggotaModel extends Model
     use HasFactory;
     protected $table = 'users';
 
-    public static function getAnggota($cari = null)
+    public static function getAnggota()
     {
         return RoleUser::join('roles', 'roles.id', '=', 'role_user.role_id')
                 ->join('users', 'users.id', '=', 'role_user.user_id')
                 ->select('users.*', 'roles.display_name')
                 ->where('role_user.role_id', 3)
-                ->where('users.name', 'like', '%' . $cari . '%')
                 ->paginate(10);
+    }
+
+    public static function getAnggotaPetugas($id)
+    {
+        return RoleUser::join('roles', 'roles.id', '=', 'role_user.role_id')
+        ->join('users', 'users.id', '=', 'role_user.user_id')
+        ->select('users.*', 'roles.display_name')
+        ->where('role_user.role_id', 3)
+        ->where('users.created_by', $id)
+        ->paginate(10);
     }
 
     public static function getDetailAnggota($id)
@@ -49,5 +58,17 @@ class AnggotaModel extends Model
                         ->join('users', 'users.id', '=', 'role_user.user_id')
                         ->where('role_user.role_id', 3)
                         ->first();
+    }
+
+    public static function getJumlahAnggotaPetugas($id)
+    {
+        return RoleUser::select([
+            DB::raw('count(users.id) as jml_anggota')
+        ])
+        ->join('roles', 'roles.id', '=', 'role_user.role_id')
+        ->join('users', 'users.id', '=', 'role_user.user_id')
+        ->where('role_user.role_id', 3)
+        ->where('users.created_by', $id)
+        ->first();
     }
 }

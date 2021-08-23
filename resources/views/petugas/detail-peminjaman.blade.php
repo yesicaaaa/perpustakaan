@@ -54,43 +54,52 @@
           </tr>
         </table>
       </div>
+      <div class="col-md-4 sedang-dipinjam">
+        <h3>Sedang Dipinjam</h3>
+        <h1>{{$jml_dipinjam['jml']}}</h1>
+        <p>Buku</p>
+      </div>
     </div>
   </div>
-  <table class="table table-striped table-bordered data-peminjaman">
-    <thead>
-      <tr>
-        <th>Kode</th>
-        <th>Judul</th>
-        <th>Qty</th>
-        <th>Peminjaman</th>
-        <th>Perpanjangan</th>
-        <th>Harus Kembali</th>
-        <!-- <th>Petugas</th> -->
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach($peminjaman as $p)
-      <?php
-      $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
-      $btnPerpanjangan = ($perpanjangan != '-' || $p->status == 'Dikembalikan') ? 'disabled' : '';
-      ?>
-      <tr>
-        <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
-        <td>{{$p->judul}}</td>
-        <td>{{$p->qty}}</td>
-        <td>{{$p->tgl_pinjam}}</td>
-        <td>{{$perpanjangan}}</td>
-        <td>{{$p->tgl_hrs_kembali}}</td>
-        <td>{{$p->status}}</td>
-        <td>
-          <a href="javascript:getData({{$p->id_peminjaman}})" class="btn btn-success {{$btnPerpanjangan}}" id="btnPerpanjangan">Perpanjangan</button>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="laporan-peminjaman-table">
+    <a href="/exportDetailPeminjamanPetugasExcel/{{$anggota->id}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan peminjaman buku?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+    <a href="/exportDetailPeminjamanPetugasPdf/{{$anggota->id}}" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport laporan peminjaman buku?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+    <table class="table table-striped table-bordered data-peminjaman">
+      <thead>
+        <tr>
+          <th>Kode</th>
+          <th>Judul</th>
+          <th>Qty</th>
+          <th>Peminjaman</th>
+          <th>Perpanjangan</th>
+          <th>Harus Kembali</th>
+          <!-- <th>Petugas</th> -->
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($peminjaman as $p)
+        <?php
+        $perpanjangan = ($p->perpanjang_pinjam != null) ? $p->perpanjang_pinjam . ' Hari' : '-';
+        $btnPerpanjangan = ($perpanjangan != '-' || $p->status == 'Dikembalikan') ? 'disabled' : '';
+        ?>
+        <tr>
+          <td>PMJ{{str_pad($p->id_peminjaman, 4, 0, STR_PAD_LEFT)}}</td>
+          <td>{{$p->judul}}</td>
+          <td>{{$p->qty}}</td>
+          <td>{{$p->tgl_pinjam}}</td>
+          <td>{{$perpanjangan}}</td>
+          <td>{{$p->tgl_hrs_kembali}}</td>
+          <td>{{$p->status}}</td>
+          <td>
+            <a href="javascript:getData({{$p->id_peminjaman}})" class="btn btn-success {{$btnPerpanjangan}}" id="btnPerpanjangan">Perpanjangan</button>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- Modal -->

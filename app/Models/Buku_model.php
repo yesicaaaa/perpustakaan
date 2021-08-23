@@ -14,11 +14,9 @@ class Buku_model extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['id_buku', 'judul', 'pengarang', 'penerbit', 'tahun_terbit', 'foto', 'bahasa', 'genre', 'jml_halaman', 'stok', 'created_at', 'updated_at', 'deleted_at'];
 
-    public static function getBukuAnggota($cari = null) 
+    public static function getBuku() 
     {
-        return Buku_model::where('judul', 'like', '%' . $cari . '%')
-                            ->orWhere('pengarang', 'like', '%' . $cari . '%')
-                            ->orderBy('judul', 'ASC')
+        return Buku_model::orderBy('judul', 'ASC')
                             ->get();
     }
 }

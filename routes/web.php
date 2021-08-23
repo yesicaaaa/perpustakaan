@@ -73,11 +73,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
 //auth route for petugas
 Route::group(['middleware' => ['auth', 'role:petugas']], function() {
-    Route::get('/dashboardPetugas/{id}', [PetugasController::class, 'index']);
+    Route::get('/dashboardPetugas', [PetugasController::class, 'index']);
+    Route::get('/bukuDitambahkanPetugas', [PetugasController::class, 'bukuDitambahkanPetugas']);
+    Route::get('/AnggotaDitambahkanPetugas', [PetugasController::class, 'anggotaDitambahkanPetugas']);
     Route::get('/daftarBukuPetugas', [PetugasController::class, 'daftarBuku']);
     Route::post('/tambahBukuPetugas', [PetugasController::class, 'tambahBuku']);
     Route::get('/dataAnggotaPetugas', [PetugasController::class, 'dataAnggota']);
-    Route::get('/dataPeminjaman/{id}', [PetugasController::class, 'dataPeminjaman']);
+    Route::get('/dataPeminjaman/', [PetugasController::class, 'dataPeminjaman']);
     Route::post('/tambahPeminjaman', [PetugasController::class, 'tambahPeminjaman']);
     Route::get('/detailPeminjaman/{id}', [PetugasController::class, 'detailPeminjaman']);
     Route::post('/getPeminjamanRow', [PetugasController::class, 'getPeminjamanRow']);
@@ -87,7 +89,19 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
     Route::post('/pengembalian', [PetugasController::class, 'pengembalian']);
     Route::get('/profileSayaPetugas', [PetugasController::class, 'profileSaya']);
     Route::post('/ubahProfileSayaPetugas', [PetugasController::class, 'ubahProfileSaya']);
-    Route::get('/historyPengembalian/{id}', [PetugasController::class, 'historyPengembalian']);
+    Route::get('/historyPengembalian', [PetugasController::class, 'historyPengembalian']);
+    Route::get('/exportBukuDitambahkanExcel', [PetugasController::class, 'exportBukuDitambahkanExcel']);
+    Route::get('/exportBukuDitambahkanPdf', [PetugasController::class, 'exportBukuDitambahkanPdf']);
+    Route::get('/exportAnggotaDitambahkanExcel', [PetugasController::class, 'exportAnggotaDitambahkanExcel']);
+    Route::get('/exportAnggotaDitambahkanPdf', [PetugasController::class, 'exportAnggotaDitambahkanPdf']);
+    Route::get('/exportPeminjamanPetugasExcel', [PetugasController::class, 'exportPeminjamanPetugasExcel']);
+    Route::get('/exportPeminjamanPetugasPdf', [PetugasController::class, 'exportPeminjamanPetugasPdf']);
+    Route::get('/exportDetailPeminjamanPetugasExcel/{id}', [PetugasController::class, 'exportDetailPeminjamanPetugasExcel']);
+    Route::get('/exportDetailPeminjamanPetugasPdf/{id}', [PetugasController::class, 'exportDetailPeminjamanPetugasPdf']);
+    Route::get('/exportDataPengembalianPetugasExcel', [PetugasController::class, 'exportDataPengembalianPetugasExcel']);
+    Route::get('/exportDataPengembalianPetugasPdf', [PetugasController::class, 'exportDataPengembalianPetugasPdf']);
+    Route::get('/exportHistoryPengembalianPetugasExcel', [PetugasController::class, 'exportHistoryPengembalianPetugasExcel']);
+    Route::get('/exportHistoryPengembalianPetugasPdf', [PetugasController::class, 'exportHistoryPengembalianPetugasPdf']);
 });
 
 //auth route for anggota
