@@ -111,24 +111,36 @@
             <thead class="table-orange">
               <tr>
                 <th scope="col"></th>
+                <th scope="col">Kode Petugas</th>
                 <th scope="col">Nama Lengkap</th>
                 <th scope="col">Email</th>
                 <th scope="col">No. Telepon</th>
-                <th scope="col">Role</th>
+                <th scope="col">Status</th>
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($petugas as $index => $p)
+              @foreach($petugas as $p)
+              <?php
+              $text_danger = '';
+              $text_success = '';
+              $status = ($p->is_active == 1) ? 'Online' : 'Offline';
+              if ($status == 'Online') {
+                $text_success = 'text-success';
+              } else {
+                $text_danger = 'text-danger';
+              }
+              ?>
               <tr>
                 <th scope="row">
                   <input type="checkbox" name="id[]" id="id" value="{{$p->id}}">
         </form>
         </th>
+        <td>PTG{{str_pad($p->id, 4, 0, STR_PAD_LEFT)}}</td>
         <td>{{$p->name}}</td>
         <td>{{$p->email}}</td>
         <td>{{$p->phone}}</td>
-        <td>{{$p->display_name}}</td>
+        <td class="{{$text_danger}}{{$text_success}}"><i class="fa fa-fw fa-circle"></i>{{$status}}</td>
         <td>
           <a href="detailPetugas/{{$p->id}}" class="badge bg-success">Detail</a>
         </td>

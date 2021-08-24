@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class PeminjamanPetugasExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class PeminjamanPetugasExport implements FromView, WithEvents, ShouldAutoSize
 {
     private $id;
 
@@ -25,20 +25,6 @@ class PeminjamanPetugasExport implements FromView, WithHeadings, WithEvents, Sho
         return view('petugas.export-peminjaman-petugas', [
             'peminjaman'    => PeminjamanModel::getPinjamanPetugas($this->id)
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Nama',
-            'Judul',
-            'Qty',
-            'Peminjaman',
-            'Perpanjangan',
-            'Harus Kembali'
-        ];
     }
 
     public function registerEvents(): array

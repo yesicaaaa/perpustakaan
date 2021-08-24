@@ -8,13 +8,13 @@
   <div class="divider-menu"></div>
   <div class="menu-list">
     <ul>
-      <li class="{{ ($url == 'dashboard') ? 'active' : ''}}"><a href="/dashboardAnggota/{{Auth::user()->id}}">Dashboard</a></li>
+      <li class="{{ ($url == 'dashboard') ? 'active' : ''}}"><a href="/dashboardAnggota">Dashboard</a></li>
       <div class="divider-list"></div>
       <li class="{{ ($url == 'daftarBuku') ? 'active' : ''}}"><a href="/daftarBukuAnggota">Daftar Buku</a></li>
       <div class="divider-list"></div>
-      <li class="{{ ($url == 'peminjamanSaya') ? 'active' : ''}}"><a href="/peminjamanSaya/{{Auth::user()->id}}">Peminjaman Saya</a></li>
+      <li class="{{ ($url == 'peminjamanSaya') ? 'active' : ''}}"><a href="/peminjamanSaya">Peminjaman Saya</a></li>
       <div class="divider-list"></div>
-      <li class="{{ ($url == 'historySaya') ? 'active' : ''}}"><a href="/historySaya/{{Auth::user()->id}}">History Pinjaman</a></li>
+      <li class="{{ ($url == 'historySaya') ? 'active' : ''}}"><a href="/historySaya">History Pengembalian</a></li>
       <div class="divider-list"></div>
       <li class="{{ ($url == 'profileSaya') ? 'active' : ''}}"><a href="/profileSaya/">Profile Saya</a></li>
       <div class="divider-list"></div>

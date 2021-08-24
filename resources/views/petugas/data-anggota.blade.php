@@ -43,7 +43,14 @@
         @foreach($anggota as $index => $a)
         <?php 
           $updated_at = ($a->updated_at) ? $a->updated_at : '-';
+          $text_danger = '';
+          $text_success = '';
           $is_active = ($a->is_active == 1) ? 'Online' : 'Offline';
+          if($is_active == 'Online') {
+            $text_success = 'text-success';
+          } else {
+            $text_danger = 'text-danger';
+          }
         ?>
         <td>{{$index + $anggota->firstItem()}}</td>
         <td>{{$a->name}}</td>
@@ -52,7 +59,7 @@
         <td>{{$a->alamat}}</td>
         <td>{{$a->created_at}}</td>
         <td>{{$updated_at}}</td>
-        <td class="is_active">{{$is_active}}</td>
+        <td class="{{$text_danger}}{{$text_success}}"><i class="fa fa-fw fa-circle"></i>{{$is_active}}</td>
         <td><img class="img-buku" src="/img/user_img/{{$a->image}}" alt=""></td>
         </tr>
         @endforeach

@@ -1,7 +1,7 @@
 <table style="border-collapse: collapse;">
   <tr>
     <th style="border: 1px solid; padding: 2px">#</th>
-    <th style="border: 1px solid; padding: 2px">Kode</th>
+    <th style="border: 1px solid; padding: 2px">Kode Pengembalian</th>
     <th style="border: 1px solid; padding: 2px">Nama</th>
     <th style="border: 1px solid; padding: 2px">Judul</th>
     <th style="border: 1px solid; padding: 2px">Jumlah</th>

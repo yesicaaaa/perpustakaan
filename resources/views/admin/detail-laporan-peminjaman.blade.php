@@ -17,7 +17,7 @@
     <table class="table table-daftar-buku">
       <thead class="table-orange">
         <tr>
-          <th scope="col">Kode</th>
+          <th scope="col">Kode Peminjaman</th>
           <th scope="col">Nama</th>
           <th scope="col">Judul</th>
           <th scope="col">Jumlah</th>

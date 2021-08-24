@@ -136,6 +136,7 @@ a {
 .cari p {
   margin-left: 74%;
   font-size: 15px;
+  margin-top: -20px;
 }
 
 svg {
@@ -592,4 +593,39 @@ thead>tr {
   border-bottom: 1px solid #c2c2c2;
   padding: 6px;
   margin-left: 7px;
+}
+
+.btn-daftar-buku {
+  border-radius: 0;
+  margin: -35px 0 -35px 0px;
+}
+
+.btn-export {
+  margin-bottom: -40px;
+  background: linear-gradient(90deg, #263e4a 12%, #2b5279 76%, #263e4a 100%);
+  color: white;
+  font-size: 15px;
+  height: 28px;
+  padding-top: 3px;
+}
+
+.btn-export-group {
+  margin: 4px 0 0 430px;
+}
+
+.btn-export-group-history {
+  margin: 10px 0 0 160px;
+}
+
+.btn-export-group a:hover,
+.btn-export-group-history a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.data-history-peminjaman div.dataTables_wrapper div.dataTables_length label {
+  margin-top: -23px;
+}
+
+.data-history-peminjaman div.dataTables_wrapper div.dataTables_filter label {
+  margin-top: -28px;
 }

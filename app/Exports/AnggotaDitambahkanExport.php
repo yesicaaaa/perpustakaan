@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class AnggotaDitambahkanExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class AnggotaDitambahkanExport implements FromView, WithEvents, ShouldAutoSize
 {
     private $id;
     public function __construct(int $id)
@@ -25,16 +25,6 @@ class AnggotaDitambahkanExport implements FromView, WithHeadings, WithEvents, Sh
         return view('petugas.export-anggota-ditambahkan-petugas', [
             'anggota'   => AnggotaModel::getAnggotaPetugas($this->id)
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Nama',
-            'Email',
-            'Created at'
-        ];
     }
 
     public function registerEvents(): array

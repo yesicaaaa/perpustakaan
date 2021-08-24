@@ -11,27 +11,13 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\PeminjamanModel;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class DataPengembalianPetugasExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class DataPengembalianPetugasExport implements FromView, WithEvents, ShouldAutoSize
 {
     public function view(): View
     {
         return view('petugas.export-data-pengembalian-petugas', [
             'pengembalian'  => PeminjamanModel::getDataPeminjaman()
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Nama',
-            'Judul',
-            'Qty',
-            'Peminjaman',
-            'Perpanjangan',
-            'Harus Kembali'
-        ];
     }
 
     public function registerEvents(): array

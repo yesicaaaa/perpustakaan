@@ -191,7 +191,7 @@ class PetugasController extends Controller
     public function exportPeminjamanPetugasExcel()
     {
         $id = Auth::user()->id;
-        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        $petugas = User::where('id', $id)->first();
         return Excel::download(new PeminjamanPetugasExport($id), 'Data Peminjaman Petugas[' . $petugas['name'] . '].xlsx');
     }
 
@@ -199,7 +199,7 @@ class PetugasController extends Controller
     {
         $id = Auth::user()->id;
         $peminjaman = PeminjamanModel::getPinjamanPetugas($id);
-        $petugas = Buku_model::join('users', 'users.id', 'buku.created_by')->where('buku.created_by', $id)->first();
+        $petugas = User::where('id', $id)->first();
         $pdf = PDF::loadView('petugas.export-peminjaman-petugas', compact('peminjaman'))->setPaper('a4');
         return $pdf->download('Data Peminjaman Petugas[' . $petugas['name'] . '].pdf');
     }

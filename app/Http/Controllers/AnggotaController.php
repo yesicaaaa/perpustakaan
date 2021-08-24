@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DendaSayaExport;
+use App\Exports\HistorySayaExport;
+use App\Exports\PeminjamanSayaExport;
+use App\Exports\SemuaPeminjamanSayaExport;
 use App\Models\Buku_model;
 use App\Models\PeminjamanModel;
 use App\Models\PengembalianModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade AS PDF;
 
 class AnggotaController extends Controller
 {
-    public function index($id = null)
+    public function index()
     {
+        $id = Auth::user()->id;
         $url = 'dashboard';
         $peminjaman = PeminjamanModel::where('id_anggota', $id)->sum('qty');
         $pengembalian = PengembalianModel::getJumlahBukuPengembalian($id);
@@ -25,7 +33,7 @@ class AnggotaController extends Controller
     public function daftarBuku()
     {
         $url = 'daftarBuku';
-        $buku = Buku_model::getBukuAnggota();
+        $buku = Buku_model::all();
         return view('anggota.daftar-buku', compact('url', 'buku'));
     }
 
@@ -74,8 +82,9 @@ class AnggotaController extends Controller
         echo json_encode($output);
     }
 
-    public function peminjamanSaya($id)
+    public function peminjamanSaya()
     {
+        $id = Auth::user()->id;
         $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($id);
         $url = 'peminjamanSaya';
         return view('anggota.peminjaman-saya', compact('url', 'peminjamanSaya'));
@@ -103,16 +112,16 @@ class AnggotaController extends Controller
 
         if($perpanjangan->perpanjang_pinjam != null)
         {
-            return redirect('/peminjamanSaya/'.$request->id_anggota)->with('err', 'Perpanjangan pinjam sudah pernah dilakukan!');
-        }elseif($hrs_kembali >= $now) {
-            return redirect('/peminjamanSaya/' . $request->id_anggota)->with('err', 'Buku sudah harus dikembalikan!');
+            return redirect('/peminjamanSaya')->with('err', 'Perpanjangan pinjam sudah pernah dilakukan!');
+        }elseif($hrs_kembali <= $now) {
+            return redirect('/peminjamanSaya')->with('err', 'Buku sudah harus dikembalikan!');
         }else{
             DB::table('peminjaman')->where('id_peminjaman', $request->id_peminjaman)->update([
                 'perpanjang_pinjam' => $perpanjang_pinjam,
                 'tgl_hrs_kembali'   => $tgl_hrs_kembali,
                 'updated_at'    => date('Y-m-d G:i:s')
             ]);
-            return redirect('/peminjamanSaya/' . $request->id_anggota)->with('status', 'Perpanjangan pinjam buku berhasil');
+            return redirect('/peminjamanSaya')->with('status', 'Perpanjangan pinjam buku berhasil');
         }
     }
 
@@ -121,7 +130,7 @@ class AnggotaController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $output = '';
         $peminjamanSaya = PeminjamanModel::getPeminjamanSaya($request->id, $request->cari);
-        if($peminjamanSaya == null) {
+        if($peminjamanSaya != null) {
             foreach($peminjamanSaya as $ps)
             {
                 $hrs_kembali = strtotime($ps->tgl_hrs_kembali);
@@ -157,8 +166,9 @@ class AnggotaController extends Controller
         echo json_encode($output);
     }
 
-    public function historySaya($id)
+    public function historySaya()
     {
+        $id = Auth::user()->id;
         $history = PeminjamanModel::getHistoryPeminjaman($id);
         $url = 'historySaya';
         return view('anggota.history-saya', compact('history', 'url'));
@@ -192,24 +202,91 @@ class AnggotaController extends Controller
         }
     }
 
-    public function bukuDipinjam($id)
+    public function bukuDipinjam()
     {
+        $id = Auth::user()->id;
         $url = 'dashboard';
         $peminjaman = PeminjamanModel::getAllPeminjamanAnggota($id);
         return view('anggota.buku-dipinjam', compact('url', 'peminjaman'));
     }
 
-    public function harusDikembalikan($id)
+    public function harusDikembalikan()
     {
+        $id = Auth::user()->id;
         $url = 'dashboard';
         $hrs_dikembalikan = PeminjamanModel::getHarusDikembalikanAnggota($id);
         return view('anggota.harus-dikembalikan', compact('url', 'hrs_dikembalikan'));
     }
 
-    public function dendaAnggota($id)
+    public function dendaAnggota()
     {
+        $id = Auth::user()->id;
         $url = 'dashboard';
         $denda = PengembalianModel::getDendaAnggota($id);
         return view('anggota.denda', compact('url', 'denda'));
+    }
+
+    public function exportPeminjamanSayaExcel()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        return Excel::download(new PeminjamanSayaExport($id), 'Data Peminjaman AGT[' . $anggota['name'] . '].xlsx');
+    }
+
+    public function exportPeminjamanSayaPdf()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        $peminjaman = PeminjamanModel::getPeminjamanSaya($id);
+        $pdf = PDF::loadView('anggota.export-peminjaman-saya', compact('peminjaman'))->setPaper('a4');
+        return $pdf->download('Data Peminjaman AGT[' . $anggota['name'] . '].pdf');
+    }
+
+    public function exportHistorySayaExcel()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        return Excel::download(new HistorySayaExport($id), 'History Pengembalian AGT[' . $anggota['name'] . '].xlsx');
+    }
+
+    public function exportHistorySayaPdf()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        $history = PeminjamanModel::getHistoryPeminjaman($id);
+        $pdf = PDF::loadView('anggota.export-history-saya', compact('history'))->setPaper('a4');
+        return $pdf->download('History Pengembalian AGT[' . $anggota['name'] . '].pdf');
+    }
+
+    public function exportSemuaPeminjamanSayaExcel()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        return Excel::download(new SemuaPeminjamanSayaExport($id), 'Data Semua Peminjaman AGT[' . $anggota['name'] . '].xlsx');
+    }
+
+    public function exportSemuaPeminjamanSayaPdf()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        $peminjaman = PeminjamanModel::getAllPeminjamanAnggota($id);
+        $pdf = PDF::loadView('anggota.export-semua-peminjaman-saya', compact('peminjaman'))->setPaper('a4');
+        return $pdf->download('Data Semua Peminjaman AGT[' . $anggota['name'] . '].pdf');
+    }
+
+    public function exportDendaSayaExcel()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        return Excel::download(new DendaSayaExport($id), 'Data Denda AGT[' . $anggota['name'] . '].xlsx');
+    }
+
+    public function exportDendaSayaPdf()
+    {
+        $id = Auth::user()->id;
+        $anggota = User::where('id', $id)->first();
+        $denda = PengembalianModel::getDendaAnggota($id);
+        $pdf = PDF::loadView('anggota.export-denda-saya', compact('denda'))->setPaper('a4');
+        return $pdf->download('Data Denda AGT[' . $anggota['name'] . '].pdf');
     }
 }

@@ -11,33 +11,13 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class BukuExport implements FromView, WithHeadings, ShouldAutoSize, WithEvents
+class BukuExport implements FromView, ShouldAutoSize, WithEvents
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    use Exportable;
     public function view(): View
     {
         return view('admin.export-buku', [
             'buku'  => Buku_model::all()
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Judul',
-            'Pengarang',
-            'Penerbit',
-            'Tahun Terbit',
-            'Bahasa',
-            'Genre',
-            'Jumlah Halaman',
-            'Stok'
-        ];
     }
 
     public function registerEvents(): array

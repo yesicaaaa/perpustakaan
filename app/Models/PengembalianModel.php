@@ -115,4 +115,17 @@ class PengembalianModel extends Model
                                 ->limit(7)
                                 ->get();
     }
+
+    public static function getDendaPetugas()
+    {
+        return PengembalianModel::join('users', 'users.id', 'pengembalian.id_petugas')
+                                ->groupBy('pengembalian.id_petugas')
+                                ->get();
+    }
+
+    public static function getDetailDendaPetugas($id)
+    {
+        return PengembalianModel::where('id_petugas', $id)
+                                ->get();
+    }
 }

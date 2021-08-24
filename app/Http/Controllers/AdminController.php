@@ -24,6 +24,7 @@ use Illuminate\Container\RewindableGenerator;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
 use App;
+use App\Exports\DetailDataDendaExport;
 
 class AdminController extends Controller
 {
@@ -68,7 +69,7 @@ class AdminController extends Controller
         $buku = DB::table('buku')->max('id_buku');
         $id_buku = $buku + 1;
         $judul = $request->judul;
-        if($request->foto != '') {
+        if ($request->foto != '') {
             $imageName = str_replace(" ", "_", $judul) . '.' . $request->foto->extension();
             $request->foto->move(public_path('img/buku'), $imageName);
         } else {
@@ -94,7 +95,7 @@ class AdminController extends Controller
 
     public function hapusBuku(Request $request)
     {
-        if($request->id == null) {
+        if ($request->id == null) {
             return redirect('daftarBuku')->with('err', 'Tidak ada buku yang dipilih');
         } else {
             foreach ($request->id as $id) {
@@ -145,7 +146,7 @@ class AdminController extends Controller
             $stok = $buku->stok;
         }
 
-        if($request->foto == '') {
+        if ($request->foto == '') {
             DB::table('buku')->where('id_buku', $request->id_buku)->update([
                 'judul' => $request->judul,
                 'pengarang' => $request->pengarang,
@@ -158,7 +159,7 @@ class AdminController extends Controller
                 'stok'  => $stok,
                 'updated_at'    => Date('Y-m-d G:i:s')
             ]);
-        }else{
+        } else {
             File::delete('img/buku/' . $buku->foto);
 
             $image = str_replace('', '_', $request->judul) . '.' . $request->foto->extension();
@@ -185,33 +186,25 @@ class AdminController extends Controller
     public function exportBukuExcel()
     {
         return Excel::download(new BukuExport, 'Daftar Buku.xlsx');
-    }   
+    }
 
     public function exportBukuPdf()
     {
         $buku = Buku_model::all();
         $pdf = PDF::loadview('admin.export-buku', compact('buku'))->setPaper('a4');
         return $pdf->download('Daftar Buku.pdf');
-        // $buku = Buku_model::all();
-        // return view('admin.export-buku', compact('buku'));
     }
 
     public function dataPetugas(Request $request)
     {
-        if($request->cari != '') {
-            $cari = $request->cari;
-            $request->session()->put('cari', $cari);
-        }else{
-            $cari = $request->session()->get('cari');
-        }
         $url = 'dataPetugas';
-        $petugas = PetugasModel::getPetugas($cari);
+        $petugas = PetugasModel::getPetugas();
         return view('admin.data-petugas', compact('petugas', 'url'));
     }
 
     public function hapusPetugas(Request $request)
     {
-        if($request->id == null) {
+        if ($request->id == null) {
             return redirect('/dataPetugas')->with('err', 'Tidak ada data yang dipilih!');
         } else {
             foreach ($request->id as $id) {
@@ -219,7 +212,7 @@ class AdminController extends Controller
                 if ($image->image != 'default.png') {
                     File::delete('img/user_img/' . $image->image);
                 }
-    
+
                 PetugasModel::where('id', $id)->delete();
             }
             return redirect('/dataPetugas')->with('status', 'Data petugas berhasil dihapus.');
@@ -234,9 +227,9 @@ class AdminController extends Controller
     public function exportPetugasPdf()
     {
         $petugas = PetugasModel::select('users.*', 'roles.display_name')
-                                ->join('role_user', 'role_user.user_id', '=', 'users.id')
-                                ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                                ->get();
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->get();
         $pdf = PDF::loadview('admin.export-petugas', compact('petugas'))->setPaper('a4');
         return $pdf->download('Data Petugas.pdf');
     }
@@ -251,10 +244,10 @@ class AdminController extends Controller
 
     public function dataAnggota(Request $request)
     {
-        if($request->cari != '') {
+        if ($request->cari != '') {
             $cari = $request->cari;
             $request->session()->put('cari', $cari);
-        }else{
+        } else {
             $cari = $request->session()->get('cari');
         }
         $url = 'dataAnggota';
@@ -271,12 +264,12 @@ class AdminController extends Controller
 
     public function hapusAnggota(Request $request)
     {
-        if($request->id == null) {
+        if ($request->id == null) {
             return redirect('dataAnggota')->with('err', 'Tidak ada data yang dipilih!');
-        }else{
-            foreach($request->id as $id){
+        } else {
+            foreach ($request->id as $id) {
                 $image = AnggotaModel::where('id', $id)->first();
-                if($image->image != 'default.png') {
+                if ($image->image != 'default.png') {
                     File::delete('img/user_img/' . $image->image);
                 }
                 AnggotaModel::where('id', $id)->delete();
@@ -293,10 +286,10 @@ class AdminController extends Controller
     public function exportAnggotaPdf()
     {
         $anggota = AnggotaModel::select('users.*', 'roles.display_name')
-                                ->join('role_user', 'role_user.user_id', '=', 'users.id')
-                                ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                                ->where('role_user.role_id', 3)
-                                ->get();
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->where('role_user.role_id', 3)
+            ->get();
         $pdf = PDF::loadview('admin.export-anggota', compact('anggota'))->setPaper('a4');
         return $pdf->download('Data Anggota.pdf');
     }
@@ -314,11 +307,11 @@ class AdminController extends Controller
             'alamat'    => 'required'
         ]);
 
-        date_default_timezone_set('Asia/Jakarta'); 
+        date_default_timezone_set('Asia/Jakarta');
         $user = User::where('id', $request->id)->first();
-        if($user->phone == $request->phone && $user->alamat == $request->alamat) {
+        if ($user->phone == $request->phone && $user->alamat == $request->alamat) {
             return redirect('/profileSayaAdmin')->with('err', 'Tidak ada perubahan apapun!');
-        }else{
+        } else {
             DB::table('users')->where('id', $request->id)->update([
                 'phone' => $request->phone,
                 'alamat'    => $request->alamat,
@@ -403,7 +396,7 @@ class AdminController extends Controller
     public function exportDetailLaporanPengembalianPdf($tgl)
     {
         $detailLaporan = PengembalianModel::getDetailLaporanPengembalian($tgl);
-        $pdf = PDF::loadView('admin.export-detail-laporan-pengembalian',compact('detailLaporan'))->setPaper('a4');
+        $pdf = PDF::loadView('admin.export-detail-laporan-pengembalian', compact('detailLaporan'))->setPaper('a4');
         return $pdf->download('Detail Pengembalian ' . $tgl . '.pdf');
     }
 
@@ -427,7 +420,7 @@ class AdminController extends Controller
     {
         $day = $date;
 
-        switch($day) {
+        switch ($day) {
             case 'Monday':
                 $hari = 'Senin';
                 break;
@@ -451,5 +444,34 @@ class AdminController extends Controller
                 break;
         }
         return $hari;
+    }
+
+    public function dataDenda()
+    {
+        $url = 'dataDenda';
+        $denda = PengembalianModel::getDendaPetugas();
+        return view('admin.data-denda', compact('url', 'denda'));
+    }
+
+    public function detailDataDenda($id)
+    {
+        $url = 'dataDenda';
+        $id = $id;
+        $denda = PengembalianModel::getDetailDendaPetugas($id);
+        return view('admin.detail-data-denda', compact('url', 'denda', 'id'));
+    }
+
+    public function exportDetailDataDendaExcel($id)
+    {
+        $petugas = User::where('id', $id)->first();
+        return Excel::download(new DetailDataDendaExport($id), 'Data Denda Petugas[' . $petugas['name'] . '].xlsx');
+    }
+
+    public function exportDetailDataDendaPdf($id)
+    {
+        $petugas = User::where('id', $id)->first();
+        $denda = PengembalianModel::getDetailDendaPetugas($id);
+        $pdf = PDF::loadView('admin.export-detail-data-denda', compact('denda'))->setPaper('a4');
+        return $pdf->download('Data Denda Petugas[' . $petugas['name'] . '].pdf');
     }
 }

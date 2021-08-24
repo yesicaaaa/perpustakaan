@@ -28,6 +28,10 @@
       <div class="divider-buku"></div>
     </div>
     <div class="col-md-9">
+      <div class="btn-export-group">
+        <a href="/exportPeminjamanSayaExcel" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport Laporan Peminjaman?')"><i class="fa fa-fw fa-download"></i>Excel</a>
+        <a href="/exportPeminjamanSayaPdf" class="btn btn-daftar-buku btn-export" onclick="return confirm('Yakin ingin mengexport Laporan Peminjaman?')"><i class="fa fa-fw fa-download"></i>PDF</a>
+      </div>
       <p>Cari :<span>
           <input type="text" id="cari" name="cari">
           <input type="hidden" class="id_anggota" id="id_anggota" name="id_anggota" value="{{Auth::user()->id}}">
@@ -35,7 +39,7 @@
     </div>
   </div>
   <div class="row data-peminjaman">
-    
+
   </div>
 </div>
 
@@ -108,14 +112,14 @@
       },
       success: function(data) {
         $('#id_peminjaman').val(data.id_peminjaman),
-        $('#judul').val(data.judul),
-        $('#tgl_pinjam').val(data.tgl_pinjam),
+          $('#judul').val(data.judul),
+          $('#tgl_pinjam').val(data.tgl_pinjam),
           $('#tgl_hrs_kembali').val(data.tgl_hrs_kembali),
           $('#perpanjanganModal').modal('show')
       }
     })
   }
-  
+
   $(document).ready(function() {
     var id = $('.id_anggota').val();
     load_data(id);
@@ -132,7 +136,7 @@
       $('.btn-simpan-tunggu').show();
     })
 
-    function load_data(id, cari) { 
+    function load_data(id, cari) {
       $.ajax({
         method: 'get',
         dataType: 'json',

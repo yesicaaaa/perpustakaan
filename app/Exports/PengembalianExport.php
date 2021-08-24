@@ -11,22 +11,13 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class PengembalianExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class PengembalianExport implements FromView, WithEvents, ShouldAutoSize
 {
     public function view(): View
     {
         return view('admin.export-laporan-pengembalian', [
             'laporanPengembalian'   => PengembalianModel::getLaporanPengembalian()
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Tanggal',
-            'Buku Dikembalikan'
-        ];
     }
 
     public function registerEvents(): array

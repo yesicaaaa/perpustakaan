@@ -428,7 +428,8 @@ div.dataTables_wrapper div.dataTables_filter label {
 }
 
 .laporan-peminjaman-table,
-.laporan-pengembalian-table {
+.laporan-pengembalian-table,
+.laporan-denda-table {
   margin: 0 5px;
 }
 
@@ -692,4 +693,12 @@ div.dataTables_wrapper div.dataTables_filter label {
   text-align: center;
   font-size: 12px;
   color: #807f7f;
+}
+
+.fa-circle {
+  font-size: 8px !important;
+}
+
+.laporan-denda-table div.dataTables_wrapper div.dataTables_filter label {
+  margin: -5px 0 10px 0;
 }

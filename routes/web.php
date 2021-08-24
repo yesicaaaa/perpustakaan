@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/refreshAnggota', [AdminController::class, 'refreshAnggota']);
     Route::get('/exportAnggotaExcel', [AdminController::class, 'exportAnggotaExcel']);
     Route::get('/exportAnggotaPdf', [AdminController::class, 'exportAnggotaPdf']);
+    Route::get('/dataDenda', [AdminController::class, 'dataDenda']);
+    Route::get('/detailDataDenda/{id}', [AdminController::class, 'detailDataDenda']);
     Route::get('/profileSayaAdmin', [AdminController::class, 'profileSaya']);
     Route::post('/ubahProfileSayaAdmin', [AdminController::class, 'ubahProfileSaya']);
     Route::get('/laporanPeminjaman', [AdminController::class, 'laporanPeminjaman']);
@@ -69,6 +71,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('/exportLaporanPengembalianPdf', [AdminController::class, 'exportLaporanPengembalianPdf']);
     Route::get('/exportDetailLaporanPengembalianExcel/{tgl}', [AdminController::class, 'exportDetailLaporanPengembalianExcel']);
     Route::get('/exportDetailLaporanPengembalianPdf/{tgl}', [AdminController::class, 'exportDetailLaporanPengembalianPdf']);
+    Route::get('/exportDetailDataDendaExcel/{id}', [AdminController::class, 'exportDetailDataDendaExcel']);
+    Route::get('/exportDetailDataDendaPdf/{id}', [AdminController::class, 'exportDetailDataDendaPdf']);
 });
 
 //auth route for petugas
@@ -106,18 +110,26 @@ Route::group(['middleware' => ['auth', 'role:petugas']], function() {
 
 //auth route for anggota
 Route::group(['middleware' => ['auth', 'role:anggota']], function() {
-    Route::get('/dashboardAnggota/{id}', [AnggotaController::class, 'index']);
+    Route::get('/dashboardAnggota/', [AnggotaController::class, 'index']);
     Route::get('/daftarBukuAnggota', [AnggotaController::class, 'daftarBuku']);
     Route::get('/cariBukuAnggota', [AnggotaController::class, 'cariBukuAnggota']);
-    Route::get('/peminjamanSaya/{id}', [AnggotaController::class, 'peminjamanSaya']);
+    Route::get('/peminjamanSaya', [AnggotaController::class, 'peminjamanSaya']);
     Route::post('/getPerpanjanganAnggotaRow', [AnggotaController::class, 'getPerpanjanganAnggotaRow']);
     Route::post('/perpanjanganAnggota', [AnggotaController::class, 'perpanjangPeminjaman']);
     Route::get('/cariPeminjamanAnggota', [AnggotaController::class, 'cariPeminjamanAnggota']);
-    Route::get('/historySaya/{id}', [AnggotaController::class, 'historySaya']);
+    Route::get('/historySaya', [AnggotaController::class, 'historySaya']);
     Route::get('/profileSaya', [AnggotaController::class, 'profileSaya']);
     Route::post('/ubahProfileSaya', [AnggotaController::class, 'ubahProfileSaya']);
-    Route::get('/bukuDipinjam/{id}', [AnggotaController::class, 'bukuDipinjam']);
-    Route::get('/harusDikembalikan/{id}', [AnggotaController::class, 'harusDikembalikan']);
-    Route::get('/dendaAnggota/{id}', [AnggotaController::class, 'dendaAnggota']);
+    Route::get('/bukuDipinjam', [AnggotaController::class, 'bukuDipinjam']);
+    Route::get('/harusDikembalikan', [AnggotaController::class, 'harusDikembalikan']);
+    Route::get('/dendaAnggota', [AnggotaController::class, 'dendaAnggota']);
+    Route::get('/exportPeminjamanSayaExcel', [AnggotaController::class, 'exportPeminjamanSayaExcel']);
+    Route::get('/exportPeminjamanSayaPdf', [AnggotaController::class, 'exportPeminjamanSayaPdf']);
+    Route::get('/exportHistorySayaExcel', [AnggotaController::class, 'exportHistorySayaExcel']);
+    Route::get('/exportHistorySayaPdf', [AnggotaController::class, 'exportHistorySayaPdf']);
+    Route::get('/exportSemuaPeminjamanSayaExcel', [AnggotaController::class, 'exportSemuaPeminjamanSayaExcel']);
+    Route::get('/exportSemuaPeminjamanSayaPdf', [AnggotaController::class, 'exportSemuaPeminjamanSayaPdf']);
+    Route::get('/exportDendaSayaExcel', [AnggotaController::class, 'exportDendaSayaExcel']);
+    Route::get('/exportDendaSayaPdf', [AnggotaController::class, 'exportDendaSayaPdf']);
 });
 require __DIR__.'/auth.php';

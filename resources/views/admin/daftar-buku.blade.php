@@ -63,19 +63,19 @@
         </div>
         <div class="mb-3">
           <label for="genre" class="form-label">Genre<span class="text-danger">*</span></label>
-          <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}">
+          <input type="text" class="form-control @error('genre') is-invalid @enderror" list="datalistOptions" id="genre" name="genre" value="{{ old('genre') }}" autocomplete="off">
           <datalist id="datalistOptions">
             <option value="Drama">
-            <option value="Action">
-            <option value="Comedy">
-            <option value="Horror">
-            <option value="Romance">
-            <option value="Fantasy">
+            <option value="Aksi">
+            <option value="Komedi">
+            <option value="Horor">
+            <option value="Romantis">
+            <option value="Fantasi">
             <option value="Adventure">
             <option value="Thiller">
             <option value="Sci-Fi">
-            <option value="Mistery">
-            <option value="Documenter">
+            <option value="Misteri">
+            <option value="Dokumenter">
             <option value="Pelajaran">
             <option value="Biografi">
           </datalist>
@@ -144,7 +144,7 @@
             <thead class="table-orange">
               <tr>
                 <th scope="col"></th>
-                <th scope="col">Kode</th>
+                <th scope="col">Kode Buku</th>
                 <th scope="col">Judul</th>
                 <th scope="col" class="column-foto">Foto</th>
                 <th scope="col">Stok</th>

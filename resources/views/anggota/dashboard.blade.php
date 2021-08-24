@@ -18,7 +18,7 @@
             <i class="fa fa-fw fa-book"></i>
           </div>
         </div>
-        <a href="/bukuDipinjam/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/bukuDipinjam">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -32,7 +32,7 @@
             <i class="fa fa-fw fa-inbox"></i>
           </div>
         </div>
-        <a href="/historySaya/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/historySaya">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -46,7 +46,7 @@
             <i class="fa fa-fw fa-book"></i>
           </div>
         </div>
-        <a href="/harusDikembalikan/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/peminjamanSaya">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-md-3">
@@ -60,7 +60,7 @@
             <i class="fa fa-fw fa-money"></i>
           </div>
         </div>
-        <a href="/dendaAnggota/{{Auth::user()->id}}">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+        <a href="/dendaAnggota">Lihat <i class="fa fa-fw fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 use App\Models\PengembalianModel;
 
-class HistoryPengembalianPetugasExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class HistoryPengembalianPetugasExport implements FromView, WithEvents, ShouldAutoSize
 {
     private $id;
 
@@ -26,20 +26,7 @@ class HistoryPengembalianPetugasExport implements FromView, WithHeadings, WithEv
             'pengembalian'  => PengembalianModel::getHistoryPengembalian($this->id)
         ]);
     }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Nama',
-            'Harus Kembali',
-            'Pengembalian',
-            'Terlambat',
-            'Denda'
-        ];
-    }
-
+    
     public function registerEvents(): array
     {
         return [

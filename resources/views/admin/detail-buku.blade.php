@@ -130,22 +130,22 @@
           <div class="mb-3 row">
             <label for="editGenre" class="col-sm-4 col-form-label">Genre<span class="text-danger">*</span></label>
             <div class="col-sm-8">
-              <input class="form-control form-control-sm" name="genre" list="datalistOptions" id="editGenre">
+              <input class="form-control form-control-sm" name="genre" list="datalistOptions" id="editGenre" autocomplete="off">
               <div class="invalid-feedback">
                 Genre harus diisi!
               </div>
               <datalist id="datalistOptions">
                 <option value="Drama">
-                <option value="Action">
-                <option value="Comedy">
-                <option value="Horror">
-                <option value="Romance">
-                <option value="Fantasy">
+                <option value="Aksi">
+                <option value="Komedi">
+                <option value="Horor">
+                <option value="Romantis">
+                <option value="Fantasi">
                 <option value="Adventure">
                 <option value="Thiller">
                 <option value="Sci-Fi">
-                <option value="Mistery">
-                <option value="Documenter">
+                <option value="Misteri">
+                <option value="Dokumenter">
                 <option value="Pelajaran">
                 <option value="Biografi">
               </datalist>

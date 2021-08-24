@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class PeminjamanExport implements FromView, WithEvents, WithHeadings, ShouldAutoSize
+class PeminjamanExport implements FromView, WithEvents, ShouldAutoSize
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -21,15 +21,6 @@ class PeminjamanExport implements FromView, WithEvents, WithHeadings, ShouldAuto
         return view('admin.export-laporan-peminjaman', [
             'laporanPeminjaman' => PeminjamanModel::getLaporanPeminjaman()
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Tanggal',
-            'Buku Dipinjam'
-        ];
     }
 
     public function registerEvents(): array

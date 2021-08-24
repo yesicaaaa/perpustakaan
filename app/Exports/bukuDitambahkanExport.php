@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class bukuDitambahkanExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class bukuDitambahkanExport implements FromView, WithEvents, ShouldAutoSize
 {
     public function view(): View
     {
@@ -20,18 +20,6 @@ class bukuDitambahkanExport implements FromView, WithHeadings, WithEvents, Shoul
         return view('petugas.export-buku-ditambahkan-petugas', [
             'buku'  => Buku_model::where('created_by', $id)->get()
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Judul',
-            'Pengarang',
-            'Stok',
-            'Created at'
-        ];
     }
 
     public function registerEvents(): array

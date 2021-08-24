@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\PeminjamanModel;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class DetailPeminjamanExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class DetailPeminjamanExport implements FromView, WithEvents, ShouldAutoSize
 {
     private $tgl;
     public function __construct(string $tgl)
@@ -26,20 +26,6 @@ class DetailPeminjamanExport implements FromView, WithHeadings, WithEvents, Shou
             'detailLaporan' => PeminjamanModel::getDetailLaporanPeminjaman($this->tgl)
         ]);
     }   
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Nama',
-            'Judul',
-            'Jumlah',
-            'Perpanjang',
-            'Harus Kembali',
-            'Status'
-        ];
-    }
 
     public function registerEvents(): array
     {

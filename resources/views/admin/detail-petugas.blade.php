@@ -46,11 +46,7 @@
         </tr>
         <tr>
           <th scope="col">Status</th>
-          @if($petugas->is_active == 1)
-          <td>Online</td>
-          @else
-          <td>Offline</td>
-          @endif
+          <td>{{($petugas->is_active == 1) ? 'Online' : 'Offline'}}</td>
         </tr>
         <tr>
           <th scope="col">Tanggal Dibuat</th>
@@ -59,7 +55,7 @@
         <tr>
           <th scope="col">Tanggal Diubah</th>
           @if($petugas->updated_at)
-          <td>$petugas->updated_at</td>
+          <td>{{$petugas->updated_at}}</td>
           @else
           <td>-</td>
           @endif

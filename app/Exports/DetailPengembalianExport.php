@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class DetailPengembalianExport implements FromView, WithHeadings, WithEvents, ShouldAutoSize
+class DetailPengembalianExport implements FromView, WithEvents, ShouldAutoSize
 {
     private $tgl;
     public function __construct(String $tgl)
@@ -24,22 +24,6 @@ class DetailPengembalianExport implements FromView, WithHeadings, WithEvents, Sh
         return view('admin.export-detail-laporan-pengembalian', [
             'detailLaporan' => PengembalianModel::getDetailLaporanPengembalian($this->tgl)
         ]);
-    }
-
-    public function headings(): array
-    {
-        return [
-            '#',
-            'Kode',
-            'Nama',
-            'Judul',
-            'Jumlah',
-            'Perpanjangan',
-            'Harus Kembali',
-            'Kembali',
-            'Terlambat',
-            'Denda'
-        ];
     }
 
     public function registerEvents(): array

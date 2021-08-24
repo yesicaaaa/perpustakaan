@@ -30,8 +30,8 @@ class PeminjamanModel extends Model
 
   // public static function getDetailPinjam($id)
   // {
-  //   return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-  //                           ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+  //   return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+  //                           ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
   //                           ->select('users.name', 'peminjaman.*', 'buku.judul')
   //                           ->where('peminjaman.id_peminjaman', $id)
   //                           ->first();
@@ -39,8 +39,8 @@ class PeminjamanModel extends Model
 
   public static function getPinjaman($id)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
-                          ->join('users', 'users.id', '=', 'peminjaman.id_anggota')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
+                          ->join('users', 'users.id', 'peminjaman.id_anggota')
                           ->select('*')
                           ->where('peminjaman.id_petugas', $id)
                           ->groupBy('users.id')
@@ -49,9 +49,8 @@ class PeminjamanModel extends Model
 
   public static function getPinjamanPetugas($id)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
-                          ->join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                          ->select('*')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
+                          ->join('users', 'users.id', 'peminjaman.id_anggota')
                           ->where('peminjaman.id_petugas', $id)
                           ->where('peminjaman.status', 'Dipinjam')
                           ->get();
@@ -59,23 +58,23 @@ class PeminjamanModel extends Model
 
   public static function getDataAnggota($id)
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
                             ->where('users.id', $id)
                             ->first();
   }
 
   public static function getDetailPeminjaman($id)
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+                            ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('users.id', $id)
                             ->get();
   }
 
   public static function getDetailPeminjamanPetugas($id_anggota, $id_petugas)
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                          ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+                          ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                           ->where('peminjaman.id_anggota', $id_anggota)
                           ->where('peminjaman.id_petugas', $id_petugas)
                           ->where('peminjaman.status', 'Dipinjam')
@@ -84,16 +83,16 @@ class PeminjamanModel extends Model
 
   public static function getDataPeminjaman()
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+                            ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('peminjaman.status', 'Dipinjam')
                             ->get();
   }
 
   public static function getPeminjamanRow($id)
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                          ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+                          ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                           ->where('peminjaman.id_peminjaman', $id)
                           ->first();
   }
@@ -101,7 +100,7 @@ class PeminjamanModel extends Model
 
   public static function getPeminjamanSaya($id, $cari = null)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('peminjaman.id_anggota', $id)
                             ->where('peminjaman.status', '!=', 'Dikembalikan')
                             ->where('judul', 'like', '%'.$cari.'%')
@@ -110,18 +109,18 @@ class PeminjamanModel extends Model
 
   public static function getPerpanjanganAnggotaRow($id)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('peminjaman.id_peminjaman', $id)
                             ->first();
   }
 
   public static function getHistoryPeminjaman($id, $cari = null)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
-                            ->join('pengembalian', 'pengembalian.id_peminjaman', '=', 'peminjaman.id_peminjaman')
-                            ->join('users', 'users.id', '=', 'pengembalian.id_petugas')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
+                            ->join('pengembalian', 'pengembalian.id_peminjaman', 'peminjaman.id_peminjaman')
+                            ->join('users', 'users.id', 'pengembalian.id_petugas')
                             ->where('peminjaman.id_anggota', $id)
-                            ->where('peminjaman.status', '=', 'Dikembalikan')
+                            ->where('peminjaman.status', 'Dikembalikan')
                             ->where('judul', 'like', '%'.$cari.'%')
                             ->get();
   }
@@ -138,8 +137,8 @@ class PeminjamanModel extends Model
 
   public static function getDetailLaporanPeminjaman($tgl)
   {
-    return PeminjamanModel::join('users', 'users.id', '=', 'peminjaman.id_anggota')
-                            ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('users', 'users.id', 'peminjaman.id_anggota')
+                            ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('peminjaman.tgl_pinjam', $tgl)
                             ->orderBy('peminjaman.created_at', 'DESC')
                             ->get();
@@ -154,15 +153,15 @@ class PeminjamanModel extends Model
 
   public static function getAllPeminjamanAnggota($id)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
-                            ->join('users', 'users.id', '=', 'peminjaman.id_petugas')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
+                            ->join('users', 'users.id', 'peminjaman.id_petugas')
                             ->where('peminjaman.id_anggota', $id)
                             ->get();
   }
 
   public static function getHarusDikembalikanAnggota($id)
   {
-    return PeminjamanModel::join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+    return PeminjamanModel::join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                             ->where('peminjaman.id_anggota', $id)
                             ->where('peminjaman.status', 'Dipinjam')
                             ->get();
@@ -198,7 +197,7 @@ class PeminjamanModel extends Model
     return PeminjamanModel::select(['peminjaman.*', 'buku.*',
                           DB::raw('count(peminjaman.id_peminjaman) as total')
                           ])
-                          ->join('buku', 'buku.id_buku', '=', 'peminjaman.id_buku')
+                          ->join('buku', 'buku.id_buku', 'peminjaman.id_buku')
                           ->groupBy('peminjaman.id_buku')
                           ->orderBy('peminjaman.tgl_pinjam', 'DESC')
                           ->limit(3)

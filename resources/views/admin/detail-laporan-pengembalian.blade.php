@@ -17,7 +17,7 @@
     <table class="table table-daftar-buku">
       <thead class="table-orange">
         <tr>
-          <th scope="col">Kode</th>
+          <th scope="col">Kode Pengembalian</th>
           <th scope="col">Nama</th>
           <th scope="col">Judul</th>
           <th scope="col">Jumlah</th>
@@ -36,7 +36,7 @@
         $denda = ($d->denda != null) ? 'Rp' . number_format($d->denda, 0, ',', '.') : '-';
         ?>
         <tr>
-          <td>PMJ{{str_pad($d->id_pengembalian, 5, 0, STR_PAD_LEFT)}}</td>
+          <td>PGM{{str_pad($d->id_pengembalian, 5, 0, STR_PAD_LEFT)}}</td>
           <td>{{$d->name}}</td>
           <td>{{$d->judul}}</td>
           <td>{{$d->qty}}</td>

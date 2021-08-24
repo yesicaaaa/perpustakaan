@@ -41,6 +41,7 @@
         <li class="{{($url == 'daftarBuku') ? 'active' : ''}}"><a href="/daftarBuku" id="daftarBuku"><i class="fa fa-fw fa-book"></i> Daftar Buku</a></li>
         <li class="{{($url == 'dataPetugas') ? 'active' : ''}}"><a href="/dataPetugas" id="dataPetugas"><i class="fa fa-fw fa-address-book"></i> Data Petugas</a></li>
         <li class="{{($url == 'dataAnggota') ? 'active' : ''}}"><a href="/dataAnggota" id="dataAnggota"><i class="fa fa-fw fa-address-book"></i> Data Anggota</a></li>
+        <li class="{{($url == 'dataDenda') ? 'active' : ''}}"><a href="/dataDenda" id="dataDenda"><i class="fa fa-fw fa-money"></i> Data Denda</a></li>
         <li class="{{($url == 'laporanPeminjaman') ? 'active' : ''}}"><a href="/laporanPeminjaman" id="laporanPeminjaman"><i class="fa fa-fw fa-clipboard"></i> Laporan Peminjaman</a></li>
         <li class="{{($url == 'laporanPengembalian') ? 'active' : ''}}"><a href="/laporanPengembalian" id="laporanPengembalian"><i class="fa fa-fw fa-clipboard"></i> Laporan Pengembalian</a></li>
         <!-- <li class="{{($url == 'generateLaporan') ? 'active' : ''}}"><a href="/generateLaporan" id="generateLaporan"><i class="fa fa-fw fa-copy"></i> Generate Laporan</a></li> -->

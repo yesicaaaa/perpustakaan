@@ -111,24 +111,36 @@
             <thead class="table-orange">
               <tr>
                 <th scope="col"></th>
+                <th scope="col">Kode Anggota</th>
                 <th scope="col">Nama Lengkap</th>
                 <th scope="col">Email</th>
                 <th scope="col">No. Telepon</th>
-                <th scope="col">Role</th>
+                <th scope="col">Status</th>
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
             <tbody>
               @foreach($anggota as $index => $a)
+              <?php
+              $text_danger = '';
+              $text_success = '';
+              $status = ($a->is_active == 1) ? 'Online' : 'Offline';
+              if ($status == 'Online') {
+                $text_success = 'text-success';
+              } else {
+                $text_danger = 'text-danger';
+              }
+              ?>
               <tr>
                 <th scope="row">
                   <input type="checkbox" name="id[]" id="id" value="{{$a->id}}">
         </form>
         </th>
+        <td>AGT{{str_pad($a->id, 4, 0, STR_PAD_LEFT)}}</td>
         <td>{{$a->name}}</td>
         <td>{{$a->email}}</td>
         <td>{{$a->phone}}</td>
-        <td>{{$a->display_name}}</td>
+        <td class="{{$text_danger}}{{$text_success}}"><i class="fa fa-fw fa-circle"></i>{{$status}}</td>
         <td>
           <a href="detailAnggota/{{$a->id}}" class="badge bg-success">Detail</a>
         </td>

@@ -59,7 +59,7 @@
         <tr>
           <th scope="col">Tanggal Diubah</th>
           @if($anggota->updated_at)
-          <td>$anggota->updated_at</td>
+          <td>{{$anggota->updated_at}}</td>
           @else
           <td>-</td>
           @endif
