@@ -64,7 +64,7 @@ h3 {
     color: white;
     border-radius: 0px;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .btn-auth:hover {
@@ -92,4 +92,27 @@ h3 {
 
 .text-light {
     color: #afabaa !important;
+}
+
+.see-pass {
+    color: white;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.see-pass input {
+    width: 11px;
+}
+
+.input-password {
+    font-size: 11px;
+}
+
+.forgot-pass{
+    color: white;
+    font-size: 12px;
+}
+
+.forgot-pass:hover {
+    color: rgba(255, 255, 255, .7);
 }

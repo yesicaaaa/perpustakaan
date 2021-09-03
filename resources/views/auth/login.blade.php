@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+            <input type="password" class="input-password form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
             <label for="password">Password</label>
             <div class="invalid-feedback">
                 @error('password')
@@ -29,6 +29,8 @@
                 @enderror
             </div>
         </div>
+        <!-- <p class="see-pass"><input type="checkbox" class="form-checkbox"> Lihat Password</p> -->
+        <!-- <a href="forgot-password" class="forgot-pass">Lupa Password ?</a> -->
         <button class="btn btn-auth" id="btn-login" disabled>Masuk</button>
         <button class="btn btn-auth btn-disabled" id="btn-disabled" disabled>Tunggu Sebentar...<i class="spinner-border text-light"></i></button>
     </form>
@@ -42,12 +44,22 @@
             }
         });
         $('#password').on('keypress', function() {
-            $('#btn-login').removeAttr('disabled'); 
+            $('#btn-login').removeAttr('disabled');
         });
         $('#btn-login').on('click', function() {
             $('#btn-login').hide();
             $('#btn-disabled').show();
         })
+
+        $('.form-checkbox').click(function() {
+            if ($(this).is(':checked')) {
+                $('.input-password').attr('type', 'text');
+                $('.input-password').css('font-size', '14px');
+            } else {
+                $('.input-password').attr('type', 'password');
+                $('.input-password').css('font-size', '11px')
+            }
+        });
     });
 </script>
 @endsection
